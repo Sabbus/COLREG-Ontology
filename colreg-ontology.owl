@@ -1,0 +1,1115 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#"
+     xml:base="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1"
+     xmlns:ns1="http://unige.it/nicola-sabatino/2024/7/8/colreg-vessel-categories-ontology/0.0.1#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:colreg-ontology="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#">
+    <owl:Ontology rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled -->
+
+    <owl:AnnotationProperty rdf:about="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasBehavior -->
+
+    <owl:ObjectProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasBehavior">
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdfs:range rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment -->
+
+    <owl:ObjectProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment">
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdfs:range rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+        <owl:propertyDisjointWith rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship -->
+
+    <owl:ObjectProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+        <rdfs:range rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus -->
+
+    <owl:ObjectProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdfs:range rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip -->
+
+    <owl:ObjectProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+        <rdfs:range rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasHeading -->
+
+    <owl:DatatypeProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasHeading">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasSpeed -->
+
+    <owl:DatatypeProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasSpeed">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasXPosition -->
+
+    <owl:DatatypeProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasXPosition">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasYPosition -->
+
+    <owl:DatatypeProperty rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasYPosition">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior">
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Crossing -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Crossing">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#DifferentVesselEncounter -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#DifferentVesselEncounter">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#DraughtConstrained -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#DraughtConstrained">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Engine -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Engine">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+        <owl:disjointWith rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManeouvrabilityRestrictingFishingEquipment"/>
+        <owl:disjointWith rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Sail"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment">
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#GiveWay -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#GiveWay">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#turn_right"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#HeadOn -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#HeadOn">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship"/>
+                        <owl:allValuesFrom>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasBehavior"/>
+                                <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#GiveWay"/>
+                            </owl:Restriction>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip"/>
+                        <owl:allValuesFrom>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasBehavior"/>
+                                <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#GiveWay"/>
+                            </owl:Restriction>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManeouvrabilityRestrictingFishingEquipment -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManeouvrabilityRestrictingFishingEquipment">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManoeuvrabilityRestricted -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManoeuvrabilityRestricted">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#NotUnderCommand -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#NotUnderCommand">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Overtaking -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Overtaking">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                                <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManeouvrabilityRestrictingFishingEquipment"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                        <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Engine"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:complementOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Sail -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Sail">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#SailingVessel -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#SailingVessel">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                        <owl:allValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Sail"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:complementOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#SailingVesselEncounter -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#SailingVesselEncounter">
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship"/>
+                        <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip"/>
+                        <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#StandOn -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#StandOn">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:oneOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#keep_course"/>
+                </owl:oneOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status">
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel">
+        <owl:disjointWith>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Behavior"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Equipment"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:disjointWith>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselConstrainedByHerDraught -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselConstrainedByHerDraught">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#DraughtConstrained"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselEngagedInFishing -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselEngagedInFishing">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                        <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManeouvrabilityRestrictingFishingEquipment"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:complementOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselNotUnderCommand -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselNotUnderCommand">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#NotUnderCommand"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:Class>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselRestrictedInHerAbilityToManoeuvre -->
+
+    <owl:Class rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselRestrictedInHerAbilityToManoeuvre">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:someValuesFrom rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManoeuvrabilityRestricted"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#being_adrift -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#being_adrift">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#NotUnderCommand"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#black_pearl -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#black_pearl">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:maxQualifiedCardinality>
+                <owl:onClass>
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:complementOf>
+                    </owl:Class>
+                </owl:onClass>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+            </owl:Restriction>
+        </rdf:type>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#costa_concordia -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#costa_concordia">
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#being_adrift"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+        <hasStatus rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#being_adrift"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_dredging -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_dredging">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#DraughtConstrained"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_mine_sweeping -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_mine_sweeping">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManoeuvrabilityRestricted"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ever_given -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ever_given">
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_dredging"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+        <hasStatus rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_dredging"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#head_on_scenario -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#head_on_scenario">
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Scenario"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin2"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <hasOwnship rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin"/>
+        <hasTargetShip rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Sail"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#keep_course -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#keep_course"/>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#lerici -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#lerici">
+        <rdf:type>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:oneOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_mine_sweeping"/>
+                                </owl:oneOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdf:type>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+        <hasStatus rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#engaged_in_mine_sweeping"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#pequod -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#pequod">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:oneOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib"/>
+                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#trawler"/>
+                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+                        </owl:oneOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:complementOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdf:type>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib"/>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#trawler"/>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Vessel"/>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasEquipment"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:oneOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib"/>
+                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+                        </owl:oneOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdf:type>
+        <rdf:type>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasStatus"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:complementOf rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Status"/>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdf:type>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#jib"/>
+        <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine"/>
+        <hasHeading rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</hasHeading>
+        <hasXPosition rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</hasXPosition>
+        <hasYPosition rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</hasYPosition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin2 -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#potemkin2">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
+        <hasHeading rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">180.0</hasHeading>
+        <hasXPosition rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.0</hasXPosition>
+        <hasYPosition rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</hasYPosition>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#trawler -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#trawler">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManeouvrabilityRestrictingFishingEquipment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#turn_right -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#turn_right"/>
+    
+
+
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#two_stroke_engine">
+        <rdf:type rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Engine"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#DraughtConstrained"/>
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ManoeuvrabilityRestricted"/>
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#NotUnderCommand"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#SailingVessel"/>
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselConstrainedByHerDraught"/>
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselEngagedInFishing"/>
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselNotUnderCommand"/>
+            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#VesselRestrictedInHerAbilityToManoeuvre"/>
+        </owl:members>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="s">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="o">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="t">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="oh">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="th">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="r">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="ra">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Classify a scenario as an head-on situation in the case that both involved ships belongs to the PowerDrivenVessel class</rdfs:comment>
+        <rdfs:label>head-on-pdv</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship"/>
+                        <swrl:argument1 rdf:resource="s"/>
+                        <swrl:argument2 rdf:resource="o"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip"/>
+                                <swrl:argument1 rdf:resource="s"/>
+                                <swrl:argument2 rdf:resource="t"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                        <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
+                                        <swrl:argument1 rdf:resource="o"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
+                                                <swrl:argument1 rdf:resource="t"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasHeading"/>
+                                                        <swrl:argument1 rdf:resource="o"/>
+                                                        <swrl:argument2 rdf:resource="oh"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                                <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasHeading"/>
+                                                                <swrl:argument1 rdf:resource="t"/>
+                                                                <swrl:argument2 rdf:resource="th"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                <rdf:first>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#subtract"/>
+                                                                        <swrl:arguments rdf:parseType="Collection">
+                                                                            <rdf:Description rdf:about="r"/>
+                                                                            <rdf:Description rdf:about="oh"/>
+                                                                            <rdf:Description rdf:about="th"/>
+                                                                        </swrl:arguments>
+                                                                    </rdf:Description>
+                                                                </rdf:first>
+                                                                <rdf:rest>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                        <rdf:first>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#abs"/>
+                                                                                <swrl:arguments rdf:parseType="Collection">
+                                                                                    <rdf:Description rdf:about="ra"/>
+                                                                                    <rdf:Description rdf:about="r"/>
+                                                                                </swrl:arguments>
+                                                                            </rdf:Description>
+                                                                        </rdf:first>
+                                                                        <rdf:rest>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                <rdf:first>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
+                                                                                        <swrl:arguments>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                <rdf:first rdf:resource="ra"/>
+                                                                                                <rdf:rest>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">185.0</rdf:first>
+                                                                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                                    </rdf:Description>
+                                                                                                </rdf:rest>
+                                                                                            </rdf:Description>
+                                                                                        </swrl:arguments>
+                                                                                    </rdf:Description>
+                                                                                </rdf:first>
+                                                                                <rdf:rest>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                        <rdf:first>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual"/>
+                                                                                                <swrl:arguments>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                        <rdf:first rdf:resource="ra"/>
+                                                                                                        <rdf:rest>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">175.0</rdf:first>
+                                                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:rest>
+                                                                                                    </rdf:Description>
+                                                                                                </swrl:arguments>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:first>
+                                                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                    </rdf:Description>
+                                                                                </rdf:rest>
+                                                                            </rdf:Description>
+                                                                        </rdf:rest>
+                                                                    </rdf:Description>
+                                                                </rdf:rest>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#HeadOn"/>
+                        <swrl:argument1 rdf:resource="s"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi -->
+
