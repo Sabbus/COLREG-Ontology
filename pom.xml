@@ -1,0 +1,55 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.sabbus</groupId>
+    <artifactId>colreg-classifier</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+		    <groupId>com.github.galigator.openllet</groupId>
+		    <artifactId>openllet-owlapi</artifactId>
+		    <version>2.6.5</version>
+	    </dependency>
+        <dependency>
+            <groupId>com.github.galigator.openllet</groupId>
+            <artifactId>openllet-explanation</artifactId>
+            <version>2.6.5</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-api -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-api</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-apibinding -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-apibinding</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+      <plugins>
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>fully.qualified.MainClass</mainClass>
+              </manifest>
+            </archive>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
+</project>
