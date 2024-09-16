@@ -1104,16 +1104,16 @@
     <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#lowerBound">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
-    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct">
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
-    </rdf:Description>
-    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#cosine">
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
-    </rdf:Description>
     <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#vessel1">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
     <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#vessel2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#cosine">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
     <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#vessel1Heading">
@@ -1794,8 +1794,8 @@
     </rdf:Description>
     <rdf:Description>
         <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
-        <rdfs:comment>Classify a scenario as a crossing situation</rdfs:comment>
-        <rdfs:label>crossing</rdfs:label>
+        <rdfs:comment>Classify a scenario as a head-on situation</rdfs:comment>
+        <rdfs:label>head-on</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
         <swrl:body>
             <rdf:Description>
@@ -1803,7 +1803,7 @@
                 <rdf:first>
                     <rdf:Description>
                         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship"/>
+                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasVessel"/>
                         <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
                         <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ownship"/>
                     </rdf:Description>
@@ -1824,7 +1824,179 @@
                                 <rdf:first>
                                     <rdf:Description>
                                         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip"/>
+                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasVessel"/>
+                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
+                                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#targetShip"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
+                                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#targetShip"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasAhead"/>
+                                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#vessel1"/>
+                                                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#vessel2"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                                <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasAhead"/>
+                                                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#vessel2"/>
+                                                                <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#vessel1"/>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                <rdf:first>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasDotProductOfCourses"/>
+                                                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
+                                                                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct"/>
+                                                                    </rdf:Description>
+                                                                </rdf:first>
+                                                                <rdf:rest>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                        <rdf:first>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#cos"/>
+                                                                                <swrl:arguments>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                        <rdf:first rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#upperBound"/>
+                                                                                        <rdf:rest>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.054</rdf:first>
+                                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:rest>
+                                                                                    </rdf:Description>
+                                                                                </swrl:arguments>
+                                                                            </rdf:Description>
+                                                                        </rdf:first>
+                                                                        <rdf:rest>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                <rdf:first>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
+                                                                                        <swrl:arguments rdf:parseType="Collection">
+                                                                                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct"/>
+                                                                                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#upperBound"/>
+                                                                                        </swrl:arguments>
+                                                                                    </rdf:Description>
+                                                                                </rdf:first>
+                                                                                <rdf:rest>
+                                                                                    <rdf:Description>
+                                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                                                        <rdf:first>
+                                                                                            <rdf:Description>
+                                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual"/>
+                                                                                                <swrl:arguments>
+                                                                                                    <rdf:Description>
+                                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                        <rdf:first rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct"/>
+                                                                                                        <rdf:rest>
+                                                                                                            <rdf:Description>
+                                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</rdf:first>
+                                                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                                            </rdf:Description>
+                                                                                                        </rdf:rest>
+                                                                                                    </rdf:Description>
+                                                                                                </swrl:arguments>
+                                                                                            </rdf:Description>
+                                                                                        </rdf:first>
+                                                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                                    </rdf:Description>
+                                                                                </rdf:rest>
+                                                                            </rdf:Description>
+                                                                        </rdf:rest>
+                                                                    </rdf:Description>
+                                                                </rdf:rest>
+                                                            </rdf:Description>
+                                                        </rdf:rest>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#HeadOn"/>
+                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Classify a scenario as a crossing situation</rdfs:comment>
+        <rdfs:label>crossing</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasVessel"/>
+                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
+                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ownship"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
+                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ownship"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasVessel"/>
                                         <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
                                         <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#targetShip"/>
                                     </rdf:Description>
@@ -1946,152 +2118,6 @@
                     <rdf:Description>
                         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
                         <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#Crossing"/>
-                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
-        <rdfs:comment>Classify a scenario as a head-on situation</rdfs:comment>
-        <rdfs:label>head-on</rdfs:label>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasOwnship"/>
-                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
-                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ownship"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                                <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
-                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#ownship"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasTargetShip"/>
-                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
-                                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#targetShip"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                                                <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#PowerDrivenVessel"/>
-                                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#targetShip"/>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                        <rdf:rest>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                <rdf:first>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                                        <swrl:propertyPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#hasDotProductOfCourses"/>
-                                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
-                                                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct"/>
-                                                    </rdf:Description>
-                                                </rdf:first>
-                                                <rdf:rest>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                        <rdf:first>
-                                                            <rdf:Description>
-                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
-                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#cos"/>
-                                                                <swrl:arguments>
-                                                                    <rdf:Description>
-                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                        <rdf:first rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#upperBound"/>
-                                                                        <rdf:rest>
-                                                                            <rdf:Description>
-                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.054</rdf:first>
-                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                                            </rdf:Description>
-                                                                        </rdf:rest>
-                                                                    </rdf:Description>
-                                                                </swrl:arguments>
-                                                            </rdf:Description>
-                                                        </rdf:first>
-                                                        <rdf:rest>
-                                                            <rdf:Description>
-                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                                <rdf:first>
-                                                                    <rdf:Description>
-                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
-                                                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#lessThanOrEqual"/>
-                                                                        <swrl:arguments rdf:parseType="Collection">
-                                                                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct"/>
-                                                                            <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#upperBound"/>
-                                                                        </swrl:arguments>
-                                                                    </rdf:Description>
-                                                                </rdf:first>
-                                                                <rdf:rest>
-                                                                    <rdf:Description>
-                                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                                        <rdf:first>
-                                                                            <rdf:Description>
-                                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
-                                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual"/>
-                                                                                <swrl:arguments>
-                                                                                    <rdf:Description>
-                                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                        <rdf:first rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#dotProduct"/>
-                                                                                        <rdf:rest>
-                                                                                            <rdf:Description>
-                                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">-1</rdf:first>
-                                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                                                            </rdf:Description>
-                                                                                        </rdf:rest>
-                                                                                    </rdf:Description>
-                                                                                </swrl:arguments>
-                                                                            </rdf:Description>
-                                                                        </rdf:first>
-                                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                                    </rdf:Description>
-                                                                </rdf:rest>
-                                                            </rdf:Description>
-                                                        </rdf:rest>
-                                                    </rdf:Description>
-                                                </rdf:rest>
-                                            </rdf:Description>
-                                        </rdf:rest>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                        <swrl:classPredicate rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#HeadOn"/>
                         <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#scenario"/>
                     </rdf:Description>
                 </rdf:first>
