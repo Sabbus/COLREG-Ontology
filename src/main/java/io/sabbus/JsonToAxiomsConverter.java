@@ -3,6 +3,7 @@ package io.sabbus.colregclassifier;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonKey;
 import com.github.cliftonlabs.json_simple.JsonObject;
 
@@ -17,6 +18,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.IRI;
 
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+
+import java.math.BigDecimal;
 
 public class JsonToAxiomsConverter {
 
@@ -38,7 +41,7 @@ public class JsonToAxiomsConverter {
 
         JsonObject ownshipJson = (JsonObject) json.get("ownship");
         JsonObject targetJson = (JsonObject) json.get("target");
-        Float windDir = (Float) json.get("wind-dir");
+        BigDecimal windDir = (BigDecimal) json.get("wind-dir");
 
         IRI scenarioIRI = IRI.create(ontologyIRI + "#Scenario");
         IRI scenIRI = IRI.create(ontologyIRI + "#scenario");
@@ -62,11 +65,11 @@ public class JsonToAxiomsConverter {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
         String name = (String) vesselJson.get("name");
-        Float x = (Float) vesselJson.get("x");
-        Float y = (Float) vesselJson.get("y");
-        Float spd = (Float) vesselJson.get("spd");
-        Float hdg = (Float) vesselJson.get("hdg");
-        Set<String> eqs = (Set<String>) vesselJson.get("equipments");
+        BigDecimal x = (BigDecimal) vesselJson.get("x");
+        BigDecimal y = (BigDecimal) vesselJson.get("y");
+        BigDecimal spd = (BigDecimal) vesselJson.get("spd");
+        BigDecimal hdg = (BigDecimal) vesselJson.get("hdg");
+        JsonArray eqs = (JsonArray) vesselJson.get("equipments");
         String status = (String) vesselJson.get("status");
 
         IRI vesselIRI = IRI.create(ontologyIRI + "#Vessel");
@@ -108,8 +111,8 @@ public class JsonToAxiomsConverter {
 
         // Add equipments to ship
         if (!eqs.isEmpty()) {
-            for (String eq : eqs) {
-                axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasEq, ship, factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + eq))));
+            for (Object eq : eqs) {
+                axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasEq, ship, factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + eq.toString()))));
             }
         }
         // Add Status to ship

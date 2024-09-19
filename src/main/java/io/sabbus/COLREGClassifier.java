@@ -19,6 +19,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -35,18 +36,6 @@ class COLREGClassifier {
         Option help = Option.builder("h")
                                 .longOpt("help")
                                 .desc("print help message")
-                                .build();
-        Option situation = Option.builder("s")
-                                .longOpt("situation")
-                                .desc("tells the reasoner classify the input scenario")
-                                .build();
-        Option behavior = Option.builder("b")
-                                .longOpt("behavior")
-                                .desc("tells the reasoner to infer vessels behavior")
-                                .build();
-        Option explanation = Option.builder("e")
-                                .longOpt("explaination")
-                                .desc("tells the reasoner to explain the inferences")
                                 .build();
         Option prettyPrint = Option.builder("p")
                                 .longOpt("pretty-print")
@@ -66,9 +55,6 @@ class COLREGClassifier {
                                 .build();
         Options options = new Options();
         options.addOption(help);
-        options.addOption(situation);
-        options.addOption(behavior);
-        options.addOption(explanation);
         options.addOption(prettyPrint);
         options.addOption(file);
         options.addOption(output);
@@ -91,14 +77,20 @@ class COLREGClassifier {
 
                     FileReader scenarioReader = new FileReader(cmd.getOptionValue("file"));
                     JsonObject json = (JsonObject) Jsoner.deserialize(scenarioReader);
-                    
-                    JsonToAxiomsConverter jsonToAxiomsConverter = new JsonToAxiomsConverter(ontologyIRI, factory);
-                    Set<OWLAxiom> axioms = jsonToAxiomsConverter.convertToAxioms(json);
-
-                    System.out.println(axioms);
                 }
                 catch (IOException | JsonException | OWLOntologyCreationException e) {
                     throw new RuntimeException(e);
+                }
+
+                JsonToAxiomsConverter jsonToAxiomsConverter = new JsonToAxiomsConverter(ontologyIRI, factory);
+                Set<OWLAxiom> axioms = jsonToAxiomsConverter.convertToAxioms(json);
+
+                AddAxiom addAxiom = new AddAxiom(ontology, axioms);
+                manager.applyChange(addAxiom);
+
+                if (cmd.hasOption("p")) {
+                    // Pretty print output
+                    // TODO
                 }
             }
             else {
