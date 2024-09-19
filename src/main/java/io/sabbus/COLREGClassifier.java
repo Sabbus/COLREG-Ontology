@@ -1,5 +1,15 @@
 package io.sabbus.colregclassifier;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import java.util.Set;
+
+import com.github.cliftonlabs.json_simple.JsonException;
+import com.github.cliftonlabs.json_simple.JsonObject;
+import com.github.cliftonlabs.json_simple.Jsoner;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -7,6 +17,15 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
+
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.IRI;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
 
 class COLREGClassifier {
 
@@ -41,7 +60,7 @@ class COLREGClassifier {
                                 .build();
         Option output = Option.builder("o")
                                 .argName("output")
-                                .longOpt("file")
+                                .longOpt("output")
                                 .hasArg()
                                 .desc("path to output JSON file")
                                 .build();
@@ -55,35 +74,31 @@ class COLREGClassifier {
         options.addOption(output);
 
         CommandLineParser parser = new DefaultParser();
-        
         try {
             CommandLine cmd = parser.parse(options, args);
 
             if (cmd.hasOption("h")) {
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp(helpMessage, options);
-                System.exit(1);
             }
+            else if (cmd.hasOption("file")) {
+                try {
+                    OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+                    File ontologyFile = new File("./src/main/resources/owl/colreg-ontology.owl");
+                    OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
+                    OWLDataFactory factory = manager.getOWLDataFactory();
+                    IRI ontologyIRI = IRI.create("http://unige.it/nicola-sabatino/2024/7/8/colreg-otology/0.0.1");
 
-            if (cmd.hasOption("file")) {
-                if (!cmd.hasOption("s") && !cmd.hasOption("b")) {
-                    HelpFormatter formatter = new HelpFormatter();
-                    formatter.printHelp(helpMessage, options);
+                    FileReader scenarioReader = new FileReader(cmd.getOptionValue("file"));
+                    JsonObject json = (JsonObject) Jsoner.deserialize(scenarioReader);
+                    
+                    JsonToAxiomsConverter jsonToAxiomsConverter = new JsonToAxiomsConverter(ontologyIRI, factory);
+                    Set<OWLAxiom> axioms = jsonToAxiomsConverter.convertToAxioms(json);
+
+                    System.out.println(axioms);
                 }
-                System.out.println("Loading scenario...");
-                if (cmd.hasOption("s")) {
-                    System.out.println("Inferring the situation...");
-                }
-                if (cmd.hasOption("b")) {
-                    System.out.println("Inferring vessel behaviors...");
-                }
-                if (cmd.hasOption("e")) {
-                    if (cmd.hasOption("s")) {
-                        System.out.println("Explaining inferred situation...");
-                    }
-                    if (cmd.hasOption("b")) {
-                        System.out.println("Explaining inferred behaviors...");
-                    }
+                catch (IOException | JsonException | OWLOntologyCreationException e) {
+                    throw new RuntimeException(e);
                 }
             }
             else {
