@@ -1,6 +1,7 @@
 {
+    "name": "scenario",
     "ownship": {
-        "name": "ownship",
+        "name": "pippo",
         "x": 0,
         "y": 0,
         "spd": 10,
@@ -9,7 +10,7 @@
         "status": ""
     },
     "target": {
-        "name": "target",
+        "name": "pluto",
         "x": 10,
         "y": 0,
         "spd": 10,
