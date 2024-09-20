@@ -35,6 +35,12 @@
             <artifactId>owlapi-apibinding</artifactId>
             <version>5.5.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.galigator.openllet/openllet-owlapi -->
+        <dependency>
+            <groupId>com.github.galigator.openllet</groupId>
+            <artifactId>openllet-owlapi</artifactId>
+            <version>2.6.5</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.mindswap.pellet/pellet-explanation -->
         <!-- <dependency> -->
         <!--     <groupId>org.mindswap.pellet</groupId> -->

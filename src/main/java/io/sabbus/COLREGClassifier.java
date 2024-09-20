@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import com.github.cliftonlabs.json_simple.JsonException;
@@ -19,11 +20,11 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.IRI;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -67,26 +68,40 @@ class COLREGClassifier {
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp(helpMessage, options);
             }
-            else if (cmd.hasOption("file")) {
+            else if (cmd.hasOption("file") && cmd.hasOption("o")) {
                 try {
                     OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-                    File ontologyFile = new File("./src/main/resources/owl/colreg-ontology.owl");
+                    File ontologyFile = new File("./src/test/resources/owl/colreg-ontology.owl");
                     OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyFile);
                     OWLDataFactory factory = manager.getOWLDataFactory();
                     IRI ontologyIRI = IRI.create("http://unige.it/nicola-sabatino/2024/7/8/colreg-otology/0.0.1");
 
                     FileReader scenarioReader = new FileReader(cmd.getOptionValue("file"));
                     JsonObject json = (JsonObject) Jsoner.deserialize(scenarioReader);
+
+                    JsonToAxiomsConverter jsonToAxiomsConverter = new JsonToAxiomsConverter(ontologyIRI, factory);
+                    Set<OWLAxiom> axioms = jsonToAxiomsConverter.convertToAxioms(json);
+
+                    manager.addAxioms(ontology, axioms);
+                    // try {
+                    //     manager.saveOntology(ontology);
+                    // }
+                    // catch (OWLOntologyStorageException e) {
+                    //     throw new RuntimeException(e);
+                    // }
+
+                    ScenarioClassifier scenarioClassifier = new ScenarioClassifier(ontology, ontologyIRI, factory);
+                    HashMap<String, String> scenarioCategory = scenarioClassifier.categorizeScenario();
+                    // HashMap<String, String> behaviors = scenarioClassifier.inferBehaviors();
+
+                    System.out.println(axioms);
+                    System.out.println(scenarioCategory);
+                    // System.out.println(behaviors);
+
                 }
                 catch (IOException | JsonException | OWLOntologyCreationException e) {
                     throw new RuntimeException(e);
                 }
-
-                JsonToAxiomsConverter jsonToAxiomsConverter = new JsonToAxiomsConverter(ontologyIRI, factory);
-                Set<OWLAxiom> axioms = jsonToAxiomsConverter.convertToAxioms(json);
-
-                AddAxiom addAxiom = new AddAxiom(ontology, axioms);
-                manager.applyChange(addAxiom);
 
                 if (cmd.hasOption("p")) {
                     // Pretty print output

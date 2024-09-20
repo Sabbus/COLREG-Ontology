@@ -14,6 +14,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.IRI;
 
@@ -43,36 +45,42 @@ public class JsonToAxiomsConverter {
         JsonObject targetJson = (JsonObject) json.get("target");
         BigDecimal windDir = (BigDecimal) json.get("wind-dir");
 
-        IRI scenarioIRI = IRI.create(ontologyIRI + "#Scenario");
-        IRI scenIRI = IRI.create(ontologyIRI + "#scenario");
+        IRI scenarioClassIRI = IRI.create(ontologyIRI + "#Scenario");
+        IRI scenarioIRI = IRI.create(ontologyIRI + "#scenario");
         IRI hasWindDirIRI = IRI.create(ontologyIRI + "#hasWindDirDeg");
 
         Set<OWLAxiom> ownshipAxioms = getAxiomsFromVesselJson(ownshipJson, VesselType.OWNSHIP);
         Set<OWLAxiom> targetAxioms = getAxiomsFromVesselJson(targetJson, VesselType.TARGET);
+        OWLClass scenarioClass = factory.getOWLClass(scenarioClassIRI);
         OWLNamedIndividual scenario = factory.getOWLNamedIndividual(scenarioIRI);
         OWLDataProperty hasWindDir = factory.getOWLDataProperty(hasWindDirIRI);
         OWLDatatype decimalDatatype = factory.getOWLDatatype(OWL2Datatype.XSD_DECIMAL.getIRI());
         OWLLiteral windDirLit = factory.getOWLLiteral(windDir.toString(), decimalDatatype);
 
-        axioms.addAll(ownshipAxioms);
-        axioms.addAll(targetAxioms);
+        // Instantiate scenario
+        axioms.add(factory.getOWLClassAssertionAxiom(scenarioClass, scenario));
+        // Add wind to scenario
         axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasWindDir, scenario, windDirLit));
+        // Add ownship axioms
+        axioms.addAll(ownshipAxioms);
+        // Add target axioms
+        axioms.addAll(targetAxioms);
 
         return axioms;
     }
 
-    private Set<OWLAxiom> getAxiomsFromVesselJson(JsonObject vesselJson, VesselType vesselType) {
+    private Set<OWLAxiom> getAxiomsFromVesselJson(JsonObject vesselClassJson, VesselType vesselClassType) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
-        String name = (String) vesselJson.get("name");
-        BigDecimal x = (BigDecimal) vesselJson.get("x");
-        BigDecimal y = (BigDecimal) vesselJson.get("y");
-        BigDecimal spd = (BigDecimal) vesselJson.get("spd");
-        BigDecimal hdg = (BigDecimal) vesselJson.get("hdg");
-        JsonArray eqs = (JsonArray) vesselJson.get("equipments");
-        String status = (String) vesselJson.get("status");
+        String name = (String) vesselClassJson.get("name");
+        BigDecimal x = (BigDecimal) vesselClassJson.get("x");
+        BigDecimal y = (BigDecimal) vesselClassJson.get("y");
+        BigDecimal spd = (BigDecimal) vesselClassJson.get("spd");
+        BigDecimal hdg = (BigDecimal) vesselClassJson.get("hdg");
+        JsonArray eqs = (JsonArray) vesselClassJson.get("equipments");
+        String status = (String) vesselClassJson.get("status");
 
-        IRI vesselIRI = IRI.create(ontologyIRI + "#Vessel");
+        IRI vesselClassClassIRI = IRI.create(ontologyIRI + "#Vessel");
         IRI hasEqIRI = IRI.create(ontologyIRI + "#hasEquipment");
         IRI hasStIRI = IRI.create(ontologyIRI + "#hasStatus");
         IRI hasXIRI = IRI.create(ontologyIRI + "#hasXPosition");
@@ -80,11 +88,11 @@ public class JsonToAxiomsConverter {
         IRI hasSpdIRI = IRI.create(ontologyIRI + "#hasSpeed");
         IRI hasHdgIRI = IRI.create(ontologyIRI + "#hasHeadingDeg");
         IRI scenarioIRI = IRI.create(ontologyIRI + "#scenario");
-        IRI shipIRI = IRI.create(ontologyIRI + "#" + name);
-        IRI hasVesselTypeIRI = IRI.create(ontologyIRI + ( (vesselType == VesselType.OWNSHIP) ? "#hasOwnship" : "#hasTargetShip" ));
+        IRI vesselIRI = IRI.create(ontologyIRI + "#" + name);
+        IRI hasVesselTypeIRI = IRI.create(ontologyIRI + ( (vesselClassType == VesselType.OWNSHIP) ? "#hasOwnvessel" : "#hasTargetShip" ));
 
-        OWLClass vessel = factory.getOWLClass(vesselIRI);
-        OWLNamedIndividual ship = factory.getOWLNamedIndividual(shipIRI);
+        OWLClass vesselClass = factory.getOWLClass(vesselClassClassIRI);
+        OWLNamedIndividual vessel = factory.getOWLNamedIndividual(vesselIRI);
         OWLNamedIndividual scenario = factory.getOWLNamedIndividual(scenarioIRI);
         OWLObjectProperty hasVesselType = factory.getOWLObjectProperty(hasVesselTypeIRI);
         OWLObjectProperty hasEq = factory.getOWLObjectProperty(hasEqIRI);
@@ -100,24 +108,29 @@ public class JsonToAxiomsConverter {
         OWLLiteral hdgLit = factory.getOWLLiteral(hdg.toString(), decimalDatatype);
 
         // Ship instantiation in the ontology
-        axioms.add(factory.getOWLClassAssertionAxiom(vessel, ship));
+        axioms.add(factory.getOWLClassAssertionAxiom(vesselClass, vessel));
         // Ship propertyies
-        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasX, ship, xLit));
-        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasY, ship, yLit));
-        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasSpd, ship, spdLit));
-        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasHdg, ship, hdgLit));
-        // Add ship to scenario
-        axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasVesselType, scenario, ship));
+        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasX, vessel, xLit));
+        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasY, vessel, yLit));
+        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasSpd, vessel, spdLit));
+        axioms.add(factory.getOWLDataPropertyAssertionAxiom(hasHdg, vessel, hdgLit));
+        // Add vessel to scenario
+        axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasVesselType, scenario, vessel));
 
-        // Add equipments to ship
+        // Add equipments to vessel
+        Set<OWLNamedIndividual> eqsInds = new HashSet<OWLNamedIndividual>();
         if (!eqs.isEmpty()) {
             for (Object eq : eqs) {
-                axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasEq, ship, factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + eq.toString()))));
+                eqsInds.add(factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + eq.toString())));
+                axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasEq, vessel, factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + eq.toString()))));
             }
         }
-        // Add Status to ship
+        OWLObjectOneOf eqsNom = factory.getOWLObjectOneOf(eqsInds);
+        OWLObjectAllValuesFrom restriction = factory.getOWLObjectAllValuesFrom(hasEq, eqsNom);
+        axioms.add(factory.getOWLClassAssertionAxiom(restriction, vessel));
+        // Add Status to vessel
         if (status != "") {
-            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasSt, ship, factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + status))));
+            axioms.add(factory.getOWLObjectPropertyAssertionAxiom(hasSt, vessel, factory.getOWLNamedIndividual(IRI.create(ontologyIRI + "#" + status))));
         }
 
         return axioms;
