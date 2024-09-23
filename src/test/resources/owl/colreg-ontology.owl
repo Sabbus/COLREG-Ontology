@@ -354,7 +354,7 @@
         <owl:equivalentClass>
             <owl:Class>
                 <owl:oneOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#turn"/>
+                    <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#alter_course"/>
                 </owl:oneOf>
             </owl:Class>
         </owl:equivalentClass>
@@ -727,6 +727,12 @@
     
 
 
+    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#alter_course -->
+
+    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#alter_course"/>
+    
+
+
     <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#crossing_scenario -->
 
     <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#crossing_scenario">
@@ -1069,12 +1075,6 @@
         </rdf:type>
         <hasEquipment rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#sail"/>
     </owl:NamedIndividual>
-    
-
-
-    <!-- http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#turn -->
-
-    <owl:NamedIndividual rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1#turn"/>
     
 
 

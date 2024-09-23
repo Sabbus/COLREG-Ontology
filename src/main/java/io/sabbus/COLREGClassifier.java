@@ -46,6 +46,11 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 
+import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+
 import openllet.owlapi.OpenlletReasoner;
 import openllet.owlapi.OpenlletReasonerFactory;
 
@@ -257,9 +262,37 @@ class COLREGClassifier {
         OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
         HashMap<String, String> categorizedScenario = new HashMap<String, String>();
 
-        categorizedScenario.put("category", reasoner.getTypes(scenario, true).toString());
-        categorizedScenario.put("ownship-behavior", reasoner.getObjectPropertyValues(ownship, hasBehavior).toString());
-        categorizedScenario.put("target-behavior", reasoner.getObjectPropertyValues(target, hasBehavior).toString());
+        NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
+        NodeSet<OWLNamedIndividual> ownshipBehaviors = reasoner.getObjectPropertyValues(ownship, hasBehavior);
+        NodeSet<OWLNamedIndividual> targetBehaviors = reasoner.getObjectPropertyValues(target, hasBehavior);
+
+        DefaultPrefixManager prefixManager = new DefaultPrefixManager(ontologyIRI.toString() + "#");
+        Set<String> types = new HashSet<String>();
+        for (Node<OWLClass> node : scenarioTypes) {
+            Set<OWLClass> set = node.getEntities();
+            for (OWLClass scenarioType : set) {
+                types.add(prefixManager.getShortForm(scenarioType));
+            }
+        }
+        categorizedScenario.put("category", types.toString());
+
+        Set<String> oBehaviors = new HashSet<String>();
+        for (Node<OWLNamedIndividual> node : ownshipBehaviors) {
+            Set<OWLNamedIndividual> set = node.getEntities();
+            for (OWLNamedIndividual behavior : set) {
+                oBehaviors.add(prefixManager.getShortForm(behavior));
+            }
+        }
+        categorizedScenario.put("ownship-behavior", oBehaviors.toString());
+
+        Set<String> tBehaviors = new HashSet<String>();
+        for (Node<OWLNamedIndividual> node : targetBehaviors) {
+            Set<OWLNamedIndividual> set = node.getEntities();
+            for (OWLNamedIndividual behavior : set) {
+                tBehaviors.add(prefixManager.getShortForm(behavior));
+            }
+        }
+        categorizedScenario.put("target-behavior", tBehaviors.toString());
 
         return categorizedScenario;
     }
