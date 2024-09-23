@@ -2,6 +2,7 @@ package io.sabbus.colregclassifier;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.util.HashMap;
@@ -101,8 +102,9 @@ class COLREGClassifier {
                 formatter.printHelp(helpMessage, options);
             }
             else if (cmd.hasOption("file") && cmd.hasOption("o")) {
-                HashMap<String, String> categorizedScenario = new HashMap<String, String>();
+                JsonObject categorizedScenario = new JsonObject();
                 JsonObject json = new JsonObject();
+                JsonObject result = new JsonObject();
                 try {
                     OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
                     File ontologyFile = new File(pathToOntology);
@@ -117,13 +119,18 @@ class COLREGClassifier {
 
                     categorizedScenario = classify(factory, ontology, json);
 
-                    System.out.println(categorizedScenario);
+                    result.put("scenario", json);
+                    result.put("classification", categorizedScenario);
 
+                    FileWriter fileWriter = new FileWriter(cmd.getOptionValue("output"));
+                    Jsoner.serialize(result, fileWriter);
+
+                    System.out.println(result);
                 }
                 catch (IOException | JsonException | OWLOntologyCreationException e) {
                     throw new RuntimeException(e);
                 }
-
+                
                 if (cmd.hasOption("p")) {
                     // Pretty print output
                     // TODO
@@ -247,7 +254,7 @@ class COLREGClassifier {
 
         return axioms;
     }
-    private static HashMap<String, String> classify(OWLDataFactory factory, OWLOntology ontology, JsonObject json) {
+    private static JsonObject classify(OWLDataFactory factory, OWLOntology ontology, JsonObject json) {
         JsonObject ownshipJson = (JsonObject) json.get("ownship");
         JsonObject targetJson = (JsonObject) json.get("target");
         String ownshipName = (String) ownshipJson.get("name");
@@ -260,39 +267,40 @@ class COLREGClassifier {
         OWLObjectProperty hasBehavior = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "#hasBehavior"));
 
         OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
-        HashMap<String, String> categorizedScenario = new HashMap<String, String>();
+        JsonObject categorizedScenario = new JsonObject();
 
         NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         NodeSet<OWLNamedIndividual> ownshipBehaviors = reasoner.getObjectPropertyValues(ownship, hasBehavior);
         NodeSet<OWLNamedIndividual> targetBehaviors = reasoner.getObjectPropertyValues(target, hasBehavior);
 
         DefaultPrefixManager prefixManager = new DefaultPrefixManager(ontologyIRI.toString() + "#");
-        Set<String> types = new HashSet<String>();
+
+        JsonArray types = new JsonArray();
         for (Node<OWLClass> node : scenarioTypes) {
             Set<OWLClass> set = node.getEntities();
             for (OWLClass scenarioType : set) {
                 types.add(prefixManager.getShortForm(scenarioType));
             }
         }
-        categorizedScenario.put("category", types.toString());
+        categorizedScenario.put("category", types);
 
-        Set<String> oBehaviors = new HashSet<String>();
+        JsonArray oBehaviors = new JsonArray();
         for (Node<OWLNamedIndividual> node : ownshipBehaviors) {
             Set<OWLNamedIndividual> set = node.getEntities();
             for (OWLNamedIndividual behavior : set) {
                 oBehaviors.add(prefixManager.getShortForm(behavior));
             }
         }
-        categorizedScenario.put("ownship-behavior", oBehaviors.toString());
+        categorizedScenario.put("ownship-behavior", oBehaviors);
 
-        Set<String> tBehaviors = new HashSet<String>();
+        JsonArray tBehaviors = new JsonArray();
         for (Node<OWLNamedIndividual> node : targetBehaviors) {
             Set<OWLNamedIndividual> set = node.getEntities();
             for (OWLNamedIndividual behavior : set) {
                 tBehaviors.add(prefixManager.getShortForm(behavior));
             }
         }
-        categorizedScenario.put("target-behavior", tBehaviors.toString());
+        categorizedScenario.put("target-behavior", tBehaviors);
 
         return categorizedScenario;
     }
