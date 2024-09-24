@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -57,9 +58,13 @@ import openllet.owlapi.OpenlletReasonerFactory;
 
 class COLREGClassifier {
 
-    static String helpMessage = "Ontology Based COLREG Classifier";
-    static String pathToOntology = "./src/test/resources/owl/colreg-ontology.owl";
-    static IRI ontologyIRI = IRI.create("http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1");
+    static final String helpMessage = "Ontology Based COLREG Classifier";
+    static final String pathToOntology = "./src/test/resources/owl/colreg-ontology.owl";
+    static final IRI ontologyIRI = IRI.create("http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1");
+
+    // ANSI sequences
+    static final String RESET = "\033[0m";
+    static final String GREEN = "\033[1;32m";
 
     enum VesselType {
         OWNSHIP,
@@ -124,16 +129,31 @@ class COLREGClassifier {
 
                     FileWriter fileWriter = new FileWriter(cmd.getOptionValue("output"));
                     Jsoner.serialize(result, fileWriter);
-
-                    System.out.println(result);
+                    fileWriter.close();
                 }
                 catch (IOException | JsonException | OWLOntologyCreationException e) {
                     throw new RuntimeException(e);
                 }
                 
                 if (cmd.hasOption("p")) {
-                    // Pretty print output
-                    // TODO
+                    JsonObject scenarioJson = (JsonObject) result.get("scenario");
+                    JsonObject ownshipJson = (JsonObject) scenarioJson.get("ownship");
+                    JsonObject targetJson = (JsonObject) scenarioJson.get("target");
+                    JsonObject classificationJson = (JsonObject) result.get("classification");
+
+                    String scenarioName = (String) scenarioJson.get("name");
+                    String ownshipName = (String) ownshipJson.get("name");
+                    String targetName = (String) targetJson.get("name");
+                    JsonArray situation = (JsonArray) classificationJson.get("category");
+                    JsonArray ownshipBehavior = (JsonArray) classificationJson.get("ownship-behavior");
+                    JsonArray targetBehavior = (JsonArray) classificationJson.get("target-behavior");
+
+                    System.out.println("Classification result for scenario: " + GREEN + scenarioName + RESET);
+                    System.out.println("COLREG situation: " + GREEN + situation.toString() + RESET + "\n");
+                    System.out.println("Classification result for vessel: " + GREEN + ownshipName + RESET);
+                    System.out.println("Behavior: " + GREEN + ownshipBehavior.toString() + RESET + "\n");
+                    System.out.println("Classification result for vessel: " + GREEN + targetName + RESET);
+                    System.out.println("Behavior: " + GREEN + targetBehavior.toString() + RESET + "\n");
                 }
             }
             else {
