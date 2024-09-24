@@ -1,6 +1,6 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.sabbus.colregclassifier</groupId>
+    <groupId>io.sabbus</groupId>
     <artifactId>colreg-classifier</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
@@ -85,7 +85,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>io.sabbus.colregclassifier.COLREGClassifier</mainClass>
+                <mainClass>io.sabbus.COLREGClassifier</mainClass>
               </manifest>
             </archive>
             <descriptorRefs>

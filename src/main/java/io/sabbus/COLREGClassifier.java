@@ -1,4 +1,4 @@
-package io.sabbus.colregclassifier;
+package io.sabbus;
 
 import java.io.File;
 import java.io.FileReader;
