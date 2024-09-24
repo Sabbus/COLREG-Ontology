@@ -121,6 +121,7 @@ class COLREGClassifier {
 
                     Set<OWLAxiom> axioms = getScenarioAxioms(factory, json);
                     manager.addAxioms(ontology, axioms);
+                    // manager.saveOntology(ontology);
 
                     categorizedScenario = classify(factory, ontology, json);
 
@@ -131,7 +132,7 @@ class COLREGClassifier {
                     Jsoner.serialize(result, fileWriter);
                     fileWriter.close();
                 }
-                catch (IOException | JsonException | OWLOntologyCreationException e) {
+                catch (IOException | JsonException | OWLOntologyCreationException | OWLOntologyStorageException e) {
                     throw new RuntimeException(e);
                 }
                 
