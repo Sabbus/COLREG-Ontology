@@ -132,7 +132,7 @@ class COLREGClassifier {
                     Jsoner.serialize(result, fileWriter);
                     fileWriter.close();
                 }
-                catch (IOException | JsonException | OWLOntologyCreationException | OWLOntologyStorageException e) {
+                catch (IOException | JsonException | OWLOntologyCreationException e) {
                     throw new RuntimeException(e);
                 }
                 
