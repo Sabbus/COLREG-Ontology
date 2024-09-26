@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.IRI;
 
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -56,7 +55,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import openllet.owlapi.OpenlletReasoner;
 import openllet.owlapi.OpenlletReasonerFactory;
 
-class COLREGClassifier {
+public class COLREGClassifier {
 
     static final String helpMessage = "Ontology Based COLREG Classifier";
     static final String pathToOntology = "./src/test/resources/owl/colreg-ontology.owl";
@@ -121,7 +120,6 @@ class COLREGClassifier {
 
                     Set<OWLAxiom> axioms = getScenarioAxioms(factory, json);
                     manager.addAxioms(ontology, axioms);
-                    // manager.saveOntology(ontology);
 
                     categorizedScenario = classify(factory, ontology, json);
 
