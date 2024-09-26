@@ -68,7 +68,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>io.sabbus.COLREGClassifier</mainClass>
+                <mainClass>io.sabbus.CLIApp</mainClass>
               </manifest>
             </archive>
             <descriptorRefs>
