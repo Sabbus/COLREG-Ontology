@@ -142,13 +142,19 @@ public class COLREGClassifier {
 
         JsonObject ownshipJson = (JsonObject) scenarioJson.get("ownship");
         JsonObject targetJson = (JsonObject) scenarioJson.get("target");
+        String ownshipName = (String) ownshipJson.get("name");
+        String targetName = (String) targetJson.get("name");
         BigDecimal windDir = (BigDecimal) scenarioJson.get("wind-dir");
         String scenarioName = (String) scenarioJson.get("name");
 
+        IRI ownshipIRI = IRI.create(ontologyIRI + "#" + ownshipName);
+        IRI targetIRI = IRI.create(ontologyIRI + "#" + targetName);
         IRI scenarioClassIRI = IRI.create(ontologyIRI + "#Scenario");
         IRI scenarioIRI = IRI.create(ontologyIRI + "#" + scenarioName);
         IRI hasWindDirIRI = IRI.create(ontologyIRI + "#hasWindDirDeg");
 
+        OWLNamedIndividual ownship = this.factory.getOWLNamedIndividual(ownshipIRI);
+        OWLNamedIndividual target = this.factory.getOWLNamedIndividual(targetIRI);
         OWLClass scenarioClass = this.factory.getOWLClass(scenarioClassIRI);
         OWLNamedIndividual scenario = this.factory.getOWLNamedIndividual(scenarioIRI);
         OWLDataProperty hasWindDir = this.factory.getOWLDataProperty(hasWindDirIRI);
@@ -166,6 +172,8 @@ public class COLREGClassifier {
         axioms.addAll(ownshipAxioms);
         // Add target axioms
         axioms.addAll(targetAxioms);
+        // Add ownship != target axiom
+        axioms.add(this.factory.getOWLDifferentIndividualsAxiom(ownship, target));
 
         return axioms;
     }
@@ -214,7 +222,7 @@ public class COLREGClassifier {
         axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasSpd, vessel, spdLit));
         axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasHdg, vessel, hdgLit));
         // Add vessel to scenario
-        axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasVesselType, scenario, vessel));
+                axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasVesselType, scenario, vessel));
 
         // Add equipments to vessel
         Set<OWLNamedIndividual> eqsInds = new HashSet<OWLNamedIndividual>();
