@@ -1,405 +1,354 @@
+@prefix : <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.w3.org/2002/07/owl#> .
+@base <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#> .
 
-[ rdf:type owl:Ontology
- ] .
+<http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology> rdf:type owl:Ontology ;
+                                                            owl:versionIRI <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology/0.0.1> .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://www.co-ode.org/ontologies/ont.owl#hasEquipment
-<http://www.co-ode.org/ontologies/ont.owl#hasEquipment> rdf:type owl:ObjectProperty ;
-                                                        rdfs:domain <http://www.co-ode.org/ontologies/ont.owl#Vessel> ;
-                                                        rdfs:range <http://www.co-ode.org/ontologies/ont.owl#Equipment> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#hasEquipment
+:hasEquipment rdf:type owl:ObjectProperty ;
+              rdfs:domain :Vessel ;
+              rdfs:range :Equipment .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#hasOwnship
-<http://www.co-ode.org/ontologies/ont.owl#hasOwnship> rdf:type owl:ObjectProperty ;
-                                                      rdfs:subPropertyOf <http://www.co-ode.org/ontologies/ont.owl#hasVessel> ;
-                                                      rdf:type owl:FunctionalProperty ;
-                                                      rdfs:domain <http://www.co-ode.org/ontologies/ont.owl#Scenario> ;
-                                                      rdfs:range <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#hasOwnship
+:hasOwnship rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :hasVessel ;
+            rdf:type owl:FunctionalProperty ;
+            rdfs:domain :Scenario ;
+            rdfs:range :Vessel .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#hasStatus
-<http://www.co-ode.org/ontologies/ont.owl#hasStatus> rdf:type owl:ObjectProperty ;
-                                                     rdfs:subPropertyOf owl:topObjectProperty ;
-                                                     rdfs:domain <http://www.co-ode.org/ontologies/ont.owl#Vessel> ;
-                                                     rdfs:range <http://www.co-ode.org/ontologies/ont.owl#Status> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#hasStatus
+:hasStatus rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:domain :Vessel ;
+           rdfs:range :Status .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#hasTargetShip
-<http://www.co-ode.org/ontologies/ont.owl#hasTargetShip> rdf:type owl:ObjectProperty ;
-                                                         rdfs:subPropertyOf <http://www.co-ode.org/ontologies/ont.owl#hasVessel> ;
-                                                         rdf:type owl:FunctionalProperty ;
-                                                         rdfs:domain <http://www.co-ode.org/ontologies/ont.owl#Scenario> ;
-                                                         rdfs:range <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#hasTargetShip
+:hasTargetShip rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :hasVessel ;
+               rdf:type owl:FunctionalProperty ;
+               rdfs:domain :Scenario ;
+               rdfs:range :Vessel .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#hasVessel
-<http://www.co-ode.org/ontologies/ont.owl#hasVessel> rdf:type owl:ObjectProperty ;
-                                                     rdfs:domain <http://www.co-ode.org/ontologies/ont.owl#Scenario> ;
-                                                     rdfs:range <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#hasVessel
+:hasVessel rdf:type owl:ObjectProperty ;
+           rdfs:domain :Scenario ;
+           rdfs:range :Vessel .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.co-ode.org/ontologies/ont.owl#Behavior
-<http://www.co-ode.org/ontologies/ont.owl#Behavior> rdf:type owl:Class .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#COLREGCategory
+:COLREGCategory rdf:type owl:Class ;
+                rdfs:subClassOf :Vessel .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#Crossing
-<http://www.co-ode.org/ontologies/ont.owl#Crossing> rdf:type owl:Class ;
-                                                    rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Scenario> ,
-                                                                    [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                                             owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasOwnship> ;
-                                                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                             owl:onClass <http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel>
-                                                                                           ]
-                                                                                           [ rdf:type owl:Restriction ;
-                                                                                             owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasTargetShip> ;
-                                                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                             owl:onClass <http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel>
-                                                                                           ]
-                                                                                         ) ;
-                                                                      rdf:type owl:Class
-                                                                    ] .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Crossing
+:Crossing rdf:type owl:Class ;
+          rdfs:subClassOf :Scenario ,
+                          [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :hasOwnship ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :PowerDrivenVessel
+                                                 ]
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :hasTargetShip ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :PowerDrivenVessel
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#DifferentVesselEncounter
-<http://www.co-ode.org/ontologies/ont.owl#DifferentVesselEncounter> rdf:type owl:Class ;
-                                                                    rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Scenario> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#DifferentVesselEncounter
+:DifferentVesselEncounter rdf:type owl:Class ;
+                          rdfs:subClassOf :Scenario .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#DraughtConstrained
-<http://www.co-ode.org/ontologies/ont.owl#DraughtConstrained> rdf:type owl:Class ;
-                                                              rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Status> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#DraughtConstrained
+:DraughtConstrained rdf:type owl:Class ;
+                    rdfs:subClassOf :Status .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#Engine
-<http://www.co-ode.org/ontologies/ont.owl#Engine> rdf:type owl:Class ;
-                                                  rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Equipment> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Engine
+:Engine rdf:type owl:Class ;
+        rdfs:subClassOf :Equipment .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#Equipment
-<http://www.co-ode.org/ontologies/ont.owl#Equipment> rdf:type owl:Class ;
-                                                     owl:equivalentClass [ rdf:type owl:Class ;
-                                                                           owl:unionOf ( <http://www.co-ode.org/ontologies/ont.owl#Engine>
-                                                                                         <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment>
-                                                                                         <http://www.co-ode.org/ontologies/ont.owl#Sail>
-                                                                                       )
-                                                                         ] .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Equipment
+:Equipment rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Class ;
+                                 owl:unionOf ( :Engine
+                                               :ManoeuvrabilityRestrictingFishingEquipment
+                                               :Sail
+                                             )
+                               ] .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#GiveWay
-<http://www.co-ode.org/ontologies/ont.owl#GiveWay> rdf:type owl:Class ;
-                                                   rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Behavior> ,
-                                                                   <http://www.co-ode.org/ontologies/ont.owl#Role> ;
-                                                   owl:disjointWith <http://www.co-ode.org/ontologies/ont.owl#StandOn> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#GiveWay
+:GiveWay rdf:type owl:Class ;
+         owl:disjointWith :StandOn .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#HeadOn
-<http://www.co-ode.org/ontologies/ont.owl#HeadOn> rdf:type owl:Class ;
-                                                  rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Scenario> ,
-                                                                  [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                                           owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasOwnship> ;
-                                                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                           owl:onClass <http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel>
-                                                                                         ]
-                                                                                         [ rdf:type owl:Restriction ;
-                                                                                           owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasTargetShip> ;
-                                                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                           owl:onClass <http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel>
-                                                                                         ]
-                                                                                       ) ;
-                                                                    rdf:type owl:Class
-                                                                  ] .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#HeadOn
+:HeadOn rdf:type owl:Class ;
+        rdfs:subClassOf :Scenario ,
+                        [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :hasOwnship ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :PowerDrivenVessel
+                                               ]
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :hasTargetShip ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :PowerDrivenVessel
+                                               ]
+                                             ) ;
+                          rdf:type owl:Class
+                        ] .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestricted
-<http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestricted> rdf:type owl:Class ;
-                                                                     rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Status> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#ManoeuvrabilityRestricted
+:ManoeuvrabilityRestricted rdf:type owl:Class ;
+                           rdfs:subClassOf :Status .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment
-<http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment> rdf:type owl:Class ;
-                                                                                      rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Equipment> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#ManoeuvrabilityRestrictingFishingEquipment
+:ManoeuvrabilityRestrictingFishingEquipment rdf:type owl:Class ;
+                                            rdfs:subClassOf :Equipment .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#NotUnderCommand
-<http://www.co-ode.org/ontologies/ont.owl#NotUnderCommand> rdf:type owl:Class ;
-                                                           rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Status> .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#NotUnderCommand
+:NotUnderCommand rdf:type owl:Class ;
+                 rdfs:subClassOf :Status .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#Overtaking
-<http://www.co-ode.org/ontologies/ont.owl#Overtaking> rdf:type owl:Class ;
-                                                      rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Scenario> ,
-                                                                      [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                                               owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasOwnship> ;
-                                                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                               owl:onClass <http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel>
-                                                                                             ]
-                                                                                             [ rdf:type owl:Restriction ;
-                                                                                               owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasTargetShip> ;
-                                                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                               owl:onClass <http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel>
-                                                                                             ]
-                                                                                           ) ;
-                                                                        rdf:type owl:Class
-                                                                      ] .
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Overtaking
+:Overtaking rdf:type owl:Class ;
+            rdfs:subClassOf :Scenario ,
+                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasOwnship ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :PowerDrivenVessel
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :hasTargetShip ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :PowerDrivenVessel
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] .
 
 
-###  http://www.co-ode.org/ontologies/ont.owl#Portside
-<http://www.co-ode.org/ontologies/ont.owl#Portside> rdf:type owl:Class ;
-                                                    rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#WindDirection> ;
-                                                    owl:disjointWith <http://www.co-ode.org/ontologies/ont.owl#Starboard> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel
-<http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel> rdf:type owl:Class ;
-                                                             owl:equivalentClass [ owl:intersectionOf ( <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                                        [ rdf:type owl:Class ;
-                                                                                                          owl:complementOf [ rdf:type owl:Restriction ;
-                                                                                                                             owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                                                             owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment>
-                                                                                                                           ]
-                                                                                                        ]
-                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                          owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                                          owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#Engine>
-                                                                                                        ]
-                                                                                                        [ rdf:type owl:Restriction ;
-                                                                                                          owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                          owl:allValuesFrom [ rdf:type owl:Class ;
-                                                                                                                              owl:complementOf <http://www.co-ode.org/ontologies/ont.owl#Status>
-                                                                                                                            ]
-                                                                                                        ]
-                                                                                                      ) ;
-                                                                                   rdf:type owl:Class
-                                                                                 ] ;
-                                                             rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#Role
-<http://www.co-ode.org/ontologies/ont.owl#Role> rdf:type owl:Class ;
-                                                rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#Sail
-<http://www.co-ode.org/ontologies/ont.owl#Sail> rdf:type owl:Class ;
-                                                rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Equipment> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#SailingVessel
-<http://www.co-ode.org/ontologies/ont.owl#SailingVessel> rdf:type owl:Class ;
-                                                         owl:equivalentClass [ owl:intersectionOf ( <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                                    [ rdf:type owl:Class ;
-                                                                                                      owl:complementOf [ rdf:type owl:Restriction ;
-                                                                                                                         owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                                                         owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment>
-                                                                                                                       ]
-                                                                                                    ]
-                                                                                                    [ rdf:type owl:Restriction ;
-                                                                                                      owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                                      owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#Sail>
-                                                                                                    ]
-                                                                                                    [ rdf:type owl:Restriction ;
-                                                                                                      owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                                      owl:allValuesFrom <http://www.co-ode.org/ontologies/ont.owl#Sail>
-                                                                                                    ]
-                                                                                                    [ rdf:type owl:Restriction ;
-                                                                                                      owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                      owl:allValuesFrom [ rdf:type owl:Class ;
-                                                                                                                          owl:complementOf <http://www.co-ode.org/ontologies/ont.owl#Status>
-                                                                                                                        ]
-                                                                                                    ]
-                                                                                                  ) ;
-                                                                               rdf:type owl:Class
-                                                                             ] ;
-                                                         rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#SailingVesselEncounter
-<http://www.co-ode.org/ontologies/ont.owl#SailingVesselEncounter> rdf:type owl:Class ;
-                                                                  owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                                                               owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasOwnship> ;
-                                                                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                                               owl:onClass <http://www.co-ode.org/ontologies/ont.owl#SailingVessel>
-                                                                                                             ]
-                                                                                                             [ rdf:type owl:Restriction ;
-                                                                                                               owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasTargetShip> ;
-                                                                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                                               owl:onClass <http://www.co-ode.org/ontologies/ont.owl#SailingVessel>
-                                                                                                             ]
-                                                                                                           ) ;
-                                                                                        rdf:type owl:Class
-                                                                                      ] ;
-                                                                  rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Scenario> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#Scenario
-<http://www.co-ode.org/ontologies/ont.owl#Scenario> rdf:type owl:Class ;
-                                                    owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                                                 owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasOwnship> ;
-                                                                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                                 owl:onClass <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                               ]
-                                                                                               [ rdf:type owl:Restriction ;
-                                                                                                 owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasTargetShip> ;
-                                                                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                                 owl:onClass <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                               ]
-                                                                                             ) ;
-                                                                          rdf:type owl:Class
-                                                                        ] .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#StandOn
-<http://www.co-ode.org/ontologies/ont.owl#StandOn> rdf:type owl:Class ;
-                                                   rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Behavior> ,
-                                                                   <http://www.co-ode.org/ontologies/ont.owl#Role> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#Starboard
-<http://www.co-ode.org/ontologies/ont.owl#Starboard> rdf:type owl:Class ;
-                                                     rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#WindDirection> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#Status
-<http://www.co-ode.org/ontologies/ont.owl#Status> rdf:type owl:Class ;
-                                                  owl:equivalentClass [ rdf:type owl:Class ;
-                                                                        owl:unionOf ( <http://www.co-ode.org/ontologies/ont.owl#DraughtConstrained>
-                                                                                      <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestricted>
-                                                                                      <http://www.co-ode.org/ontologies/ont.owl#NotUnderCommand>
-                                                                                    )
-                                                                      ] .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#Vessel
-<http://www.co-ode.org/ontologies/ont.owl#Vessel> rdf:type owl:Class ;
-                                                  rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                                           owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                           owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#Equipment>
-                                                                                         ]
-                                                                                         [ rdf:type owl:Restriction ;
-                                                                                           owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                           owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                                           owl:onClass <http://www.co-ode.org/ontologies/ont.owl#Status>
-                                                                                         ]
-                                                                                       ) ;
-                                                                    rdf:type owl:Class
-                                                                  ] .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#VesselConstrainedByHerDraught
-<http://www.co-ode.org/ontologies/ont.owl#VesselConstrainedByHerDraught> rdf:type owl:Class ;
-                                                                         owl:equivalentClass [ owl:intersectionOf ( <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                                                    [ rdf:type owl:Restriction ;
-                                                                                                                      owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                                      owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#DraughtConstrained>
-                                                                                                                    ]
-                                                                                                                    [ rdf:type owl:Restriction ;
-                                                                                                                      owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                                      owl:allValuesFrom <http://www.co-ode.org/ontologies/ont.owl#DraughtConstrained>
-                                                                                                                    ]
-                                                                                                                  ) ;
-                                                                                               rdf:type owl:Class
-                                                                                             ] ;
-                                                                         rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#VesselEngagedInFishing
-<http://www.co-ode.org/ontologies/ont.owl#VesselEngagedInFishing> rdf:type owl:Class ;
-                                                                  owl:equivalentClass [ owl:intersectionOf ( <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                                             [ rdf:type owl:Restriction ;
-                                                                                                               owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                                               owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment>
-                                                                                                             ]
-                                                                                                             [ rdf:type owl:Restriction ;
-                                                                                                               owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                               owl:allValuesFrom [ rdf:type owl:Class ;
-                                                                                                                                   owl:complementOf <http://www.co-ode.org/ontologies/ont.owl#Status>
-                                                                                                                                 ]
-                                                                                                             ]
-                                                                                                           ) ;
-                                                                                        rdf:type owl:Class
-                                                                                      ] ;
-                                                                  rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#VesselNotUnderCommand
-<http://www.co-ode.org/ontologies/ont.owl#VesselNotUnderCommand> rdf:type owl:Class ;
-                                                                 owl:equivalentClass [ owl:intersectionOf ( <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                                            [ rdf:type owl:Restriction ;
-                                                                                                              owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                              owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#NotUnderCommand>
-                                                                                                            ]
-                                                                                                            [ rdf:type owl:Restriction ;
-                                                                                                              owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                              owl:allValuesFrom <http://www.co-ode.org/ontologies/ont.owl#NotUnderCommand>
-                                                                                                            ]
-                                                                                                          ) ;
-                                                                                       rdf:type owl:Class
-                                                                                     ] ;
-                                                                 rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#VesselRestrictedInHerAbilityToManoeuvre
-<http://www.co-ode.org/ontologies/ont.owl#VesselRestrictedInHerAbilityToManoeuvre> rdf:type owl:Class ;
-                                                                                   owl:equivalentClass [ owl:intersectionOf ( <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                                                              [ rdf:type owl:Restriction ;
-                                                                                                                                owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                                                owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestricted>
-                                                                                                                              ]
-                                                                                                                              [ rdf:type owl:Restriction ;
-                                                                                                                                owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                                                                owl:allValuesFrom <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestricted>
-                                                                                                                              ]
-                                                                                                                            ) ;
-                                                                                                         rdf:type owl:Class
-                                                                                                       ] ;
-                                                                                   rdfs:subClassOf <http://www.co-ode.org/ontologies/ont.owl#Vessel> .
-
-
-###  http://www.co-ode.org/ontologies/ont.owl#WindDirection
-<http://www.co-ode.org/ontologies/ont.owl#WindDirection> rdf:type owl:Class .
-
-
-#################################################################
-#    Individuals
-#################################################################
-
-###  http://www.co-ode.org/ontologies/ont.owl#pippo
-<http://www.co-ode.org/ontologies/ont.owl#pippo> rdf:type owl:NamedIndividual ,
-                                                          [ owl:intersectionOf ( <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                                                                                 [ rdf:type owl:Restriction ;
-                                                                                   owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                   owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#Engine>
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#PowerDrivenVessel
+:PowerDrivenVessel rdf:type owl:Class ;
+                   owl:equivalentClass [ owl:intersectionOf ( :Vessel
+                                                              [ rdf:type owl:Class ;
+                                                                owl:complementOf [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty :hasEquipment ;
+                                                                                   owl:someValuesFrom :ManoeuvrabilityRestrictingFishingEquipment
                                                                                  ]
-                                                                                 [ rdf:type owl:Restriction ;
-                                                                                   owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                   owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment>
-                                                                                 ]
-                                                                                 [ rdf:type owl:Restriction ;
-                                                                                   owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasEquipment> ;
-                                                                                   owl:someValuesFrom <http://www.co-ode.org/ontologies/ont.owl#Sail>
-                                                                                 ]
-                                                                                 [ rdf:type owl:Restriction ;
-                                                                                   owl:onProperty <http://www.co-ode.org/ontologies/ont.owl#hasStatus> ;
-                                                                                   owl:allValuesFrom [ rdf:type owl:Class ;
-                                                                                                       owl:complementOf <http://www.co-ode.org/ontologies/ont.owl#Status>
-                                                                                                     ]
-                                                                                 ]
-                                                                               ) ;
-                                                            rdf:type owl:Class
-                                                          ] .
+                                                              ]
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :hasEquipment ;
+                                                                owl:someValuesFrom :Engine
+                                                              ]
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty :hasStatus ;
+                                                                owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                    owl:complementOf :Status
+                                                                                  ]
+                                                              ]
+                                                            ) ;
+                                         rdf:type owl:Class
+                                       ] ;
+                   rdfs:subClassOf :Vessel .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Sail
+:Sail rdf:type owl:Class ;
+      rdfs:subClassOf :Equipment .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#SailingVessel
+:SailingVessel rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Vessel
+                                                          [ rdf:type owl:Class ;
+                                                            owl:complementOf [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty :hasEquipment ;
+                                                                               owl:someValuesFrom :ManoeuvrabilityRestrictingFishingEquipment
+                                                                             ]
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasEquipment ;
+                                                            owl:someValuesFrom :Sail
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasEquipment ;
+                                                            owl:allValuesFrom :Sail
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasStatus ;
+                                                            owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                owl:complementOf :Status
+                                                                              ]
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf :COLREGCategory .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#SailingVesselEncounter
+:SailingVesselEncounter rdf:type owl:Class ;
+                        owl:equivalentClass [ owl:intersectionOf ( :Scenario
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasOwnship ;
+                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onClass :SailingVessel
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasTargetShip ;
+                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onClass :SailingVessel
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ] ;
+                        rdfs:subClassOf :Scenario .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Scenario
+:Scenario rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasOwnship ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :Vessel
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasTargetShip ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :Vessel
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#StandOn
+:StandOn rdf:type owl:Class .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Status
+:Status rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:unionOf ( :DraughtConstrained
+                                            :ManoeuvrabilityRestricted
+                                            :NotUnderCommand
+                                          )
+                            ] .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#Vessel
+:Vessel rdf:type owl:Class ;
+        rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :hasEquipment ;
+                                                 owl:someValuesFrom :Equipment
+                                               ]
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :hasStatus ;
+                                                 owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :Status
+                                               ]
+                                             ) ;
+                          rdf:type owl:Class
+                        ] .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#VesselConstrainedByHerDraught
+:VesselConstrainedByHerDraught rdf:type owl:Class ;
+                               owl:equivalentClass [ owl:intersectionOf ( :Vessel
+                                                                          [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty :hasStatus ;
+                                                                            owl:someValuesFrom :DraughtConstrained
+                                                                          ]
+                                                                          [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty :hasStatus ;
+                                                                            owl:allValuesFrom :DraughtConstrained
+                                                                          ]
+                                                                        ) ;
+                                                     rdf:type owl:Class
+                                                   ] ;
+                               rdfs:subClassOf :Vessel .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#VesselEngagedInFishing
+:VesselEngagedInFishing rdf:type owl:Class ;
+                        owl:equivalentClass [ owl:intersectionOf ( :COLREGCategory
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasEquipment ;
+                                                                     owl:someValuesFrom :ManoeuvrabilityRestrictingFishingEquipment
+                                                                   ]
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty :hasStatus ;
+                                                                     owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                         owl:complementOf :Status
+                                                                                       ]
+                                                                   ]
+                                                                 ) ;
+                                              rdf:type owl:Class
+                                            ] ;
+                        rdfs:subClassOf :COLREGCategory .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#VesselNotUnderCommand
+:VesselNotUnderCommand rdf:type owl:Class ;
+                       owl:equivalentClass [ owl:intersectionOf ( :COLREGCategory
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty :hasStatus ;
+                                                                    owl:someValuesFrom :NotUnderCommand
+                                                                  ]
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty :hasStatus ;
+                                                                    owl:allValuesFrom :NotUnderCommand
+                                                                  ]
+                                                                ) ;
+                                             rdf:type owl:Class
+                                           ] ;
+                       rdfs:subClassOf :COLREGCategory .
+
+
+###  http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#VesselRestrictedInHerAbilityToManoeuvre
+:VesselRestrictedInHerAbilityToManoeuvre rdf:type owl:Class ;
+                                         owl:equivalentClass [ owl:intersectionOf ( :COLREGCategory
+                                                                                    [ rdf:type owl:Restriction ;
+                                                                                      owl:onProperty :hasStatus ;
+                                                                                      owl:someValuesFrom :ManoeuvrabilityRestricted
+                                                                                    ]
+                                                                                    [ rdf:type owl:Restriction ;
+                                                                                      owl:onProperty :hasStatus ;
+                                                                                      owl:allValuesFrom :ManoeuvrabilityRestricted
+                                                                                    ]
+                                                                                  ) ;
+                                                               rdf:type owl:Class
+                                                             ] ;
+                                         rdfs:subClassOf :COLREGCategory .
 
 
 #################################################################
@@ -407,67 +356,38 @@
 #################################################################
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www.co-ode.org/ontologies/ont.owl#Behavior>
-                <http://www.co-ode.org/ontologies/ont.owl#Equipment>
-                <http://www.co-ode.org/ontologies/ont.owl#Scenario>
-                <http://www.co-ode.org/ontologies/ont.owl#Status>
-                <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                <http://www.co-ode.org/ontologies/ont.owl#WindDirection>
+  owl:members ( :Crossing
+                :DifferentVesselEncounter
+                :HeadOn
+                :Overtaking
+                :SailingVesselEncounter
               )
 ] .
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www.co-ode.org/ontologies/ont.owl#Behavior>
-                <http://www.co-ode.org/ontologies/ont.owl#Equipment>
-                <http://www.co-ode.org/ontologies/ont.owl#Scenario>
-                <http://www.co-ode.org/ontologies/ont.owl#Status>
-                <http://www.co-ode.org/ontologies/ont.owl#WindDirection>
+  owl:members ( :DraughtConstrained
+                :ManoeuvrabilityRestricted
+                :NotUnderCommand
               )
 ] .
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www.co-ode.org/ontologies/ont.owl#Behavior>
-                <http://www.co-ode.org/ontologies/ont.owl#Vessel>
-                <http://www.co-ode.org/ontologies/ont.owl#WindDirection>
+  owl:members ( :Engine
+                :ManoeuvrabilityRestrictingFishingEquipment
+                :Sail
               )
 ] .
 
 
 [ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www.co-ode.org/ontologies/ont.owl#Crossing>
-                <http://www.co-ode.org/ontologies/ont.owl#DifferentVesselEncounter>
-                <http://www.co-ode.org/ontologies/ont.owl#HeadOn>
-                <http://www.co-ode.org/ontologies/ont.owl#Overtaking>
-                <http://www.co-ode.org/ontologies/ont.owl#SailingVesselEncounter>
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www.co-ode.org/ontologies/ont.owl#DraughtConstrained>
-                <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestricted>
-                <http://www.co-ode.org/ontologies/ont.owl#NotUnderCommand>
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www.co-ode.org/ontologies/ont.owl#Engine>
-                <http://www.co-ode.org/ontologies/ont.owl#ManoeuvrabilityRestrictingFishingEquipment>
-                <http://www.co-ode.org/ontologies/ont.owl#Sail>
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( <http://www.co-ode.org/ontologies/ont.owl#PowerDrivenVessel>
-                <http://www.co-ode.org/ontologies/ont.owl#SailingVessel>
-                <http://www.co-ode.org/ontologies/ont.owl#VesselConstrainedByHerDraught>
-                <http://www.co-ode.org/ontologies/ont.owl#VesselEngagedInFishing>
-                <http://www.co-ode.org/ontologies/ont.owl#VesselNotUnderCommand>
-                <http://www.co-ode.org/ontologies/ont.owl#VesselRestrictedInHerAbilityToManoeuvre>
+  owl:members ( :PowerDrivenVessel
+                :SailingVessel
+                :VesselConstrainedByHerDraught
+                :VesselEngagedInFishing
+                :VesselNotUnderCommand
+                :VesselRestrictedInHerAbilityToManoeuvre
               )
 ] .
 

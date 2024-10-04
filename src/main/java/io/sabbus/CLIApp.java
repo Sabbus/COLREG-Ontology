@@ -1,8 +1,12 @@
 package io.sabbus;
 
+import java.util.Properties;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.io.IOException;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
@@ -21,13 +25,21 @@ import org.apache.commons.cli.ParseException;
 class CLIApp {
 
     static final String helpMessage = "Ontology Based COLREG Classifier";
-    static final String pathToOntology = "./src/test/resources/owl/colreg-ontology.owl";
 
     // ANSI sequences
     static final String RESET = "\033[0m";
     static final String GREEN = "\033[1;32m";
 
     public static void main(String[] args) {
+        Properties properties = new Properties();
+
+        InputStream configFile = new FileInputStream("./src/main/resources/config.properties");
+
+        properties.load(input);
+
+        final String pathToOntology = properties.getProperty("ontologyFilePath");
+        final String ontologyIRI = properties.getProperty("ontologyIRI");
+
         Option help = Option.builder("h")
                                 .longOpt("help")
                                 .desc("print this help message")
@@ -69,7 +81,7 @@ class CLIApp {
 
                     JsonObject scenarioJson = (JsonObject) Jsoner.deserialize(scenarioFile);
 
-                    COLREGClassifier classifier = new COLREGClassifier(pathToOntology);
+                    COLREGClassifier classifier = new COLREGClassifier(pathToOntology, ontologyIRI);
                     result = classifier.classify(scenarioJson);
 
                     FileWriter fileWriter = new FileWriter(cmd.getOptionValue("output"));
