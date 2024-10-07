@@ -7,75 +7,6 @@ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: : <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>
 
 Ontology: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology>
-
-################################################################################
-# OBJECTPROPERTIES #############################################################
-################################################################################
-
-ObjectProperty: hasOwnship
-    SubPropertyOf: hasVessel
-    DisjointWith: hasTarget
-    Domain: Scenario
-    Range: Vessel
-    
-ObjectProperty: hasTarget
-    SubPropertyOf: hasVessel
-    DisjointWith: hasOwnship
-    Domain: Scenario
-    Range: Vessel
-    
-ObjectProperty: hasVessel
-    Domain: Scenario
-    Range: Vessel
-    
-################################################################################
-# DATAPROPERTIES ###############################################################
-################################################################################
-
-DataProperty: hasBehavior
-    Characteristics: Functional
-    Domain: Vessel
-    Range: {"alter_course" , "keep_course"}
-    
-DataProperty: hasHeadingDeg
-    Characteristics: Functional
-    Domain: Vessel
-    Range: xsd:decimal
-    
-DataProperty: hasHeadingRad
-    Characteristics: Functional
-    Domain: Vessel
-    Range: xsd:decimal
-    
-DataProperty: hasSpeed
-    Characteristics: Functional
-    Domain: Vessel
-    Range: xsd:decimal
-    
-DataProperty: hasWindOnSide
-    Characteristics: Functional
-    Domain: Vessel
-    Range: {"portside" , "starboard"}
-    
-DataProperty: hasXPosition
-    Characteristics: Functional
-    Domain: Vessel
-    Range: xsd:decimal
-    
-DataProperty: hasYPosition
-    Characteristics: Functional
-    Domain: Vessel
-    Range: xsd:decimal
-    
-DataProperty: hasWindDirDeg
-    Domain: Scenario
-    Range: xsd:decimal
-    Characteristics: Functional
-
-DataProperty: hasWindDirRad
-    Domain: Scenario
-    Range: xsd:decimal
-    Characteristics: Functional
     
 ################################################################################
 # CLASSES ######################################################################
@@ -95,6 +26,18 @@ Class: DifferentVesselEncounter
 Class: DraughtConstrained
     SubClassOf: Status
     DisjointWith: ManoeuvrabilityRestricted or NotUnderCommand
+    
+Class: Engine
+    SubClassOf: Equipment
+    DisjointWith: FishingEquipment or Sail
+    
+Class: Equipment
+    EquivalentTo: Engine or FishingEquipment or Sail
+    DisjointWith: Status or Vessel
+    
+Class: FishingEquipment
+    SubClassOf: Equipment
+    DisjointWith: Engine or Sail
     
 Class: HeadOn
     SubClassOf: 
@@ -126,6 +69,10 @@ Class: PowerDrivenVessel
          and (hasStatus only (not (Status)))
     SubClassOf: Vessel
     DisjointWith: SailingVessel or VesselConstrainedByHerDraught or VesselEngagedInFishing or VesselNotUnderCommand or VesselRestrictedInHerAbilityToManoeuvre
+    
+Class: Sail
+    SubClassOf: Equipment
+    DisjointWith: Engine or FishingEquipment
     
 Class: SailingVessel
     EquivalentTo: 
@@ -189,6 +136,83 @@ Class: VesselRestrictedInHerAbilityToManoeuvre
          and (hasStatus some ManoeuvrabilityRestricted)
     SubClassOf: Vessel
     DisjointWith: PowerDrivenVessel or SailingVessel or VesselConstrainedByHerDraught or VesselEngagedInFishing or VesselNotUnderCommand
+
+################################################################################
+# OBJECTPROPERTIES #############################################################
+################################################################################
+
+ObjectProperty: hasEquipment
+    Domain: Vessel
+    Range: Equipment
+    
+ObjectProperty: hasOwnship
+    SubPropertyOf: hasVessel
+    DisjointWith: hasTarget
+    Domain: Scenario
+    Range: Vessel
+    
+ObjectProperty: hasStatus
+    Domain: Vessel
+    Range: Status
+    
+ObjectProperty: hasTarget
+    SubPropertyOf: hasVessel
+    DisjointWith: hasOwnship
+    Domain: Scenario
+    Range: Vessel
+    
+ObjectProperty: hasVessel
+    Domain: Scenario
+    Range: Vessel
+    
+################################################################################
+# DATAPROPERTIES ###############################################################
+################################################################################
+
+DataProperty: hasBehavior
+    Characteristics: Functional
+    Domain: Vessel
+    Range: {"alter_course" , "keep_course"}
+    
+DataProperty: hasHeadingDeg
+    Characteristics: Functional
+    Domain: Vessel
+    Range: xsd:decimal
+    
+DataProperty: hasHeadingRad
+    Characteristics: Functional
+    Domain: Vessel
+    Range: xsd:decimal
+    
+DataProperty: hasSpeed
+    Characteristics: Functional
+    Domain: Vessel
+    Range: xsd:decimal
+    
+DataProperty: hasWindOnSide
+    Characteristics: Functional
+    Domain: Vessel
+    Range: {"portside" , "starboard"}
+    
+DataProperty: hasXPosition
+    Characteristics: Functional
+    Domain: Vessel
+    Range: xsd:decimal
+    
+DataProperty: hasYPosition
+    Characteristics: Functional
+    Domain: Vessel
+    Range: xsd:decimal
+    
+DataProperty: hasWindDirDeg
+    Domain: Scenario
+    Range: xsd:decimal
+    Characteristics: Functional
+
+DataProperty: hasWindDirRad
+    Domain: Scenario
+    Range: xsd:decimal
+    Characteristics: Functional
 
 ################################################################################
 # RULES ########################################################################
