@@ -3,8 +3,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.IOException;
+
+import java.util.Properties;
 
 import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.Jsoner;
@@ -15,15 +20,25 @@ import io.sabbus.COLREGClassifier;
 
 public class ClassifierTests {
 
-    static final String pathToOntology = "./src/test/resources/owl/colreg-ontology.owl";
-
     static final String pathToHeadOnScenario = "./src/test/resources/scenarios/head-on-scenario.json";
-
     static COLREGClassifier classifier;
 
     @BeforeClass
     public static void createCOLREGClassifierInstance() {
-        classifier = new COLREGClassifier(pathToOntology);
+        Properties properties = new Properties();
+
+        try {
+            InputStream configFile = new FileInputStream("./src/main/resources/config.properties");
+            properties.load(configFile);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        final String pathToOntology = properties.getProperty("ontologyFilePath");
+        final String ontologyIRI = properties.getProperty("ontologyIRI");
+
+        classifier = new COLREGClassifier(pathToOntology, ontologyIRI);
     }
 
     private static JsonObject getScenarioJson(String pathToScenarioJsonFile) {
@@ -48,8 +63,8 @@ public class ClassifierTests {
         JsonObject result = classifier.classify(headOnScenario);
 
         JsonObject classifierResult = (JsonObject) result.get("classification");
-        JsonArray scenarioCategory = (JsonArray) classifierResult.get("category");
+        String scenarioCategory = (String) classifierResult.get("category");
 
-        assertEquals("[:HeadOn]", scenarioCategory.toString());
+        assertEquals("HeadOn", scenarioCategory);
     }
 }

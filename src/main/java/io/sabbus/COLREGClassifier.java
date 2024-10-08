@@ -3,6 +3,9 @@ package io.sabbus;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,8 +57,8 @@ public class COLREGClassifier {
     OWLOntology ontology;
     OWLDataFactory factory;
     OWLOntologyManager manager;
-
-    OpenlletReasoner reasoner;
+    String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselN otUnderCommand"};
+    String[] situationCategories = {"HeadOn", "Crossing", "Overtaking", "SailingVesselEncounter", "DifferentVesselsEncounter"};
 
     public COLREGClassifier(String pathToOntology, String ontologyIRI) {
         try {
@@ -65,7 +68,6 @@ public class COLREGClassifier {
             this.manager = OWLManager.createOWLOntologyManager();
             this.ontology = this.manager.loadOntologyFromOntologyDocument(ontologyFile);
             this.factory = this.manager.getOWLDataFactory();
-            this.reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
         }
         catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
@@ -76,11 +78,15 @@ public class COLREGClassifier {
         Set<OWLAxiom> axioms = getScenarioAxioms(scenarioJson);
         this.manager.addAxioms(this.ontology, axioms);
 
-        try {
-            this.manager.saveOntology(ontology);
-        }
-        catch (OWLOntologyStorageException e) {
-            throw new RuntimeException(e)
+        // try {
+        //     manager.saveOntology(ontology);
+        // }
+        // catch (OWLOntologyStorageException e) {
+        //     throw new RuntimeException(e);
+        // }
+
+        OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
+
         JsonObject ownshipJson = (JsonObject) scenarioJson.get("ownship");
         JsonObject targetJson = (JsonObject) scenarioJson.get("target");
         String ownshipName = (String) ownshipJson.get("name");
@@ -98,22 +104,26 @@ public class COLREGClassifier {
         NodeSet<OWLNamedIndividual> ownshipBehaviors = reasoner.getObjectPropertyValues(ownship, hasBehavior);
         NodeSet<OWLNamedIndividual> targetBehaviors = reasoner.getObjectPropertyValues(target, hasBehavior);
 
-        DefaultPrefixManager prefixManager = new DefaultPrefixManager(this.ontologyIRI.toString());
-
-        JsonArray types = new JsonArray();
+        String scenarioType = new String();
+        List<String> situationCategories = Arrays.asList(this.situationCategories);
         for (Node<OWLClass> node : scenarioTypes) {
             Set<OWLClass> set = node.getEntities();
-            for (OWLClass scenarioType : set) {
-                types.add(prefixManager.getShortForm(scenarioType));
+            for (OWLClass scenarioType1 : set) {
+                String stringID = scenarioType1.toStringID();
+                String typeName = stringID.replaceAll(this.ontologyIRI.toString(), "");
+                if (situationCategories.contains(typeName)) {
+                    scenarioType = typeName;
+                    break;
+                }
             }
         }
-        categorizedScenario.put("category", types);
+        categorizedScenario.put("category", scenarioType);
 
         JsonArray oBehaviors = new JsonArray();
         for (Node<OWLNamedIndividual> node : ownshipBehaviors) {
             Set<OWLNamedIndividual> set = node.getEntities();
             for (OWLNamedIndividual behavior : set) {
-                oBehaviors.add(prefixManager.getShortForm(behavior));
+                oBehaviors.add("");
             }
         }
         categorizedScenario.put("ownship-behavior", oBehaviors);
@@ -122,7 +132,7 @@ public class COLREGClassifier {
         for (Node<OWLNamedIndividual> node : targetBehaviors) {
             Set<OWLNamedIndividual> set = node.getEntities();
             for (OWLNamedIndividual behavior : set) {
-                tBehaviors.add(prefixManager.getShortForm(behavior));
+                tBehaviors.add("");
             }
         }
         categorizedScenario.put("target-behavior", tBehaviors);
@@ -146,9 +156,9 @@ public class COLREGClassifier {
 
         IRI ownshipIRI = IRI.create(ontologyIRI + ownshipName);
         IRI targetIRI = IRI.create(ontologyIRI + targetName);
-        IRI scenarioClassIRI = IRI.create(ontologyIRI + "#Scenario");
+        IRI scenarioClassIRI = IRI.create(ontologyIRI + "Scenario");
         IRI scenarioIRI = IRI.create(ontologyIRI + scenarioName);
-        IRI hasWindDirIRI = IRI.create(ontologyIRI + "#hasWindDirDeg");
+        IRI hasWindDirIRI = IRI.create(ontologyIRI + "hasWindDirDeg");
 
         OWLNamedIndividual ownship = this.factory.getOWLNamedIndividual(ownshipIRI);
         OWLNamedIndividual target = this.factory.getOWLNamedIndividual(targetIRI);
@@ -183,24 +193,27 @@ public class COLREGClassifier {
         BigDecimal y = (BigDecimal) vesselJson.get("y");
         BigDecimal spd = (BigDecimal) vesselJson.get("spd");
         BigDecimal hdg = (BigDecimal) vesselJson.get("hdg");
-        JsonArray eqs = (JsonArray) vesselJson.get("equipments");
-        String status = (String) vesselJson.get("status");
+        String vesselCategory = (String) vesselJson.get("category");
 
-        IRI vesselClassIRI = IRI.create(ontologyIRI + "#Vessel");
-        IRI hasEqIRI = IRI.create(ontologyIRI + "#hasEquipment");
-        IRI hasStIRI = IRI.create(ontologyIRI + "#hasStatus");
-        IRI hasXIRI = IRI.create(ontologyIRI + "#hasXPosition");
-        IRI hasYIRI = IRI.create(ontologyIRI + "#hasYPosition");
-        IRI hasSpdIRI = IRI.create(ontologyIRI + "#hasSpeed");
-        IRI hasHdgIRI = IRI.create(ontologyIRI + "#hasHeadingDeg");
+        List<String> vesselCategories = Arrays.asList(this.vesselCategories);
+        if (!vesselCategories.contains(vesselCategory)) {
+            System.out.println("[-] Wrong vessel category");
+            System.exit(1);
+        }
+
+        IRI vesselClassIRI = IRI.create(ontologyIRI + "Vessel");
+        IRI vesselCategoryIRI = IRI.create(ontologyIRI + vesselCategory);
+        IRI hasXIRI = IRI.create(ontologyIRI + "hasXPosition");
+        IRI hasYIRI = IRI.create(ontologyIRI + "hasYPosition");
+        IRI hasSpdIRI = IRI.create(ontologyIRI + "hasSpeed");
+        IRI hasHdgIRI = IRI.create(ontologyIRI + "hasHeadingDeg");
         IRI vesselIRI = IRI.create(ontologyIRI + name);
-        IRI hasVesselTypeIRI = IRI.create(ontologyIRI + ( (vesselType == VesselType.OWNSHIP) ? "#hasOwnship" : "#hasTargetShip" ));
+        IRI hasOwnshipOrTargetIRI = IRI.create(ontologyIRI + ( (vesselType == VesselType.OWNSHIP) ? "hasOwnship" : "hasTarget" ));
 
         OWLClass vesselClass = this.factory.getOWLClass(vesselClassIRI);
+        OWLClass vesselCategoryClass = this.factory.getOWLClass(vesselCategoryIRI);
         OWLNamedIndividual vessel = this.factory.getOWLNamedIndividual(vesselIRI);
-        OWLObjectProperty hasVesselType = this.factory.getOWLObjectProperty(hasVesselTypeIRI);
-        OWLObjectProperty hasEq = this.factory.getOWLObjectProperty(hasEqIRI);
-        OWLObjectProperty hasSt = this.factory.getOWLObjectProperty(hasStIRI);
+        OWLObjectProperty hasOwnshipOrTarget = this.factory.getOWLObjectProperty(hasOwnshipOrTargetIRI);
         OWLDataProperty hasX = this.factory.getOWLDataProperty(hasXIRI);
         OWLDataProperty hasY = this.factory.getOWLDataProperty(hasYIRI);
         OWLDataProperty hasSpd = this.factory.getOWLDataProperty(hasSpdIRI);
@@ -209,40 +222,18 @@ public class COLREGClassifier {
         OWLLiteral xLit = this.factory.getOWLLiteral(x.toString(), decimalDatatype);
         OWLLiteral yLit = this.factory.getOWLLiteral(y.toString(), decimalDatatype);
         OWLLiteral spdLit = this.factory.getOWLLiteral(spd.toString(), decimalDatatype);
-        OWLLiteral hdgLit = this.factory.getOWLLiteral(hdg.toString(), decimalDatatype);
+        OWLLiteral hdgLit = this.factory.getOWLLiteral(hdg.toString(), decimalDatatype); 
 
         // Ship instantiation in the ontology
         axioms.add(this.factory.getOWLClassAssertionAxiom(vesselClass, vessel));
+        axioms.add(this.factory.getOWLClassAssertionAxiom(vesselCategoryClass, vessel));
         // Ship propertyies
         axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasX, vessel, xLit));
         axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasY, vessel, yLit));
         axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasSpd, vessel, spdLit));
         axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasHdg, vessel, hdgLit));
         // Add vessel to scenario
-        axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasVesselType, scenario, vessel));
-
-        // Add equipments to vessel
-        Set<OWLNamedIndividual> eqsInds = new HashSet<OWLNamedIndividual>();
-        if (!eqs.isEmpty()) {
-            for (Object eq : eqs) {
-                eqsInds.add(this.factory.getOWLNamedIndividual(IRI.create(ontologyIRI + eq.toString())));
-                axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasEq, vessel, this.factory.getOWLNamedIndividual(IRI.create(ontologyIRI + eq.toString()))));
-            }
-        }
-        OWLObjectOneOf eqsNom = this.factory.getOWLObjectOneOf(eqsInds);
-        OWLObjectAllValuesFrom restriction = this.factory.getOWLObjectAllValuesFrom(hasEq, eqsNom);
-        axioms.add(this.factory.getOWLClassAssertionAxiom(restriction, vessel));
-        // Add Status to vessel
-        if (!status.isEmpty()) {
-            axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasSt, vessel, this.factory.getOWLNamedIndividual(IRI.create(ontologyIRI + status))));
-        }
-        else {
-            IRI statusClassIRI = IRI.create(ontologyIRI + "#Status");
-            OWLClass statusClass = this.factory.getOWLClass(statusClassIRI);
-            OWLClassExpression notSt = this.factory.getOWLObjectComplementOf(statusClass);
-            OWLObjectAllValuesFrom restrictionStatus = this.factory.getOWLObjectAllValuesFrom(hasSt, notSt);
-            axioms.add(this.factory.getOWLClassAssertionAxiom(restrictionStatus, vessel));
-        }
+        axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasOwnshipOrTarget, scenario, vessel));
 
         return axioms;
     }

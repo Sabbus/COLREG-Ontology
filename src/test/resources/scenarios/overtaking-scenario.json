@@ -6,8 +6,7 @@
         "y": 0,
         "spd": 5,
         "hdg": 0,
-        "equipments": ["engine"],
-        "status": ""
+        "category": "PowerDrivenVessel"
     },
     "target": {
         "name": "pluto",
@@ -15,8 +14,7 @@
         "y": 0,
         "spd": 10,
         "hdg": 0,
-        "equipments": ["engine"],
-        "status": ""
+        "category": "PowerDrivenVessel"
     },
     "wind-dir": 0
 }

@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -33,9 +34,13 @@ class CLIApp {
     public static void main(String[] args) {
         Properties properties = new Properties();
 
-        InputStream configFile = new FileInputStream("./src/main/resources/config.properties");
-
-        properties.load(input);
+        // try {
+        //     InputStream configFile = new FileInputStream("./src/main/resources/config.properties");
+        //     properties.load(configFile);
+        // }
+        // catch (IOException e) {
+        //     throw new RuntimeException(e);
+        // }
 
         final String pathToOntology = properties.getProperty("ontologyFilePath");
         final String ontologyIRI = properties.getProperty("ontologyIRI");

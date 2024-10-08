@@ -1,1 +1,0 @@
-mvn exec:exec -Dexec.executable="java" -Dexec.args="-classpath %classpath -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8080 io.sabbus.COLREGClassifier -f ./src/test/resources/json/scenario1.json -o ./pirla.json -p"
