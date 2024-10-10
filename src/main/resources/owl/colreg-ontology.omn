@@ -141,28 +141,28 @@ DisjointClasses: Vessel, Scenario
 DisjointClasses: PowerDrivenVessel, SailingVessel, VesselEngagedInFishing, VesselRestrictedInHerAbilityToManoeuvre, VesselConstrainedByHerDraught, VesselNotUnderCommand
 DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, SailingVesselEncounter
 
-Individual: a
-    Types: PowerDrivenVessel
-    Facts:
-        hasXPosition 0.0,
-        hasYPosition 0.0,
-        hasSpeed 10.0,
-        hasHeadingDeg 0.0
-
-Individual: b
-    Types: PowerDrivenVessel
-    Facts:
-        hasXPosition 10.0,
-        hasYPosition 0.0,
-        hasSpeed 10.0,
-        hasHeadingDeg 180.0
-
-Individual: c
-    Types: Scenario
-    Facts:
-        hasOwnship a,
-        hasTarget b,
-        hasWindDirDeg 0.0
+#Individual: a
+#    Types: PowerDrivenVessel
+#    Facts:
+#        hasXPosition 0.0,
+#        hasYPosition 0.0,
+#        hasSpeed 10.0,
+#        hasHeadingDeg 0.0
+#
+#Individual: b
+#    Types: PowerDrivenVessel
+#    Facts:
+#        hasXPosition 10.0,
+#        hasYPosition 0.0,
+#        hasSpeed 10.0,
+#        hasHeadingDeg 180.0
+#
+#Individual: c
+#    Types: Scenario
+#    Facts:
+#        hasOwnship a,
+#        hasTarget b,
+#        hasWindDirDeg 0.0
 
 ################################################################################
 # RULES ########################################################################
@@ -205,17 +205,22 @@ Rule:
     lessThan(?dotProduct, 0) -> hasBehind(?vessel1, ?vessel2)
 
 # HEAD-ON ######################################################################
-# -1 <= ?dotProduct < 175
+# 180 <= ?dotProduct < 175
 Rule: 
     hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1),
     hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
     hasAhead(?vessel1, ?vessel2), hasAhead(?vessel2, ?vessel1),
     DifferentFrom(?vessel1, ?vessel2),
     hasDotProductOfCourses(?scenario, ?dotProduct),
-    cos(?upper, 3.054326),
+    cos(?upper, 3.054326), #radians(175) = 3.054326
     lessThan(?dotProduct, ?upper), lessThanOrEqual(-1, ?dotProduct) -> HeadOn(?scenario), hasBehavior(?vessel1, "alter_course"^^xsd:string), hasBehavior(?vessel2, "alter_course"^^xsd:string)
 
-#Rule:
-#    HeadOn(?scenario),
-#    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), 
-#    DifferentFrom(?vessel1, ?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string), hasBehavior(?vessel2, "alter_course"^^xsd:string)
+# CROSSING #####################################################################
+# 175 <= ?dotProduct < 67.5
+Rule:
+    hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1),
+    hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    hasDotProductOfCourses(?scenario, ?dotProduct),
+    cos(?upper, 3.054326), cos(?lower, 1.178097), #radians(175) = 3.054326; radians(67.5) = 1.178097
+    lessThan(?dotProduct, ?upper), lessThanOrEqual(?lower, ?dotProduct) -> Crossing(?scenario), hasBehavior(?vessel1, "alter_course"^^xsd:string), hasBehavior(?vessel2, "alter_course"^^xsd:string)

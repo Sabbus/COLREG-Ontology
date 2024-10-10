@@ -96,13 +96,13 @@ public class COLREGClassifier {
         OWLNamedIndividual scenario = this.factory.getOWLNamedIndividual(IRI.create(this.ontologyIRI + scenarioName));
         OWLNamedIndividual ownship = this.factory.getOWLNamedIndividual(IRI.create(this.ontologyIRI + ownshipName));
         OWLNamedIndividual target = this.factory.getOWLNamedIndividual(IRI.create(this.ontologyIRI + targetName));
-        OWLObjectProperty hasBehavior = this.factory.getOWLObjectProperty(IRI.create(this.ontologyIRI + "hasBehavior"));
+        OWLDataProperty hasBehavior = this.factory.getOWLDataProperty(IRI.create(this.ontologyIRI + "hasBehavior"));
 
         JsonObject categorizedScenario = new JsonObject();
 
         NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
-        NodeSet<OWLNamedIndividual> ownshipBehaviors = reasoner.getObjectPropertyValues(ownship, hasBehavior);
-        NodeSet<OWLNamedIndividual> targetBehaviors = reasoner.getObjectPropertyValues(target, hasBehavior);
+        Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
+        Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior);
 
         String scenarioType = new String();
         List<String> situationCategories = Arrays.asList(this.situationCategories);
@@ -119,28 +119,19 @@ public class COLREGClassifier {
         }
         categorizedScenario.put("category", scenarioType);
 
-        System.out.println(ownshipBehaviors);
-        JsonArray oBehaviors = new JsonArray();
-        for (Node<OWLNamedIndividual> node : ownshipBehaviors) {
-            Set<OWLNamedIndividual> set = node.getEntities();
-            for (OWLNamedIndividual behavior : set) {
-                oBehaviors.add("");
-            }
-        }
-        categorizedScenario.put("ownship-behavior", oBehaviors);
+        OWLLiteral[] ownshipBehaviorArray = new OWLLiteral[1];
+        ownshipBehaviorArray = ownshipBehavior.toArray(ownshipBehaviorArray);
+        categorizedScenario.put("ownship-behavior", ownshipBehaviorArray[0].getLiteral());
 
-        JsonArray tBehaviors = new JsonArray();
-        for (Node<OWLNamedIndividual> node : targetBehaviors) {
-            Set<OWLNamedIndividual> set = node.getEntities();
-            for (OWLNamedIndividual behavior : set) {
-                tBehaviors.add("");
-            }
-        }
-        categorizedScenario.put("target-behavior", tBehaviors);
+        OWLLiteral[] targetBehaviorArray = new OWLLiteral[1];
+        targetBehaviorArray = targetBehavior.toArray(targetBehaviorArray);
+        categorizedScenario.put("target-behavior", targetBehaviorArray[0].getLiteral());
 
         JsonObject result = new JsonObject();
         result.put("scenario", scenarioJson);
         result.put("classification", categorizedScenario);
+
+        this.manager.removeAxioms(this.ontology, axioms);
 
         return result;
     }

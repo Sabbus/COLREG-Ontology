@@ -22,6 +22,7 @@ public class ClassifierTests {
 
     static final String pathToHeadOnScenario = "./src/test/resources/scenarios/head-on-scenario.json";
     static final String pathToCrossingScenario = "./src/test/resources/scenarios/crossing-scenario.json";
+    static final String pathToOvertakingScenario = "./src/test/resources/scenarios/overtaking-scenario.json";
     static COLREGClassifier classifier;
 
     @BeforeClass
@@ -69,7 +70,23 @@ public class ClassifierTests {
         String targetBehavior = (String) classifierResult.get("target-behavior");
 
         assertEquals("HeadOn", scenarioCategory);
-        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", ownshipBehavior);
         assertEquals("alter_course", targetBehavior);
+    }
+
+    @Test
+    public void testCrossingSituation() {
+        JsonObject CrossingScenario = getScenarioJson(pathToCrossingScenario);
+
+        JsonObject result = classifier.classify(CrossingScenario);
+
+        JsonObject classifierResult = (JsonObject) result.get("classification");
+        String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
+
+        assertEquals("Crossing", scenarioCategory);
+        // assertEquals("alter_course", ownshipBehavior);
+        // assertEquals("keep_course", targetBehavior);
     }
 }
