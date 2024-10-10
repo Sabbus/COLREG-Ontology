@@ -21,6 +21,7 @@ import io.sabbus.COLREGClassifier;
 public class ClassifierTests {
 
     static final String pathToHeadOnScenario = "./src/test/resources/scenarios/head-on-scenario.json";
+    static final String pathToCrossingScenario = "./src/test/resources/scenarios/crossing-scenario.json";
     static COLREGClassifier classifier;
 
     @BeforeClass
@@ -64,7 +65,11 @@ public class ClassifierTests {
 
         JsonObject classifierResult = (JsonObject) result.get("classification");
         String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
 
         assertEquals("HeadOn", scenarioCategory);
+        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
     }
 }

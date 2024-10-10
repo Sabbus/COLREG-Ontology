@@ -23,10 +23,19 @@ ObjectProperty: hasTarget
     Domain: Scenario
     Range: Vessel
     
-    
 ObjectProperty: hasVessel
     Domain: Scenario
     Range: Vessel
+
+ObjectProperty: hasAhead
+    Domain: Vessel
+    Range: Vessel
+    DisjointWith: hasBehind
+    
+ObjectProperty: hasBehind
+    Domain: Vessel
+    Range: Vessel
+    DisjointWith: hasAhead
     
 ################################################################################
 # OBJECTPROPERTIES #############################################################
@@ -132,9 +141,34 @@ DisjointClasses: Vessel, Scenario
 DisjointClasses: PowerDrivenVessel, SailingVessel, VesselEngagedInFishing, VesselRestrictedInHerAbilityToManoeuvre, VesselConstrainedByHerDraught, VesselNotUnderCommand
 DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, SailingVesselEncounter
 
+Individual: a
+    Types: PowerDrivenVessel
+    Facts:
+        hasXPosition 0.0,
+        hasYPosition 0.0,
+        hasSpeed 10.0,
+        hasHeadingDeg 0.0
+
+Individual: b
+    Types: PowerDrivenVessel
+    Facts:
+        hasXPosition 10.0,
+        hasYPosition 0.0,
+        hasSpeed 10.0,
+        hasHeadingDeg 180.0
+
+Individual: c
+    Types: Scenario
+    Facts:
+        hasOwnship a,
+        hasTarget b,
+        hasWindDirDeg 0.0
+
 ################################################################################
 # RULES ########################################################################
 ################################################################################
+
+# UTILS ########################################################################
 Rule: 
     hasHeadingDeg(?vessel, ?heading), multiply(?headingRad, ?heading, 0.017) -> hasHeadingRad(?vessel, ?headingRad)
 
@@ -151,6 +185,37 @@ Rule:
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), 
     subtract(?difference, ?ownshipHeading, ?targetHeading), sin(?sin, ?difference) -> hasCrossProductOfCourses(?scenario, ?sin)
 
+# RELATIVE POSITIONING #########################################################
+Rule:
+    hasVessel(?scenario, ?vessel1), hasHeadingRad(?vessel1, ?headingRad), hasXPosition(?vessel1, ?x1), hasYPosition(?vessel1, ?y1),
+    hasVessel(?scenario, ?vessel2), hasXPosition(?vessel2, ?x2), hasYPosition(?vessel2, ?y2),
+    DifferentFrom(?vessel1, ?vessel2),
+    subtract(?deltaX, ?x2, ?x1), subtract(?deltaY, ?y2, ?y1),
+    cos(?cos, ?headingRad), sin(?sin, ?headingRad),
+    multiply(?deltaXCos, ?deltaX, ?cos), multiply(?deltaYSin, ?deltaY, ?sin), add(?dotProduct, ?deltaXCos, ?deltaYSin),
+    greaterThanOrEqual(?dotProduct, 0) -> hasAhead(?vessel1, ?vessel2)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasHeadingRad(?vessel1, ?headingRad), hasXPosition(?vessel1, ?x1), hasYPosition(?vessel1, ?y1),
+    hasVessel(?scenario, ?vessel2), hasXPosition(?vessel2, ?x2), hasYPosition(?vessel2, ?y2),
+    DifferentFrom(?vessel1, ?vessel2),
+    subtract(?deltaX, ?x2, ?x1), subtract(?deltaY, ?y2, ?y1),
+    cos(?cos, ?headingRad), sin(?sin, ?headingRad),
+    multiply(?deltaXCos, ?deltaX, ?cos), multiply(?deltaYSin, ?deltaY, ?sin), add(?dotProduct, ?deltaXCos, ?deltaYSin),
+    lessThan(?dotProduct, 0) -> hasBehind(?vessel1, ?vessel2)
+
+# HEAD-ON ######################################################################
+# -1 <= ?dotProduct < 175
 Rule: 
-    hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1), 
-    hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2) -> HeadOn(?scenario)
+    hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1),
+    hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
+    hasAhead(?vessel1, ?vessel2), hasAhead(?vessel2, ?vessel1),
+    DifferentFrom(?vessel1, ?vessel2),
+    hasDotProductOfCourses(?scenario, ?dotProduct),
+    cos(?upper, 3.054326),
+    lessThan(?dotProduct, ?upper), lessThanOrEqual(-1, ?dotProduct) -> HeadOn(?scenario), hasBehavior(?vessel1, "alter_course"^^xsd:string), hasBehavior(?vessel2, "alter_course"^^xsd:string)
+
+#Rule:
+#    HeadOn(?scenario),
+#    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), 
+#    DifferentFrom(?vessel1, ?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string), hasBehavior(?vessel2, "alter_course"^^xsd:string)

@@ -119,6 +119,7 @@ public class COLREGClassifier {
         }
         categorizedScenario.put("category", scenarioType);
 
+        System.out.println(ownshipBehaviors);
         JsonArray oBehaviors = new JsonArray();
         for (Node<OWLNamedIndividual> node : ownshipBehaviors) {
             Set<OWLNamedIndividual> set = node.getEntities();
