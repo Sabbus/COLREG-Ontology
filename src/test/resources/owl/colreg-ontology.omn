@@ -233,7 +233,7 @@ Rule:
     lessThan(?dotProduct, 0) -> hasOnPortside(?vessel1, ?vessel2)
 
 # HEAD-ON ######################################################################
-# 180 <= ?dotProduct < 175
+# cos(180) <= ?dotProduct < cos(175)
 Rule: 
     hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1),
     hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
@@ -241,10 +241,18 @@ Rule:
     DifferentFrom(?vessel1, ?vessel2),
     hasDotProductOfCourses(?scenario, ?dotProduct),
     cos(?upper, 3.054326), #radians(175) = 3.054326
-    lessThan(?dotProduct, ?upper), lessThanOrEqual(-1, ?dotProduct) -> HeadOn(?scenario), hasBehavior(?vessel1, "alter_course"^^xsd:string), hasBehavior(?vessel2, "alter_course"^^xsd:string)
+    lessThan(?dotProduct, ?upper), lessThanOrEqual(-1, ?dotProduct) -> HeadOn(?scenario)
+
+Rule:
+    HeadOn(?scenario),
+    hasOwnship(?scenario, ?ownship) -> hasBehavior(?ownship, "alter_course"^^xsd:string)
+
+Rule:
+    HeadOn(?scenario),
+    hasTarget(?scenario, ?target) -> hasBehavior(?target, "alter_course"^^xsd:string)
 
 # CROSSING #####################################################################
-# 175 <= ?dotProduct < 67.5
+# cos(175) <= ?dotProduct < cos(67.5)
 Rule:
     hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1),
     hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
@@ -268,4 +276,22 @@ Rule:
     hasOnPortside(?ownship, ?target), hasOnStarboard(?target, ?ownship) -> hasBehavior(?target, "alter_course"^^xsd:string)
 
 # OVERTAKING ###################################################################
-# 175 <= ?dotProduct < 67.5
+# cos(67.5) <= ?dotProduct <= cos(0)
+
+Rule:    
+    hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1),
+    hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    hasDotProductOfCourses(?scenario, ?dotProduct),
+    cos(?lower, 1.178097), #radians(67.5) = 1.178097
+    lessThanOrEqual(?dotProduct, 1), lessThanOrEqual(?lower, ?dotProduct) -> Overtaking(?scenario)
+
+Rule:
+    Overtaking(?scenario),
+    hasOwnship(?scenario, ?ownship), hasTarget(?scenario, ?target),
+    hasBehind(?ownship, ?target), hasAhead(?target, ?ownship) -> hasBehavior(?ownship, "keep_course"^^xsd:string)
+
+Rule:
+    Overtaking(?scenario),
+    hasTarget(?scenario, ?target), hasOwnship(?scenario, ?ownship),
+    hasAhead(?target, ?ownship), hasBehind(?ownship, ?target) -> hasBehavior(?target, "alter_course"^^xsd:string)
