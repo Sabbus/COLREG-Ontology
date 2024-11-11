@@ -34,13 +34,13 @@ class CLIApp {
     public static void main(String[] args) {
         Properties properties = new Properties();
 
-        // try {
-        //     InputStream configFile = new FileInputStream("./src/main/resources/config.properties");
-        //     properties.load(configFile);
-        // }
-        // catch (IOException e) {
-        //     throw new RuntimeException(e);
-        // }
+        try {
+            InputStream configFile = new FileInputStream("./src/main/resources/config.properties");
+            properties.load(configFile);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         final String pathToOntology = properties.getProperty("ontologyFilePath");
         final String ontologyIRI = properties.getProperty("ontologyIRI");

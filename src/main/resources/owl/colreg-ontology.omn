@@ -37,6 +37,16 @@ ObjectProperty: hasBehind
     Range: Vessel
     DisjointWith: hasAhead
     
+ObjectProperty: hasOnStarboard
+    Domain: Vessel
+    Range: Vessel
+    DisjointWith: hasOnPortside
+    
+ObjectProperty: hasOnPortside
+    Domain: Vessel
+    Range: Vessel
+    DisjointWith: hasOnStarboard
+    
 ################################################################################
 # OBJECTPROPERTIES #############################################################
 ################################################################################
@@ -153,9 +163,9 @@ DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, Sailing
 #    Types: PowerDrivenVessel
 #    Facts:
 #        hasXPosition 10.0,
-#        hasYPosition 0.0,
+#        hasYPosition -10.0,
 #        hasSpeed 10.0,
-#        hasHeadingDeg 180.0
+#        hasHeadingDeg 90.0
 #
 #Individual: c
 #    Types: Scenario
@@ -204,6 +214,24 @@ Rule:
     multiply(?deltaXCos, ?deltaX, ?cos), multiply(?deltaYSin, ?deltaY, ?sin), add(?dotProduct, ?deltaXCos, ?deltaYSin),
     lessThan(?dotProduct, 0) -> hasBehind(?vessel1, ?vessel2)
 
+Rule:
+    hasVessel(?scenario, ?vessel1), hasHeadingRad(?vessel1, ?headingRad), add(?starboardDir, ?headingRad, 1.570796), hasXPosition(?vessel1, ?x1), hasYPosition(?vessel1, ?y1),
+    hasVessel(?scenario, ?vessel2), hasXPosition(?vessel2, ?x2), hasYPosition(?vessel2, ?y2),
+    DifferentFrom(?vessel1, ?vessel2),
+    subtract(?deltaX, ?x2, ?x1), subtract(?deltaY, ?y2, ?y1),
+    cos(?cos, ?starboardDir), sin(?sin, ?starboardDir),
+    multiply(?deltaXCos, ?deltaX, ?cos), multiply(?deltaYSin, ?deltaY, ?sin), add(?dotProduct, ?deltaXCos, ?deltaYSin),
+    greaterThanOrEqual(?dotProduct, 0) -> hasOnStarboard(?vessel1, ?vessel2)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasHeadingRad(?vessel1, ?headingRad), add(?starboardDir, ?headingRad, 1.570796), hasXPosition(?vessel1, ?x1), hasYPosition(?vessel1, ?y1),
+    hasVessel(?scenario, ?vessel2), hasXPosition(?vessel2, ?x2), hasYPosition(?vessel2, ?y2),
+    DifferentFrom(?vessel1, ?vessel2),
+    subtract(?deltaX, ?x2, ?x1), subtract(?deltaY, ?y2, ?y1),
+    cos(?cos, ?starboardDir), sin(?sin, ?starboardDir),
+    multiply(?deltaXCos, ?deltaX, ?cos), multiply(?deltaYSin, ?deltaY, ?sin), add(?dotProduct, ?deltaXCos, ?deltaYSin),
+    lessThan(?dotProduct, 0) -> hasOnPortside(?vessel1, ?vessel2)
+
 # HEAD-ON ######################################################################
 # 180 <= ?dotProduct < 175
 Rule: 
@@ -222,5 +250,27 @@ Rule:
     hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     hasDotProductOfCourses(?scenario, ?dotProduct),
-    cos(?upper, 3.054326), cos(?lower, 1.178097), #radians(175) = 3.054326; radians(67.5) = 1.178097
-    lessThan(?dotProduct, ?upper), lessThanOrEqual(?lower, ?dotProduct) -> Crossing(?scenario), hasBehavior(?vessel1, "alter_course"^^xsd:string), hasBehavior(?vessel2, "alter_course"^^xsd:string)
+    cos(?lower, 3.054326), cos(?upper, 1.178097), #radians(175) = 3.054326; radians(67.5) = 1.178097
+    lessThan(?dotProduct, ?upper), lessThanOrEqual(?lower, ?dotProduct) -> Crossing(?scenario)
+
+#Rule:
+#    Crossing(?scenario),
+#    hasOwnship(?scenario, ?ownship), hasTarget(?scenario, ?target),
+#    hasCrossProductOfCourses(?scenario, ?crossProduct),
+#    greaterThan(?crossProduct, 0),
+#    hasOnPortside(?ownship, ?target), hasOnStarboard(?target, ?ownship) -> hasBehavior(?ownship, "keep_course"^^xsd:string), hasBehavior(?target, "alter_course"^^xsd:string)
+#
+#Rule:
+#    Crossing(?scenario),
+#    hasOwnship(?scenario, ?ownship), hasTarget(?scenario, ?target),
+#    hasCrossProductOfCourses(?scenario, ?crossProduct),
+#    lessThanOrEqual(?crossProduct, 0),
+#    hasOnPortside(?target, ?ownship), hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"^^xsd:string), hasBehavior(?target, "keep_course"^^xsd:string)
+
+Rule:
+    Crossing(?scenario),
+    hasOwnship(?scenario, ?ownship) -> hasBehavior(?ownship, "keep_course"^^xsd:string)
+
+Rule:
+    Crossing(?scenario),
+    hasTarget(?scenario, ?target) -> hasBehavior(?target, "alter_course"^^xsd:string)

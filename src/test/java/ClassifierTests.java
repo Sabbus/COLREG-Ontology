@@ -1,6 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -23,10 +23,10 @@ public class ClassifierTests {
     static final String pathToHeadOnScenario = "./src/test/resources/scenarios/head-on-scenario.json";
     static final String pathToCrossingScenario = "./src/test/resources/scenarios/crossing-scenario.json";
     static final String pathToOvertakingScenario = "./src/test/resources/scenarios/overtaking-scenario.json";
-    static COLREGClassifier classifier;
+    COLREGClassifier classifier;
 
-    @BeforeClass
-    public static void createCOLREGClassifierInstance() {
+    @Before
+    public void createCOLREGClassifierInstance() {
         Properties properties = new Properties();
 
         try {
@@ -79,6 +79,7 @@ public class ClassifierTests {
         JsonObject CrossingScenario = getScenarioJson(pathToCrossingScenario);
 
         JsonObject result = classifier.classify(CrossingScenario);
+        System.out.println(result);
 
         JsonObject classifierResult = (JsonObject) result.get("classification");
         String scenarioCategory = (String) classifierResult.get("category");
@@ -86,7 +87,23 @@ public class ClassifierTests {
         String targetBehavior = (String) classifierResult.get("target-behavior");
 
         assertEquals("Crossing", scenarioCategory);
-        // assertEquals("alter_course", ownshipBehavior);
-        // assertEquals("keep_course", targetBehavior);
+        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
+    }
+
+    @Test
+    public void testOvertakingSituation() {
+        JsonObject OvertakingScenario = getScenarioJson(pathToOvertakingScenario);
+
+        JsonObject result = classifier.classify(OvertakingScenario);
+
+        JsonObject classifierResult = (JsonObject) result.get("classification");
+        String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
+
+        assertEquals("Overtaking", scenarioCategory);
+        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
     }
 }
