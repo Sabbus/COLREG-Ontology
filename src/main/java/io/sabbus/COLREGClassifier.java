@@ -104,9 +104,9 @@ public class COLREGClassifier {
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
         Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior);
 
-        System.out.println(scenarioTypes);
-        System.out.println(ownshipBehavior);
-        System.out.println(targetBehavior);
+        // System.out.println(scenarioTypes);
+        // System.out.println(ownshipBehavior);
+        // System.out.println(targetBehavior);
 
         String scenarioType = new String();
         List<String> situationCategories = Arrays.asList(this.situationCategories);
