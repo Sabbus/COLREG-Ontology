@@ -108,48 +108,52 @@ DataProperty: hasYPosition
 ################################################################################
 # CLASSES ######################################################################
 ################################################################################
+
+# SCENARIOS ####################################################################
 Class: Scenario
     EquivalentTo: Crossing or DifferentVesselEncounter or HeadOn or Overtaking or SailingVesselEncounter
     
-Class: Crossing
-    SubClassOf: Scenario
-    
-Class: DifferentVesselEncounter
-    SubClassOf: Scenario
-    
 Class: HeadOn
+    SubClassOf: Scenario
+    
+Class: Crossing
     SubClassOf: Scenario
     
 Class: Overtaking
     SubClassOf: Scenario
     
+Class: SailingVesselEncounter
+    SubClassOf: Scenario
+    
+Class: DifferentVesselEncounter
+    SubClassOf: Scenario
+
+DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, SailingVesselEncounter
+
+# VESSELS ######################################################################
+Class: Vessel
+    EquivalentTo: PowerDrivenVessel or SailingVessel or VesselConstrainedByHerDraught or VesselEngagedInFishing or VesselNotUnderCommand or VesselRestrictedInHerAbilityToManoeuvre
+
 Class: PowerDrivenVessel
     SubClassOf: Vessel
     
 Class: SailingVessel
     SubClassOf: Vessel
     
-Class: SailingVesselEncounter
-    SubClassOf: Scenario
-    
-Class: Vessel
-    EquivalentTo: PowerDrivenVessel or SailingVessel or VesselConstrainedByHerDraught or VesselEngagedInFishing or VesselNotUnderCommand or VesselRestrictedInHerAbilityToManoeuvre
-
-Class: VesselConstrainedByHerDraught
-    SubClassOf: Vessel
-    
 Class: VesselEngagedInFishing
-    SubClassOf: Vessel
-    
-Class: VesselNotUnderCommand
     SubClassOf: Vessel
     
 Class: VesselRestrictedInHerAbilityToManoeuvre
     SubClassOf: Vessel
     
+Class: VesselConstrainedByHerDraught
+    SubClassOf: Vessel
+    
+Class: VesselNotUnderCommand
+    SubClassOf: Vessel
+    
 DisjointClasses: Vessel, Scenario
 DisjointClasses: PowerDrivenVessel, SailingVessel, VesselEngagedInFishing, VesselRestrictedInHerAbilityToManoeuvre, VesselConstrainedByHerDraught, VesselNotUnderCommand
-DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, SailingVesselEncounter
 
 #Individual: nave_1
 #    Types: SailingVessel
