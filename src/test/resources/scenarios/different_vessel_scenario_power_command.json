@@ -1,12 +1,12 @@
 {
-    "name": "different-vessel-scenario-power-vs-fishing",
+    "name": "different-vessel-scenario-power-vs-command",
     "ownship": {
         "name": "pippo",
         "x": 0,
         "y": 0,
         "spd": 10,
         "hdg": 0,
-        "category": "VesselEngagedInFishing"
+        "category": "VesselNotUnderCommand"
     },
     "target": {
         "name": "pluto",

@@ -57,7 +57,7 @@ public class COLREGClassifier {
     OWLOntology ontology;
     OWLDataFactory factory;
     OWLOntologyManager manager;
-    String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselN otUnderCommand"};
+    String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselNotUnderCommand"};
     String[] situationCategories = {"HeadOn", "Crossing", "Overtaking", "SailingVesselEncounter", "DifferentVesselEncounter"};
 
     public COLREGClassifier(String pathToOntology, String ontologyIRI) {

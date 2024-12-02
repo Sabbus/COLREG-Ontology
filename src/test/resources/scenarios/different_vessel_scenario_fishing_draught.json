@@ -1,12 +1,12 @@
 {
-    "name": "different-vessel-scenario-power-vs-fishing",
+    "name": "different-vessel-scenario-fishing-vs-draught",
     "ownship": {
         "name": "pippo",
         "x": 0,
         "y": 0,
         "spd": 10,
         "hdg": 0,
-        "category": "VesselEngagedInFishing"
+        "category": "VesselConstrainedByHerDraught"
     },
     "target": {
         "name": "pluto",
@@ -14,7 +14,7 @@
         "y": 0,
         "spd": 10,
         "hdg": 180,
-        "category": "PowerDrivenVessel"
+        "category": "VesselEngagedInFishing"
     },
     "wind-dir": 0
 }
