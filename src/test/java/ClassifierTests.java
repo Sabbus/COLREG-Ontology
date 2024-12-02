@@ -27,7 +27,9 @@ public class ClassifierTests {
     static final String pathToOvertakingScenarioOwnshipGiveWay = "./src/test/resources/scenarios/overtaking_scenario_ownship_giveway.json";
     static final String pathToSailingVesselsDifferentSideScenarioOwnshipStandOn = "./src/test/resources/scenarios/sailing_vessels_different_side_ownship_standon.json";
     static final String pathToSailingVesselsDifferentSideScenarioOwnshipGiveWay = "./src/test/resources/scenarios/sailing_vessels_different_side_ownship_giveway.json";
-    static final String pathToSailingVesselsSameSideScenario = "./src/test/resources/scenarios/sailing_vessels_same_side.json";
+    static final String pathToSailingVesselsSameSideScenarioOwnshipStandOn = "./src/test/resources/scenarios/sailing_vessels_same_side_ownship_standon.json";
+    static final String pathToDifferentVesselsPowerVsSailing = "./src/test/resources/scenarios/different_vessel_scenario_power_sailing.json";
+    static final String pathToDifferentVesselsPowerVsFishing = "./src/test/resources/scenarios/different_vessel_scenario_power_fishing.json";
     COLREGClassifier classifier;
 
     @Before
@@ -173,5 +175,53 @@ public class ClassifierTests {
         assertEquals("SailingVesselEncounter", scenarioCategory);
         assertEquals("alter_course", ownshipBehavior);
         assertEquals("keep_course", targetBehavior);
+    }
+
+    @Test
+    public void testSailingVesselsSameSideSituationOwnshipStandOn() {
+        JsonObject SailingVesselsSameSideScenarioOwnshipStandOn = getScenarioJson(pathToSailingVesselsSameSideScenarioOwnshipStandOn);
+
+        JsonObject result = classifier.classify(SailingVesselsSameSideScenarioOwnshipStandOn);
+
+        JsonObject classifierResult = (JsonObject) result.get("classification");
+        String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
+
+        assertEquals("SailingVesselEncounter", scenarioCategory);
+        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
+    }
+
+    @Test
+    public void testDifferentVesselsPowerVsSailing() {
+        JsonObject DifferentVesselsPowerVsSailing = getScenarioJson(pathToDifferentVesselsPowerVsSailing);
+
+        JsonObject result = classifier.classify(DifferentVesselsPowerVsSailing);
+
+        JsonObject classifierResult = (JsonObject) result.get("classification");
+        String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
+
+        assertEquals("DifferentVesselEncounter", scenarioCategory);
+        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
+    }
+
+    @Test
+    public void testDifferentVesselsPowerVsFishing() {
+        JsonObject DifferentVesselsPowerVsFishing = getScenarioJson(pathToDifferentVesselsPowerVsFishing);
+
+        JsonObject result = classifier.classify(DifferentVesselsPowerVsFishing);
+
+        JsonObject classifierResult = (JsonObject) result.get("classification");
+        String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
+
+        assertEquals("DifferentVesselEncounter", scenarioCategory);
+        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
     }
 }

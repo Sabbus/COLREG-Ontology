@@ -58,7 +58,7 @@ public class COLREGClassifier {
     OWLDataFactory factory;
     OWLOntologyManager manager;
     String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselN otUnderCommand"};
-    String[] situationCategories = {"HeadOn", "Crossing", "Overtaking", "SailingVesselEncounter", "DifferentVesselsEncounter"};
+    String[] situationCategories = {"HeadOn", "Crossing", "Overtaking", "SailingVesselEncounter", "DifferentVesselEncounter"};
 
     public COLREGClassifier(String pathToOntology, String ontologyIRI) {
         try {
@@ -104,9 +104,11 @@ public class COLREGClassifier {
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
         Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior);
 
+        // System.out.println(scenarioJson.get("name"));
         // System.out.println(scenarioTypes);
         // System.out.println(ownshipBehavior);
         // System.out.println(targetBehavior);
+        // System.out.println("\n");
 
         String scenarioType = new String();
         List<String> situationCategories = Arrays.asList(this.situationCategories);

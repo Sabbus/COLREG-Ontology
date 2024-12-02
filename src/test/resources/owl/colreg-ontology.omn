@@ -48,7 +48,7 @@ ObjectProperty: hasOnPortside
     DisjointWith: hasOnStarboard
     
 ################################################################################
-# OBJECTPROPERTIES #############################################################
+# DATAPROPERTIES ###############################################################
 ################################################################################
 DataProperty: hasBehavior
     Domain: Vessel
@@ -160,7 +160,7 @@ DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, Sailing
 #        hasHeadingDeg 0.0
 #
 #Individual: nave_2
-#    Types: SailingVessel
+#    Types: PowerDrivenVessel
 #    Facts:
 #        hasXPosition 10.0,
 #        hasYPosition 0.0,
@@ -321,11 +321,13 @@ Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
     hasBehind(?vessel1, ?vessel2), hasAhead(?vessel2, ?vessel1) -> hasBehavior(?vessel2, "alter_course"^^xsd:string)
 
-# SAILING VESSEL ENCOUNTER: DIFFERENT SIDE #####################################
+# SAILING VESSEL ENCOUNTER #####################################################
 
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
     SailingVessel(?vessel1), SailingVessel(?vessel2) -> SailingVesselEncounter(?scenario)
+
+# SAILING VESSEL ENCOUNTER: DIFFERENT SIDE #####################################
 
 Rule:
     SailingVesselEncounter(?scenario),
@@ -336,3 +338,253 @@ Rule:
     SailingVesselEncounter(?scenario),
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
     hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string) -> hasBehavior(?vessel2, "alter_course"^^xsd:string)
+
+# SAILING VESSEL ENCOUNTER: SAME SIDE ##########################################
+
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+    hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "starboard"^^xsd:string),
+    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+    hasWindDirRad(?scenario, ?windDir),
+    cos(?windX, ?windDir), sin(?windY, ?windDir),
+    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+    lessThan(?dotProduct, 0) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+    hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "starboard"^^xsd:string),
+    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+    hasWindDirRad(?scenario, ?windDir),
+    cos(?windX, ?windDir), sin(?windY, ?windDir),
+    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+    lessThan(?dotProduct, 0) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+    hasWindOnSide(?vessel1, "portside"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string),
+    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+    hasWindDirRad(?scenario, ?windDir),
+    cos(?windX, ?windDir), sin(?windY, ?windDir),
+    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+    lessThan(?dotProduct, 0) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+    hasWindOnSide(?vessel1, "portside"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string),
+    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+    hasWindDirRad(?scenario, ?windDir),
+    cos(?windX, ?windDir), sin(?windY, ?windDir),
+    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+    lessThan(?dotProduct, 0) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: POWER vs SAILING #################################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), SailingVessel(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    DifferentVesselEncounter(?scenario), hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), SailingVessel(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    DifferentVesselEncounter(?scenario), hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), SailingVessel(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: POWER vs FISHING #################################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: POWER vs MANOEUVRERING ###########################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: POWER vs DRAUGHT #################################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: POWER vs COMMAND #################################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    PowerDrivenVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs FISHING ###############################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs MANOEUVRERING #########################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs DRAUGHT ###############################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs COMMAND ###############################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    SailingVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: FISHING vs MANOEUVRERING #########################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: FISHING vs DRAUGHT ###############################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+
+# DIFFERENT VESSEL ENCOUNTER: FISHING vs COMMAND ###############################
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselNotUnderCommand(?vessel2) -> DifferentVesselEncounter(?scenario)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselNotUnderCommand(?vessel2) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+
+Rule:
+    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
+    DifferentFrom(?vessel1, ?vessel2),
+    VesselEngagedInFishing(?vessel1), VesselNotUnderCommand(?vessel2) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
