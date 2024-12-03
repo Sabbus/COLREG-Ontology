@@ -6,7 +6,7 @@ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 
 Prefix: : <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>
 
-Ontology: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology>
+Ontology: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology> <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology-v0.1.0>
 
 ################################################################################
 # OBJECTPROPERTIES #############################################################
