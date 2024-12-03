@@ -308,12 +308,14 @@ Rule:
 # cos(67.5) <= ?dotProduct <= cos(0)
 
 Rule:    
-    hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1),
-    hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2),
+    hasVessel(?scenario, ?vessel1), PowerDrivenVessel(?vessel1), hasSpeed(?vessel1, ?vessel1Speed),
+    hasVessel(?scenario, ?vessel2), PowerDrivenVessel(?vessel2), hasSpeed(?vessel2, ?vessel2Speed),
     DifferentFrom(?vessel1, ?vessel2),
     hasDotProductOfCourses(?scenario, ?dotProduct),
     cos(?lower, 1.178097), #radians(67.5) = 1.178097
-    lessThanOrEqual(?dotProduct, 1), lessThanOrEqual(?lower, ?dotProduct) -> Overtaking(?scenario)
+    lessThanOrEqual(?dotProduct, 1), lessThanOrEqual(?lower, ?dotProduct),
+    hasBehind(?vessel1, ?vessel2), hasAhead(?vessel2, ?vessel1), 
+    lessThan(?vessel1Speed, ?vessel2Speed) -> Overtaking(?scenario)
 
 Rule:
     Overtaking(?scenario),

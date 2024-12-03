@@ -1,10 +1,10 @@
 {
-    "name": "overtaking-scenario",
+    "name": "Overtaking scenario with own ship give-way",
     "ownship": {
         "name": "pippo",
         "x": 0,
         "y": 0,
-        "spd": 5,
+        "spd": 10,
         "hdg": 0,
         "category": "PowerDrivenVessel"
     },
@@ -12,7 +12,7 @@
         "name": "pluto",
         "x": 10,
         "y": 0,
-        "spd": 10,
+        "spd": 5,
         "hdg": 0,
         "category": "PowerDrivenVessel"
     },

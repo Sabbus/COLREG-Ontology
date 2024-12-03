@@ -1,5 +1,5 @@
 {
-    "name": "overtaking-scenario",
+    "name": "Overtaking scenario with own ship stan-on",
     "ownship": {
         "name": "pippo",
         "x": 0,
