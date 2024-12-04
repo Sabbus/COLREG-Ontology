@@ -46,6 +46,12 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import openllet.owlapi.OpenlletReasoner;
 import openllet.owlapi.OpenlletReasonerFactory;
 
+import de.derivo.sparqldlapi.Query;
+import de.derivo.sparqldlapi.QueryEngine;
+import de.derivo.sparqldlapi.QueryResult;
+import de.derivo.sparqldlapi.exceptions.QueryEngineException;
+import de.derivo.sparqldlapi.exceptions.QueryParserException;
+
 public class COLREGClassifier {
 
     enum VesselType {
@@ -86,6 +92,22 @@ public class COLREGClassifier {
         // }
 
         OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
+        // QueryEngine engine = QueryEngine.create(this.manager, reasoner);
+        // try {
+        //     QueryResult queryResult = engine.execute(
+        //         Query.create(
+        //             "PREFIX a: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>\n" +
+        //             "SELECT ?scenario ?ship ?bearing WHERE {\n" + 
+        //                 "PropertyValue(?ship, a:hasAbsoluteBearing, ?bearing), \n" + 
+        //                 "Type(?scenario, a:Scenario)\n" +
+        //             "}"
+        //         )
+        //     );
+        //     System.out.println(queryResult.toString());
+        // }
+        // catch(QueryParserException | QueryEngineException e) {
+        //     throw new RuntimeException(e);
+        // }
 
         JsonObject ownshipJson = (JsonObject) scenarioJson.get("ownship");
         JsonObject targetJson = (JsonObject) scenarioJson.get("target");
