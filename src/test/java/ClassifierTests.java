@@ -78,14 +78,14 @@ public class ClassifierTests {
     @Test
     public void testHeadOnSituation() {
         JsonObject headOnScenario = getScenarioJson(pathToHeadOnScenario);
-
+    
         JsonObject result = classifier.classify(headOnScenario);
-
+    
         JsonObject classifierResult = (JsonObject) result.get("classification");
         String scenarioCategory = (String) classifierResult.get("category");
         String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
         String targetBehavior = (String) classifierResult.get("target-behavior");
-
+    
         assertEquals("HeadOn", scenarioCategory);
         assertEquals("alter_course", ownshipBehavior);
         assertEquals("alter_course", targetBehavior);
@@ -94,31 +94,15 @@ public class ClassifierTests {
     @Test
     public void testCrossingOwnshipStandOnSituation() {
         JsonObject CrossingScenario = getScenarioJson(pathToCrossingScenarioOwnshipStandOn);
-
+    
         JsonObject result = classifier.classify(CrossingScenario);
-
+    
         JsonObject classifierResult = (JsonObject) result.get("classification");
         String scenarioCategory = (String) classifierResult.get("category");
         String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
         String targetBehavior = (String) classifierResult.get("target-behavior");
-
+    
         assertEquals("Crossing", scenarioCategory);
-        assertEquals("keep_course", ownshipBehavior);
-        assertEquals("alter_course", targetBehavior);
-    }
-
-    @Test
-    public void testOvertakingOwnshipStandOnSituation() {
-        JsonObject OvertakingScenario = getScenarioJson(pathToOvertakingScenarioOwnshipStandOn);
-
-        JsonObject result = classifier.classify(OvertakingScenario);
-
-        JsonObject classifierResult = (JsonObject) result.get("classification");
-        String scenarioCategory = (String) classifierResult.get("category");
-        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
-        String targetBehavior = (String) classifierResult.get("target-behavior");
-
-        assertEquals("Overtaking", scenarioCategory);
         assertEquals("keep_course", ownshipBehavior);
         assertEquals("alter_course", targetBehavior);
     }
@@ -126,17 +110,33 @@ public class ClassifierTests {
     @Test
     public void testCrossingOwnshipGiveWaySituation() {
         JsonObject CrossingScenario = getScenarioJson(pathToCrossingScenarioOwnshipGiveWay);
-
+    
         JsonObject result = classifier.classify(CrossingScenario);
-
+    
         JsonObject classifierResult = (JsonObject) result.get("classification");
         String scenarioCategory = (String) classifierResult.get("category");
         String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
         String targetBehavior = (String) classifierResult.get("target-behavior");
-
+    
         assertEquals("Crossing", scenarioCategory);
         assertEquals("alter_course", ownshipBehavior);
         assertEquals("keep_course", targetBehavior);
+    }
+
+    @Test
+    public void testOvertakingOwnshipStandOnSituation() {
+        JsonObject OvertakingScenario = getScenarioJson(pathToOvertakingScenarioOwnshipStandOn);
+    
+        JsonObject result = classifier.classify(OvertakingScenario);
+    
+        JsonObject classifierResult = (JsonObject) result.get("classification");
+        String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
+    
+        assertEquals("Overtaking", scenarioCategory);
+        assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
     }
 
     @Test

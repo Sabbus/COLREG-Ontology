@@ -97,9 +97,16 @@ public class COLREGClassifier {
         //     QueryResult queryResult = engine.execute(
         //         Query.create(
         //             "PREFIX a: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>\n" +
-        //             "SELECT ?scenario ?ship ?bearing WHERE {\n" + 
-        //                 "PropertyValue(?ship, a:hasAbsoluteBearing, ?bearing), \n" + 
-        //                 "Type(?scenario, a:Scenario)\n" +
+        //             "SELECT ?ownship ?property ?target WHERE {\n" + 
+        //                 "PropertyValue(?ownship, ?property, ?target), \n" + 
+        //                 "Type(?ownship, a:OwnShip), \n" +
+        //                 "Type(?target, a:TargetShip) \n" +
+        //             "} OR WHERE {\n" +
+        //                 "PropertyValue(?ownship, ?property, ?target), \n" + 
+        //                 "Type(?ownship, a:OwnShip), \n" +
+        //                 "DataProperty(?property) \n" +
+        //             "} OR WHERE{\n" +
+        //                 "PropertyValue(?ownship, a:print, ?target) \n" +
         //             "}"
         //         )
         //     );
