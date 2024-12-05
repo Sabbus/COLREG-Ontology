@@ -43,7 +43,24 @@ ObjectProperty: hasOnPortside
     Domain: OwnShip
     Range: TargetShip
 
+ObjectProperty: hasBowInSight
+    Domain: OwnShip
+    Range: TargetShip
+
+ObjectProperty: hasSternInSight
+    Domain: OwnShip
+    Range: TargetShip
+
+ObjectProperty: hasStarboardInSight
+    Domain: OwnShip
+    Range: TargetShip
+
+ObjectProperty: hasPortsideInSight
+    Domain: OwnShip
+    Range: TargetShip
+
 DisjointProperties: hasAhead, hasBehind, hasOnStarboard, hasOnPortside
+DisjointProperties: hasBowInSight, hasSternInSight, hasStarboardInSight, hasPortsideInSight
 
 ################################################################################
 # DATAPROPERTIES ###############################################################
@@ -103,11 +120,6 @@ DataProperty: hasXPosition
 DataProperty: hasYPosition
     Domain: Vessel
     Range: xsd:decimal
-    Characteristics: Functional
-
-DataProperty: hasInSight
-    Domain: OwnShip
-    Range: {"portside", "starboard", "bow", "stern"}
     Characteristics: Functional
 
 DataProperty: hasAbsoluteBearing
@@ -319,7 +331,7 @@ Rule:
     divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasOnStarboard(?ownship, ?target)
+    greaterThan(?tanAlpha, ?lower) -> hasOnStarboard(?ownship, ?target), print(?ownship, ?tanAlpha)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -489,7 +501,7 @@ Rule:
     subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
     cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
     equal(?deltaX, 0), equal(?cos, 0),
-    greaterThan(?deltaY, 0) -> hasInSight(?ownship, "bow"^^xsd:string)
+    greaterThan(?deltaY, 0) -> hasBowInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -497,7 +509,7 @@ Rule:
     subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
     cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
     equal(?deltaX, 0), equal(?cos, 0),
-    lessThan(?deltaY, 0) -> hasInSight(?ownship, "stern"^^xsd:string)
+    lessThan(?deltaY, 0) -> hasSternInSight(?ownship, ?target)
 
 # ?deltaX = 0 AND ?cos != 0 AND ?sin = 0
 Rule:
@@ -506,7 +518,7 @@ Rule:
     subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
     cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
     equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    greaterThan(?deltaY, 0) -> hasInSight(?ownship, "starboard"^^xsd:string)
+    greaterThan(?deltaY, 0) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -514,7 +526,7 @@ Rule:
     subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
     cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
     equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    lessThan(?deltaY, 0) -> hasInSight(?ownship, "portside"^^xsd:string)
+    lessThan(?deltaY, 0) -> hasPortsideInSight(?ownship, ?target)
 
 # ?deltaX != 0 AND ?cos = 0 AND ?deltaY = 0
 Rule:
@@ -523,7 +535,7 @@ Rule:
     subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
     cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
     equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    greaterThan(?deltaX, 0) -> hasInSight(?ownship, "portside"^^xsd:string)
+    greaterThan(?deltaX, 0) -> hasPortsideInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -531,7 +543,7 @@ Rule:
     subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
     cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
     equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    lessThan(?deltaX, 0) -> hasInSight(?ownship, "starboard"^^xsd:string)
+    lessThan(?deltaX, 0) -> hasStarboardInSight(?ownship, ?target)
 
 # ?den = 0
 Rule:
@@ -542,7 +554,7 @@ Rule:
     notEqual(?deltaX, 0), notEqual(?cos, 0),
     divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
     equal(?den, 0),
-    greaterThan(?deltaY, 0) -> hasInSight(?ownship, "starboard"^^xsd:string)
+    greaterThan(?deltaY, 0) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -552,7 +564,7 @@ Rule:
     notEqual(?deltaX, 0), notEqual(?cos, 0),
     divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
     equal(?den, 0),
-    lessThan(?deltaY, 0) -> hasInSight(?ownship, "portside"^^xsd:string)
+    lessThan(?deltaY, 0) -> hasPortsideInSight(?ownship, ?target)
 
 # ?deltaX = 0 AND ?cos != 0
 Rule:
@@ -564,7 +576,7 @@ Rule:
     divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasInSight(?ownship, "bow"^^xsd:string)
+    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasBowInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -575,7 +587,7 @@ Rule:
     divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasInSight(?ownship, "starboard"^^xsd:string)
+    greaterThan(?tanAlpha, ?lower) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -586,7 +598,7 @@ Rule:
     divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
     tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasInSight(?ownship, "stern"^^xsd:string)
+    greaterThanOrEqual(?tanAlpha, ?lower) -> hasSternInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -597,7 +609,7 @@ Rule:
     divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
     tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasInSight(?ownship, "stern"^^xsd:string)
+    lessThanOrEqual(?tanAlpha, ?upper) -> hasSternInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -608,7 +620,7 @@ Rule:
     divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasInSight(?ownship, "portside"^^xsd:string)
+    lessThan(?tanAlpha, ?upper) -> hasPortsideInSight(?ownship, ?target)
 
 # ?deltaX != 0 AND ?cos = 0
 Rule:
@@ -620,7 +632,7 @@ Rule:
     divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasInSight(?ownship, "bow"^^xsd:string)
+    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasBowInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -631,7 +643,7 @@ Rule:
     divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasInSight(?ownship, "starboard"^^xsd:string)
+    greaterThan(?tanAlpha, ?lower) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -642,7 +654,7 @@ Rule:
     divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
     tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasInSight(?ownship, "stern"^^xsd:string)
+    greaterThanOrEqual(?tanAlpha, ?lower) -> hasSternInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -653,7 +665,7 @@ Rule:
     divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
     tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasInSight(?ownship, "stern"^^xsd:string)
+    lessThanOrEqual(?tanAlpha, ?upper) -> hasSternInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -664,7 +676,7 @@ Rule:
     divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasInSight(?ownship, "portside"^^xsd:string)
+    lessThan(?tanAlpha, ?upper) -> hasPortsideInSight(?ownship, ?target)
 
 # ?deltaX != 0 AND ?cos != 0
 Rule:
@@ -677,7 +689,7 @@ Rule:
     notEqual(?den, 0),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasInSight(?ownship, "bow"^^xsd:string)
+    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasBowInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -689,7 +701,7 @@ Rule:
     notEqual(?den, 0),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasInSight(?ownship, "starboard"^^xsd:string)
+    lessThan(?tanAlpha, ?upper) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -701,7 +713,7 @@ Rule:
     notEqual(?den, 0),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
     tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasInSight(?ownship, "stern"^^xsd:string)
+    greaterThanOrEqual(?tanAlpha, ?lower) -> hasSternInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -713,7 +725,7 @@ Rule:
     notEqual(?den, 0),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
     tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasInSight(?ownship, "stern"^^xsd:string)
+    lessThanOrEqual(?tanAlpha, ?upper) -> hasSternInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -724,14 +736,14 @@ Rule:
     divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
     multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
     tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasInSight(?ownship, "portside"^^xsd:string), print(?ownship, ?tanAlpha)
+    greaterThan(?tanAlpha, ?lower) -> hasPortsideInSight(?ownship, ?target)
 
 # HEAD-ON ######################################################################
 # cos(180) <= ?dotProduct < cos(175)
 Rule: 
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target), 
-    hasAhead(?ownship, ?target), hasInSight(?ownship, "bow"^^xsd:string) -> HeadOn(?scenario)
+    hasAhead(?ownship, ?target), hasBowInSight(?ownship, ?target) -> HeadOn(?scenario)
 
 Rule:
     HeadOn(?scenario),
@@ -746,73 +758,73 @@ Rule:
 Rule:
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
-    hasOnPortside(?ownship, ?target), hasInSight(?ownship, "starboard"^^xsd:string) -> Crossing(?scenario)
+    hasOnPortside(?ownship, ?target), hasStarboardInSight(?ownship, ?target) -> Crossing(?scenario)
 
 Rule:
     Crossing(?scenario),
     hasOwnship(?scenario, ?ownship), hasTarget(?scenario, ?target),
-    hasOnPortside(?ownship, ?target), hasInSight(?ownship, "starboard"^^xsd:string) -> hasBehavior(?ownship, "keep_course"^^xsd:string)
+    hasOnPortside(?ownship, ?target), hasStarboardInSight(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"^^xsd:string)
 
 Rule:
     Crossing(?scenario),
     hasOwnship(?scenario, ?ownship), hasTarget(?scenario, ?target),
-    hasOnPortside(?ownship, ?target), hasInSight(?ownship, "starboard"^^xsd:string) -> hasBehavior(?target, "alter_course"^^xsd:string)
+    hasOnPortside(?ownship, ?target), hasStarboardInSight(?ownship, ?target) -> hasBehavior(?target, "alter_course"^^xsd:string)
 
 Rule:
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
-    hasOnStarboard(?ownship, ?target), hasInSight(?ownship, "portside"^^xsd:string) -> Crossing(?scenario)
+    hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> Crossing(?scenario)
 
 Rule:
     Crossing(?scenario),
     hasOwnship(?scenario, ?ownship), hasTarget(?scenario, ?target),
-    hasOnStarboard(?ownship, ?target), hasInSight(?ownship, "portside"^^xsd:string) -> hasBehavior(?ownship, "alter_course"^^xsd:string)
+    hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"^^xsd:string)
 
 Rule:
     Crossing(?scenario),
     hasOwnship(?scenario, ?ownship), hasTarget(?scenario, ?target),
-    hasOnStarboard(?ownship, ?target), hasInSight(?ownship, "portside"^^xsd:string) -> hasBehavior(?target, "keep_course"^^xsd:string)
+    hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> hasBehavior(?target, "keep_course"^^xsd:string)
 
 # OVERTAKING ###################################################################
 # cos(67.5) <= ?dotProduct <= cos(0)
 Rule:
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship), hasSpeed(?ownship, ?ownshipSpeed),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target), hasSpeed(?target, ?targetSpeed),
-    hasBehind(?ownship, ?target), hasInSight(?ownship, "bow"^^xsd:string),
+    hasBehind(?ownship, ?target), hasBowInSight(?ownship, ?target),
     lessThan(?ownshipSpeed, ?targetSpeed) -> Overtaking(?scenario)
 
 Rule:
     Overtaking(?scenario),
     hasOwnship(?scenario, ?ownship), hasSpeed(?ownship, ?ownshipSpeed),
     hasTarget(?scenario, ?target), hasSpeed(?target, ?targetSpeed),
-    hasBehind(?ownship, ?target), hasInSight(?ownship, "bow"^^xsd:string),
+    hasBehind(?ownship, ?target), hasBowInSight(?ownship, ?target),
     lessThan(?ownshipSpeed, ?targetSpeed) -> hasBehavior(?ownship, "keep_course"^^xsd:string)
 
 Rule:
     Overtaking(?scenario),
     hasOwnship(?scenario, ?ownship), hasSpeed(?ownship, ?ownshipSpeed),
     hasTarget(?scenario, ?target), hasSpeed(?target, ?targetSpeed),
-    hasBehind(?ownship, ?target), hasInSight(?ownship, "bow"^^xsd:string),
+    hasBehind(?ownship, ?target), hasBowInSight(?ownship, ?target),
     lessThan(?ownshipSpeed, ?targetSpeed) -> hasBehavior(?target, "alter_course"^^xsd:string)
 
 Rule:
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship), hasSpeed(?ownship, ?ownshipSpeed),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target), hasSpeed(?target, ?targetSpeed),
-    hasAhead(?ownship, ?target), hasInSight(?ownship, "stern"^^xsd:string),
+    hasAhead(?ownship, ?target), hasSternInSight(?ownship, ?target),
     greaterThan(?ownshipSpeed, ?targetSpeed) -> Overtaking(?scenario)
 
 Rule:
     Overtaking(?scenario),
     hasOwnship(?scenario, ?ownship), hasSpeed(?ownship, ?ownshipSpeed),
     hasTarget(?scenario, ?target), hasSpeed(?target, ?targetSpeed),
-    hasAhead(?ownship, ?target), hasInSight(?ownship, "stern"^^xsd:string),
+    hasAhead(?ownship, ?target), hasSternInSight(?ownship, ?target),
     greaterThan(?ownshipSpeed, ?targetSpeed) -> hasBehavior(?target, "keep_course"^^xsd:string)
 
 Rule:
     Overtaking(?scenario),
     hasOwnship(?scenario, ?ownship), hasSpeed(?ownship, ?ownshipSpeed),
     hasTarget(?scenario, ?target), hasSpeed(?target, ?targetSpeed),
-    hasAhead(?ownship, ?target), hasInSight(?ownship, "stern"^^xsd:string),
+    hasAhead(?ownship, ?target), hasSternInSight(?ownship, ?target),
     greaterThan(?ownshipSpeed, ?targetSpeed) -> hasBehavior(?ownship, "alter_course"^^xsd:string)
 
 # SAILING VESSEL ENCOUNTER #####################################################
@@ -834,48 +846,96 @@ Rule:
 # SAILING VESSEL ENCOUNTER: SAME SIDE ##########################################
 Rule:
     SailingVesselEncounter(?scenario),
-    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
-    hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "starboard"^^xsd:string),
-    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
-    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
-    hasWindDirRad(?scenario, ?windDir),
-    cos(?windX, ?windDir), sin(?windY, ?windDir),
-    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
-    lessThan(?dotProduct, 0) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"^^xsd:string),
+    hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"^^xsd:string)
 
 Rule:
     SailingVesselEncounter(?scenario),
-    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
-    hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "starboard"^^xsd:string),
-    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
-    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
-    hasWindDirRad(?scenario, ?windDir),
-    cos(?windX, ?windDir), sin(?windY, ?windDir),
-    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
-    lessThan(?dotProduct, 0) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"^^xsd:string),
+    hasOnStarboard(?ownship, ?target) -> hasBehavior(?target, "alter_course"^^xsd:string)
 
 Rule:
     SailingVesselEncounter(?scenario),
-    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
-    hasWindOnSide(?vessel1, "portside"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string),
-    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
-    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
-    hasWindDirRad(?scenario, ?windDir),
-    cos(?windX, ?windDir), sin(?windY, ?windDir),
-    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
-    lessThan(?dotProduct, 0) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"^^xsd:string),
+    hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"^^xsd:string)
 
 Rule:
     SailingVesselEncounter(?scenario),
-    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
-    hasWindOnSide(?vessel1, "portside"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string),
-    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
-    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
-    hasWindDirRad(?scenario, ?windDir),
-    cos(?windX, ?windDir), sin(?windY, ?windDir),
-    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
-    lessThan(?dotProduct, 0) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"^^xsd:string),
+    hasOnPortside(?ownship, ?target) -> hasBehavior(?target, "keep_course"^^xsd:string)
 
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"^^xsd:string),
+    hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"^^xsd:string)
+
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"^^xsd:string),
+    hasOnStarboard(?ownship, ?target) -> hasBehavior(?target, "keep_course"^^xsd:string)
+
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"^^xsd:string),
+    hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"^^xsd:string)
+
+Rule:
+    SailingVesselEncounter(?scenario),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"^^xsd:string),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"^^xsd:string),
+    hasOnPortside(?ownship, ?target) -> hasBehavior(?target, "alter_course"^^xsd:string)
+
+#Rule:
+#    SailingVesselEncounter(?scenario),
+#    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+#    hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "starboard"^^xsd:string),
+#    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+#    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+#    hasWindDirRad(?scenario, ?windDir),
+#    cos(?windX, ?windDir), sin(?windY, ?windDir),
+#    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+#    lessThan(?dotProduct, 0) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+#
+#Rule:
+#    SailingVesselEncounter(?scenario),
+#    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+#    hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "starboard"^^xsd:string),
+#    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+#    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+#    hasWindDirRad(?scenario, ?windDir),
+#    cos(?windX, ?windDir), sin(?windY, ?windDir),
+#    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+#    lessThan(?dotProduct, 0) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+#
+#Rule:
+#    SailingVesselEncounter(?scenario),
+#    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+#    hasWindOnSide(?vessel1, "portside"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string),
+#    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+#    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+#    hasWindDirRad(?scenario, ?windDir),
+#    cos(?windX, ?windDir), sin(?windY, ?windDir),
+#    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+#    lessThan(?dotProduct, 0) -> hasBehavior(?vessel1, "alter_course"^^xsd:string)
+#
+#Rule:
+#    SailingVesselEncounter(?scenario),
+#    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+#    hasWindOnSide(?vessel1, "portside"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string),
+#    hasXPosition(?vessel1, ?vessel1X), hasYPosition(?vessel1, ?vessel1Y), hasXPosition(?vessel2, ?vessel2X), hasYPosition(?vessel2, ?vessel2Y),
+#    subtract(?deltaX, ?vessel1X, ?vessel2X), subtract(?deltaY, ?vessel1Y, ?vessel2Y),
+#    hasWindDirRad(?scenario, ?windDir),
+#    cos(?windX, ?windDir), sin(?windY, ?windDir),
+#    multiply(?temp1, ?deltaX, ?windX), multiply(?temp2, ?deltaY, ?windY), add(?dotProduct, ?temp1, ?temp2),
+#    lessThan(?dotProduct, 0) -> hasBehavior(?vessel2, "keep_course"^^xsd:string)
+#
 # DIFFERENT VESSEL ENCOUNTER: POWER vs SAILING #################################
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),

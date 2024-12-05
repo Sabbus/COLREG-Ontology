@@ -72,9 +72,7 @@ public class COLREGClassifier {
 
             this.ontologyIRI = IRI.create(ontologyIRI);
             this.manager = OWLManager.createOWLOntologyManager();
-            this.ontology = this.manager.loadOntologyFromOntologyDocument(ontologyFile);
-            this.factory = this.manager.getOWLDataFactory();
-        }
+            this.ontology = this.manager.loadOntologyFromOntologyDocument(ontologyFile); this.factory = this.manager.getOWLDataFactory(); }
         catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }
@@ -92,29 +90,29 @@ public class COLREGClassifier {
         // }
 
         OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
-        // QueryEngine engine = QueryEngine.create(this.manager, reasoner);
-        // try {
-        //     QueryResult queryResult = engine.execute(
-        //         Query.create(
-        //             "PREFIX a: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>\n" +
-        //             "SELECT ?ownship ?property ?target WHERE {\n" + 
-        //                 "PropertyValue(?ownship, ?property, ?target), \n" + 
-        //                 "Type(?ownship, a:OwnShip), \n" +
-        //                 "Type(?target, a:TargetShip) \n" +
-        //             "} OR WHERE {\n" +
-        //                 "PropertyValue(?ownship, ?property, ?target), \n" + 
-        //                 "Type(?ownship, a:OwnShip), \n" +
-        //                 "DataProperty(?property) \n" +
-        //             "} OR WHERE{\n" +
-        //                 "PropertyValue(?ownship, a:print, ?target) \n" +
-        //             "}"
-        //         )
-        //     );
-        //     System.out.println(queryResult.toString());
-        // }
-        // catch(QueryParserException | QueryEngineException e) {
-        //     throw new RuntimeException(e);
-        // }
+        QueryEngine engine = QueryEngine.create(this.manager, reasoner);
+        try {
+            QueryResult queryResult = engine.execute(
+                Query.create(
+                    "PREFIX a: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>\n" +
+                    "SELECT ?ownship ?property ?target WHERE {\n" + 
+                        "PropertyValue(?ownship, ?property, ?target), \n" + 
+                        "Type(?ownship, a:OwnShip), \n" +
+                        "Type(?target, a:TargetShip) \n" +
+                    "} OR WHERE {\n" +
+                        "PropertyValue(?ownship, ?property, ?target), \n" + 
+                        "Type(?ownship, a:OwnShip), \n" +
+                        "DataProperty(?property) \n" +
+                    "} OR WHERE{\n" +
+                        "PropertyValue(?ownship, a:print, ?target) \n" +
+                    "}"
+                )
+            );
+            System.out.println(queryResult.toString());
+        }
+        catch(QueryParserException | QueryEngineException e) {
+            throw new RuntimeException(e);
+        }
 
         JsonObject ownshipJson = (JsonObject) scenarioJson.get("ownship");
         JsonObject targetJson = (JsonObject) scenarioJson.get("target");
