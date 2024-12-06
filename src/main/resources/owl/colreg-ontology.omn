@@ -238,271 +238,137 @@ Rule:
     subtract(?difference, ?ownshipHeading, ?targetHeading), sin(?sin, ?difference) -> hasCrossProductOfCourses(?scenario, ?sin)
 
 # RELATIVE POSITIONING #########################################################
-# ?deltaX = 0 AND ?cos = 0
+# RELATIVE POSITIONING: ?deltaXPrime = 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), equal(?cos, 0),
-    greaterThan(?deltaY, 0) -> hasAhead(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    equal(?deltaXPrime, 0),
+    greaterThan(?deltaYPrimeSigned, 0) -> hasOnStarboard(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), equal(?cos, 0),
-    lessThan(?deltaY, 0) -> hasBehind(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    equal(?deltaXPrime, 0),
+    lessThan(?deltaYPrimeSigned, 0) -> hasOnPortside(?ownship, ?target)
 
-# ?deltaX = 0 AND ?cos != 0 AND ?sin = 0
+# RELATIVE POSITIONING: ?deltaXPrime != 0 AND ?deltaYPrime = 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    greaterThan(?deltaY, 0) -> hasOnStarboard(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    lessThan(?deltaY, 0) -> hasOnPortside(?ownship, ?target)
-
-# ?deltaX != 0 AND ?cos = 0 AND ?deltaY = 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    greaterThan(?deltaX, 0) -> hasOnPortside(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), equal(?deltaYPrime, 0),
+    greaterThan(?deltaXPrimeSigned, 0) -> hasAhead(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    lessThan(?deltaX, 0) -> hasOnStarboard(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), equal(?deltaYPrime, 0),
+    lessThan(?deltaXPrimeSigned, 0) -> hasBehind(?ownship, ?target)
 
-# ?den = 0
+# RELATIVE POSITIONING: ?deltaXPrime != 0 AND ?deltaYPrime != 0 AND ?deltaXPrimeSigned > 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    equal(?den, 0),
-    greaterThan(?deltaY, 0) -> hasOnStarboard(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    equal(?den, 0),
-    lessThan(?deltaY, 0) -> hasOnPortside(?ownship, ?target)
-
-# ?deltaX = 0 AND ?cos != 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasAhead(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), greaterThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, -0.043633), tan(?upper, 0.043633),
+    greaterThanOrEqual(?tan, ?lower), lessThanOrEqual(?tan, ?upper) -> hasAhead(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasOnStarboard(?ownship, ?target), print(?ownship, ?tanAlpha)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), greaterThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, 0.043633),
+    greaterThan(?tan, ?lower) -> hasOnStarboard(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?upper, 1.963495),
-    lessThan(?tanAlpha, ?upper) -> hasOnStarboard(?ownship, ?target), print(?ownship, ?tanAlpha)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), greaterThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -0.043633),
+    lessThan(?tan, ?upper) -> hasOnPortside(?ownship, ?target)
+
+# RELATIVE POSITIONING: ?deltaXPrime != 0 AND ?deltaYPrime != 0 AND ?deltaXPrimeSigned < 0
+Rule:
+    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
+    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, 1.963495),
+    lessThan(?tan, ?upper) -> hasOnStarboard(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasBehind(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, -1.963495),
+    greaterThan(?tan, ?lower) -> hasOnPortside(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasBehind(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, 1.963495),
+    greaterThanOrEqual(?tan, ?lower) -> hasBehind(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasOnPortside(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, -1.963495),
-    greaterThan(?tanAlpha, ?lower) -> hasOnPortside(?ownship, ?target)
-
-# ?deltaX != 0 AND ?cos = 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasAhead(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasOnStarboard(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasBehind(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasBehind(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasOnPortside(?ownship, ?target)
-
-# ?deltaX != 0 AND ?cos != 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasAhead(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasOnStarboard(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasBehind(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasBehind(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?targetX, ?ownshipX), subtract(?deltaYSigned, ?targetY, ?ownshipY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?ownshipHeading), sin(?sinSigned, ?ownshipHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasOnPortside(?ownship, ?target)
+    subtract(?deltaX, ?targetX, ?ownshipX), subtract(?deltaY, ?targetY, ?ownshipY),
+    cos(?cos, ?ownshipHeading), sin(?sin, ?ownshipHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -1.963495),
+    lessThanOrEqual(?tan, ?upper) -> hasBehind(?ownship, ?target)
 
 # WIND #########################################################################
 Rule:
@@ -516,249 +382,137 @@ Rule:
     subtract(?difference, ?heading, ?windDir), sin(?sin, ?difference), greaterThan(?sin, 0) -> hasWindOnSide(?vessel, "starboard"^^xsd:string)
 
 # SIGHTING #####################################################################
-# ?deltaX = 0 AND ?cos = 0
+# SIGHTING: ?deltaXPrime = 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), equal(?cos, 0),
-    greaterThan(?deltaY, 0) -> hasBowInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    equal(?deltaXPrime, 0),
+    greaterThan(?deltaYPrimeSigned, 0) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), equal(?cos, 0),
-    lessThan(?deltaY, 0) -> hasSternInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    equal(?deltaXPrime, 0),
+    lessThan(?deltaYPrimeSigned, 0) -> hasPortsideInSight(?ownship, ?target)
 
-# ?deltaX = 0 AND ?cos != 0 AND ?sin = 0
+# SIGHTING: ?deltaXPrime != 0 AND ?deltaYPrime = 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    greaterThan(?deltaY, 0) -> hasStarboardInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    lessThan(?deltaY, 0) -> hasPortsideInSight(?ownship, ?target)
-
-# ?deltaX != 0 AND ?cos = 0 AND ?deltaY = 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    greaterThan(?deltaX, 0) -> hasPortsideInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), equal(?deltaYPrime, 0),
+    greaterThan(?deltaXPrimeSigned, 0) -> hasBowInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), equal(?sin, 0),
-    lessThan(?deltaX, 0) -> hasStarboardInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), equal(?deltaYPrime, 0),
+    lessThan(?deltaXPrimeSigned, 0) -> hasSternInSight(?ownship, ?target)
 
-# ?den = 0
+# SIGHTING: ?deltaXPrime != 0 AND ?deltaYPrime != 0 AND ?deltaXPrimeSigned > 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    equal(?den, 0),
-    greaterThan(?deltaY, 0) -> hasStarboardInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    equal(?den, 0),
-    lessThan(?deltaY, 0) -> hasPortsideInSight(?ownship, ?target)
-
-# ?deltaX = 0 AND ?cos != 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasBowInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), greaterThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, -0.043633), tan(?upper, 0.043633),
+    greaterThanOrEqual(?tan, ?lower), lessThanOrEqual(?tan, ?upper) -> hasBowInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasStarboardInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), greaterThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, 0.043633),
+    greaterThan(?tan, ?lower) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasSternInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), greaterThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -0.043633),
+    lessThan(?tan, ?upper) -> hasPortsideInSight(?ownship, ?target)
+
+# SIGHTING: ?deltaXPrime != 0 AND ?deltaYPrime != 0 AND ?deltaXPrimeSigned < 0
+Rule:
+    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
+    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, 1.963495),
+    lessThan(?tan, ?upper) -> hasStarboardInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasSternInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, -1.963495),
+    greaterThan(?tan, ?lower) -> hasPortsideInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    equal(?deltaX, 0), notEqual(?cos, 0), notEqual(?sin, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?inverseTanTheta, 1, ?tanTheta), multiply(?tanAlpha, ?inverseTanTheta, -1),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasPortsideInSight(?ownship, ?target)
-
-# ?deltaX != 0 AND ?cos = 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasBowInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?lower, 1.963495),
+    greaterThanOrEqual(?tan, ?lower) -> hasSternInSight(?ownship, ?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasStarboardInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasSternInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasSternInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), equal(?cos, 0), notEqual(?deltaY, 0),
-    divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), divide(?tanAlpha, 1, ?tanAlphaPlusTheta),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasPortsideInSight(?ownship, ?target)
-
-# ?deltaX != 0 AND ?cos != 0
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, -0.043633), tan(?upper, 0.043633),
-    lessThanOrEqual(?tanAlpha, ?upper), greaterThanOrEqual(?tanAlpha, ?lower) -> hasBowInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?upper, -0.043633),
-    lessThan(?tanAlpha, ?upper) -> hasStarboardInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?lower, 1.963495),
-    greaterThanOrEqual(?tanAlpha, ?lower) -> hasSternInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    notEqual(?den, 0),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), lessThan(?dotProduct, 0),
-    tan(?upper, -1.963495),
-    lessThanOrEqual(?tanAlpha, ?upper) -> hasSternInSight(?ownship, ?target)
-
-Rule:
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), hasXPosition(?target, ?targetX), hasYPosition(?target, ?targetY),
-    subtract(?deltaXSigned, ?ownshipX, ?targetX), subtract(?deltaYSigned, ?ownshipY, ?targetY), abs(?deltaX, ?deltaXSigned), abs(?deltaY, ?deltaYSigned),
-    cos(?cosSigned, ?targetHeading), sin(?sinSigned, ?targetHeading), abs(?cos, ?cosSigned), abs(?sin, ?sinSigned),
-    notEqual(?deltaX, 0), notEqual(?cos, 0),
-    divide(?tanTheta, ?sin, ?cos), divide(?tanAlphaPlusTheta, ?deltaY, ?deltaX), subtract(?num, ?tanTheta, ?tanAlphaPlusTheta), multiply(?temp, ?tanTheta, ?tanAlphaPlusTheta), subtract(?den, ?temp, 1), divide(?tanAlpha, ?num, ?den),
-    multiply(?temp1, ?deltaX, ?cos), multiply(?temp2, ?deltaY, ?sin), add(?dotProduct, ?temp1, ?temp2), greaterThan(?dotProduct, 0),
-    tan(?lower, 0.043633),
-    greaterThan(?tanAlpha, ?lower) -> hasPortsideInSight(?ownship, ?target)
+    subtract(?deltaX, ?ownshipX, ?targetX), subtract(?deltaY, ?ownshipY, ?targetY),
+    cos(?cos, ?targetHeading), sin(?sin, ?targetHeading),
+    multiply(?deltaXPrime1, ?deltaX, ?cos), multiply(?deltaXPrime2, ?deltaY, ?sin), add(?deltaXPrimeSigned, ?deltaXPrime1, ?deltaXPrime2),
+    multiply(?minusDeltaX, ?deltaX, -1), multiply(?deltaYPrime1, ?minusDeltaX, ?sin), multiply(?deltaYPrime2, ?deltaY, ?cos), add(?deltaYPrimeSigned, ?deltaYPrime1, ?deltaYPrime2),
+    abs(?deltaXPrime, ?deltaXPrimeSigned), abs(?deltaYPrime, ?deltaYPrimeSigned),
+    notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrimeSigned, 0),
+    divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -1.963495),
+    lessThanOrEqual(?tan, ?upper) -> hasSternInSight(?ownship, ?target)
 
 # HEAD-ON ######################################################################
 # cos(180) <= ?dotProduct < cos(175)
