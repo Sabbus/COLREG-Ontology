@@ -40,6 +40,7 @@ public class ClassifierTests {
     static final String pathToDifferentVesselsFishingVsManoeuvre = "./src/test/resources/scenarios/different_vessel_scenario_fishing_manoeuvre.json";
     static final String pathToDifferentVesselsFishingVsDraught = "./src/test/resources/scenarios/different_vessel_scenario_fishing_draught.json";
     static final String pathToDifferentVesselsFishingVsCommand = "./src/test/resources/scenarios/different_vessel_scenario_fishing_command.json";
+    static final String pathToHeadOnScenarioWithLightsAndBearing = "./src/test/resources/scenarios/head_on_scenario_with_lights_and_bearing.json";
     COLREGClassifier classifier;
 
     @Before
@@ -392,6 +393,22 @@ public class ClassifierTests {
 
         assertEquals("DifferentVesselEncounter", scenarioCategory);
         assertEquals("keep_course", ownshipBehavior);
+        assertEquals("alter_course", targetBehavior);
+    }
+
+    @Test
+    public void testHeadOnSituationWithLightsAndBearing() {
+        JsonObject headOnScenarioWithLightsAndBearing= getScenarioJson(pathToHeadOnScenarioWithLightsAndBearing);
+
+        JsonObject result = classifier.classify(headOnScenarioWithLightsAndBearing);
+
+        JsonObject classifierResult = (JsonObject) result.get("classification");
+        String scenarioCategory = (String) classifierResult.get("category");
+        String ownshipBehavior = (String) classifierResult.get("ownship-behavior");
+        String targetBehavior = (String) classifierResult.get("target-behavior");
+
+        assertEquals("HeadOn", scenarioCategory);
+        assertEquals("alter_course", ownshipBehavior);
         assertEquals("alter_course", targetBehavior);
     }
 }

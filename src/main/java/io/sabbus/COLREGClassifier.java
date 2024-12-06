@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class COLREGClassifier {
     OWLOntologyManager manager;
     String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselNotUnderCommand"};
     String[] situationCategories = {"HeadOn", "Crossing", "Overtaking", "SailingVesselEncounter", "DifferentVesselEncounter"};
-    String[] availableLights = {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight"};
+    String[] availableLights = {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight", "sternlight"};
 
     public COLREGClassifier(String pathToOntology, String ontologyIRI) {
         try {
@@ -96,16 +97,9 @@ public class COLREGClassifier {
         //     QueryResult queryResult = engine.execute(
         //         Query.create(
         //             "PREFIX a: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>\n" +
-        //             "SELECT ?ownship ?property ?target WHERE {\n" + 
-        //                 "PropertyValue(?ownship, ?property, ?target), \n" + 
-        //                 "Type(?ownship, a:OwnShip), \n" +
-        //                 "Type(?target, a:TargetShip) \n" +
-        //             "} OR WHERE {\n" +
-        //                 "PropertyValue(?ownship, ?property, ?target), \n" + 
-        //                 "Type(?ownship, a:OwnShip), \n" +
-        //                 "DataProperty(?property) \n" +
-        //             "} OR WHERE{\n" +
-        //                 "PropertyValue(?ownship, a:print, ?target) \n" +
+        //             "SELECT ?x ?y ?z WHERE {\n" + 
+        //                 "PropertyValue(?x, ?y, ?z), \n" + 
+        //                 "Type(?x, a:Vessel) \n" +
         //             "}"
         //         )
         //     );
@@ -127,10 +121,9 @@ public class COLREGClassifier {
         OWLDataProperty hasBehavior = this.factory.getOWLDataProperty(IRI.create(this.ontologyIRI + "hasBehavior"));
 
         JsonObject categorizedScenario = new JsonObject();
-
-        NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
+NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
-        Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior);
+        Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior); 
 
         // System.out.println(scenarioJson.get("name"));
         // System.out.println(scenarioTypes);
@@ -226,11 +219,14 @@ public class COLREGClassifier {
 
         IRI vesselIRI = IRI.create(ontologyIRI + name);
         IRI vesselClassIRI = IRI.create(ontologyIRI + "Vessel");
+        IRI hasOwnshipOrTargetIRI = IRI.create(ontologyIRI + ( (vesselType == VesselType.OWNSHIP) ? "hasOwnship" : "hasTarget" ));
 
         OWLNamedIndividual vessel = this.factory.getOWLNamedIndividual(vesselIRI);
         OWLClass vesselClass = this.factory.getOWLClass(vesselClassIRI);
+        OWLObjectProperty hasOwnshipOrTarget = this.factory.getOWLObjectProperty(hasOwnshipOrTargetIRI);
 
         axioms.add(this.factory.getOWLClassAssertionAxiom(vesselClass, vessel));
+        axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasOwnshipOrTarget, scenario, vessel));
 
         // Get vessel position
         BigDecimal x = (BigDecimal) vesselJson.get("x");
@@ -239,9 +235,7 @@ public class COLREGClassifier {
         if (x != null && y != null) {
             IRI hasXIRI = IRI.create(ontologyIRI + "hasXPosition");
             IRI hasYIRI = IRI.create(ontologyIRI + "hasYPosition");
-            IRI hasOwnshipOrTargetIRI = IRI.create(ontologyIRI + ( (vesselType == VesselType.OWNSHIP) ? "hasOwnship" : "hasTarget" ));
 
-            OWLObjectProperty hasOwnshipOrTarget = this.factory.getOWLObjectProperty(hasOwnshipOrTargetIRI);
             OWLDataProperty hasX = this.factory.getOWLDataProperty(hasXIRI);
             OWLDataProperty hasY = this.factory.getOWLDataProperty(hasYIRI);
             OWLLiteral xLit = this.factory.getOWLLiteral(x.toString(), decimalDatatype);
@@ -249,7 +243,6 @@ public class COLREGClassifier {
 
             axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasX, vessel, xLit));
             axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasY, vessel, yLit));
-            axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasOwnshipOrTarget, scenario, vessel));
         } else if ((x == null && y != null) || (x != null && y == null)) {
             throw new Exception("Incomplete information in json");
         }
@@ -314,6 +307,8 @@ public class COLREGClassifier {
 
         if (lights != null && vesselType == VesselType.OWNSHIP) {
             IRI hasLightIRI = IRI.create(ontologyIRI + "hasLightInSight");
+
+            Collections.sort(lights);
             
             for (String light : lights) {
 
@@ -321,12 +316,14 @@ public class COLREGClassifier {
                 if (!availableLights.contains(light)) {
                     throw new Exception("Wrong light");
                 }
-
-                OWLDataProperty hasLight = this.factory.getOWLDataProperty(hasLightIRI);
-                OWLLiteral lightLit = this.factory.getOWLLiteral(light, stringDatatype); 
-
-                axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasLight, vessel, lightLit));
             }
+
+            String light = String.join("-", lights);
+
+            OWLDataProperty hasLight = this.factory.getOWLDataProperty(hasLightIRI);
+            OWLLiteral lightLit = this.factory.getOWLLiteral(light, stringDatatype); 
+
+            axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasLight, vessel, lightLit));
         }
 
         return axioms;
