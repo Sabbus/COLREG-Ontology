@@ -65,6 +65,7 @@ public class COLREGClassifier {
     OWLOntologyManager manager;
     String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselNotUnderCommand"};
     String[] situationCategories = {"HeadOn", "Crossing", "Overtaking", "SailingVesselEncounter", "DifferentVesselEncounter"};
+    String[] availableLights = {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight"};
 
     public COLREGClassifier(String pathToOntology, String ontologyIRI) {
         try {
@@ -193,72 +194,140 @@ public class COLREGClassifier {
         OWLDatatype decimalDatatype = this.factory.getOWLDatatype(OWL2Datatype.XSD_DECIMAL.getIRI());
         OWLLiteral windDirLit = this.factory.getOWLLiteral(windDir.toString(), decimalDatatype);
 
-        Set<OWLAxiom> ownshipAxioms = getVesselAxioms(scenarioJson, ownshipJson, scenario, VesselType.OWNSHIP);
-        Set<OWLAxiom> targetAxioms = getVesselAxioms(scenarioJson, targetJson, scenario, VesselType.TARGET);
+        try {
+            Set<OWLAxiom> ownshipAxioms = getVesselAxioms(scenarioJson, ownshipJson, scenario, VesselType.OWNSHIP);
+            Set<OWLAxiom> targetAxioms = getVesselAxioms(scenarioJson, targetJson, scenario, VesselType.TARGET);
 
-        // Instantiate scenario
-        axioms.add(this.factory.getOWLClassAssertionAxiom(scenarioClass, scenario));
-        // Add wind to scenario
-        axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasWindDir, scenario, windDirLit));
-        // Add ownship axioms
-        axioms.addAll(ownshipAxioms);
-        // Add target axioms
-        axioms.addAll(targetAxioms);
-        // Add ownship != target != scenario axiom
-        axioms.add(this.factory.getOWLDifferentIndividualsAxiom(ownship, target, scenario));
+            // Instantiate scenario
+            axioms.add(this.factory.getOWLClassAssertionAxiom(scenarioClass, scenario));
+            // Add wind to scenario
+            axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasWindDir, scenario, windDirLit));
+            // Add ownship axioms
+            axioms.addAll(ownshipAxioms);
+            // Add target axioms
+            axioms.addAll(targetAxioms);
+            // Add ownship != target != scenario axiom
+            axioms.add(this.factory.getOWLDifferentIndividualsAxiom(ownship, target, scenario));
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
 
         return axioms;
     }
 
-    private Set<OWLAxiom> getVesselAxioms(JsonObject scenarioJson, JsonObject vesselJson, OWLNamedIndividual scenario, VesselType vesselType) {
+    private Set<OWLAxiom> getVesselAxioms(JsonObject scenarioJson, JsonObject vesselJson, OWLNamedIndividual scenario, VesselType vesselType) throws Exception {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
+        OWLDatatype decimalDatatype = this.factory.getOWLDatatype(OWL2Datatype.XSD_DECIMAL.getIRI());
+        OWLDatatype stringDatatype = this.factory.getOWLDatatype(OWL2Datatype.XSD_STRING.getIRI());
+
+        // Get vessel name
         String name = (String) vesselJson.get("name");
+
+        IRI vesselIRI = IRI.create(ontologyIRI + name);
+        IRI vesselClassIRI = IRI.create(ontologyIRI + "Vessel");
+
+        OWLNamedIndividual vessel = this.factory.getOWLNamedIndividual(vesselIRI);
+        OWLClass vesselClass = this.factory.getOWLClass(vesselClassIRI);
+
+        axioms.add(this.factory.getOWLClassAssertionAxiom(vesselClass, vessel));
+
+        // Get vessel position
         BigDecimal x = (BigDecimal) vesselJson.get("x");
         BigDecimal y = (BigDecimal) vesselJson.get("y");
-        BigDecimal spd = (BigDecimal) vesselJson.get("spd");
-        BigDecimal hdg = (BigDecimal) vesselJson.get("hdg");
-        String vesselCategory = (String) vesselJson.get("category");
 
-        List<String> vesselCategories = Arrays.asList(this.vesselCategories);
-        if (!vesselCategories.contains(vesselCategory)) {
-            System.out.println("[-] Wrong vessel category");
-            System.exit(1);
+        if (x != null && y != null) {
+            IRI hasXIRI = IRI.create(ontologyIRI + "hasXPosition");
+            IRI hasYIRI = IRI.create(ontologyIRI + "hasYPosition");
+            IRI hasOwnshipOrTargetIRI = IRI.create(ontologyIRI + ( (vesselType == VesselType.OWNSHIP) ? "hasOwnship" : "hasTarget" ));
+
+            OWLObjectProperty hasOwnshipOrTarget = this.factory.getOWLObjectProperty(hasOwnshipOrTargetIRI);
+            OWLDataProperty hasX = this.factory.getOWLDataProperty(hasXIRI);
+            OWLDataProperty hasY = this.factory.getOWLDataProperty(hasYIRI);
+            OWLLiteral xLit = this.factory.getOWLLiteral(x.toString(), decimalDatatype);
+            OWLLiteral yLit = this.factory.getOWLLiteral(y.toString(), decimalDatatype);
+
+            axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasX, vessel, xLit));
+            axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasY, vessel, yLit));
+            axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasOwnshipOrTarget, scenario, vessel));
+        } else if ((x == null && y != null) || (x != null && y == null)) {
+            throw new Exception("Incomplete information in json");
         }
 
-        IRI vesselClassIRI = IRI.create(ontologyIRI + "Vessel");
-        IRI vesselCategoryIRI = IRI.create(ontologyIRI + vesselCategory);
-        IRI hasXIRI = IRI.create(ontologyIRI + "hasXPosition");
-        IRI hasYIRI = IRI.create(ontologyIRI + "hasYPosition");
-        IRI hasSpdIRI = IRI.create(ontologyIRI + "hasSpeed");
-        IRI hasHdgIRI = IRI.create(ontologyIRI + "hasHeadingDeg");
-        IRI vesselIRI = IRI.create(ontologyIRI + name);
-        IRI hasOwnshipOrTargetIRI = IRI.create(ontologyIRI + ( (vesselType == VesselType.OWNSHIP) ? "hasOwnship" : "hasTarget" ));
+        // Get vessel speed
+        BigDecimal spd = (BigDecimal) vesselJson.get("spd");
 
-        OWLClass vesselClass = this.factory.getOWLClass(vesselClassIRI);
-        OWLClass vesselCategoryClass = this.factory.getOWLClass(vesselCategoryIRI);
-        OWLNamedIndividual vessel = this.factory.getOWLNamedIndividual(vesselIRI);
-        OWLObjectProperty hasOwnshipOrTarget = this.factory.getOWLObjectProperty(hasOwnshipOrTargetIRI);
-        OWLDataProperty hasX = this.factory.getOWLDataProperty(hasXIRI);
-        OWLDataProperty hasY = this.factory.getOWLDataProperty(hasYIRI);
-        OWLDataProperty hasSpd = this.factory.getOWLDataProperty(hasSpdIRI);
-        OWLDataProperty hasHdg = this.factory.getOWLDataProperty(hasHdgIRI);
-        OWLDatatype decimalDatatype = this.factory.getOWLDatatype(OWL2Datatype.XSD_DECIMAL.getIRI());
-        OWLLiteral xLit = this.factory.getOWLLiteral(x.toString(), decimalDatatype);
-        OWLLiteral yLit = this.factory.getOWLLiteral(y.toString(), decimalDatatype);
-        OWLLiteral spdLit = this.factory.getOWLLiteral(spd.toString(), decimalDatatype);
-        OWLLiteral hdgLit = this.factory.getOWLLiteral(hdg.toString(), decimalDatatype); 
+        if (spd != null) {
+            IRI hasSpdIRI = IRI.create(ontologyIRI + "hasSpeed");
 
-        // Ship instantiation in the ontology
-        axioms.add(this.factory.getOWLClassAssertionAxiom(vesselClass, vessel));
-        axioms.add(this.factory.getOWLClassAssertionAxiom(vesselCategoryClass, vessel));
-        // Ship propertyies
-        axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasX, vessel, xLit));
-        axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasY, vessel, yLit));
-        axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasSpd, vessel, spdLit));
-        axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasHdg, vessel, hdgLit));
-        // Add vessel to scenario
-        axioms.add(this.factory.getOWLObjectPropertyAssertionAxiom(hasOwnshipOrTarget, scenario, vessel));
+            OWLDataProperty hasSpd = this.factory.getOWLDataProperty(hasSpdIRI);
+            OWLLiteral spdLit = this.factory.getOWLLiteral(spd.toString(), decimalDatatype);
+
+            axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasSpd, vessel, spdLit));
+        }
+
+        // Get vessel heading
+        BigDecimal hdg = (BigDecimal) vesselJson.get("hdg");
+
+        if (hdg != null) {
+            IRI hasHdgIRI = IRI.create(ontologyIRI + "hasHeadingDeg");
+            
+            OWLDataProperty hasHdg = this.factory.getOWLDataProperty(hasHdgIRI);
+            OWLLiteral hdgLit = this.factory.getOWLLiteral(hdg.toString(), decimalDatatype); 
+
+            axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasHdg, vessel, hdgLit));
+        }
+
+        // Get vessel category
+        String vesselCategory = (String) vesselJson.get("category");
+
+        if (vesselCategory != null) {
+
+            List<String> vesselCategories = Arrays.asList(this.vesselCategories);
+            if (!vesselCategories.contains(vesselCategory)) {
+                throw new Exception("Wrong vessel category");
+            }
+
+            IRI vesselCategoryIRI = IRI.create(ontologyIRI + vesselCategory);
+
+            OWLClass vesselCategoryClass = this.factory.getOWLClass(vesselCategoryIRI);
+
+            axioms.add(this.factory.getOWLClassAssertionAxiom(vesselCategoryClass, vessel));
+        } else if (vesselCategory == null && vesselType == VesselType.OWNSHIP) {
+            throw new Exception("Own ship without a category");
+        }
+
+        // Get target ship bearing with respect to own ship
+        BigDecimal absBearing = (BigDecimal) vesselJson.get("absolute_bearing_to_ownship");
+
+        if (absBearing != null && vesselType == VesselType.TARGET) {
+            IRI hasAbsBearingIRI = IRI.create(ontologyIRI + "hasAbsoluteBearingWithRespectToOwnShip");
+            
+            OWLDataProperty hasAbsBearing = this.factory.getOWLDataProperty(hasAbsBearingIRI);
+            OWLLiteral absBearingLit = this.factory.getOWLLiteral(absBearing.toString(), decimalDatatype); 
+
+            axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasAbsBearing, vessel, absBearingLit));
+        }
+
+        // Get target ship bearing with respect to own ship
+        List<String> lights = (List<String>) vesselJson.get("lights_in_sight");
+
+        if (lights != null && vesselType == VesselType.OWNSHIP) {
+            IRI hasLightIRI = IRI.create(ontologyIRI + "hasLightInSight");
+            
+            for (String light : lights) {
+
+                List<String> availableLights = Arrays.asList(this.availableLights);
+                if (!availableLights.contains(light)) {
+                    throw new Exception("Wrong light");
+                }
+
+                OWLDataProperty hasLight = this.factory.getOWLDataProperty(hasLightIRI);
+                OWLLiteral lightLit = this.factory.getOWLLiteral(light, stringDatatype); 
+
+                axioms.add(this.factory.getOWLDataPropertyAssertionAxiom(hasLight, vessel, lightLit));
+            }
+        }
 
         return axioms;
     }

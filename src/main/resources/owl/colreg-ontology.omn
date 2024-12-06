@@ -84,7 +84,7 @@ DataProperty: hasDotProductOfCourses
     
 DataProperty: hasHeadingDeg
     Domain: Vessel
-    Range: xsd:decimal
+    Range: xsd:decimal[>=0, <=360]
     Characteristics: Functional
     
 DataProperty: hasHeadingRad
@@ -94,7 +94,7 @@ DataProperty: hasHeadingRad
     
 DataProperty: hasSpeed
     Domain: Vessel
-    Range: xsd:decimal
+    Range: xsd:decimal[>=0]
     Characteristics: Functional
     
 DataProperty: hasWindDirDeg
@@ -104,7 +104,7 @@ DataProperty: hasWindDirDeg
     
 DataProperty: hasWindDirRad
     Domain: Scenario
-    Range: xsd:decimal
+    Range: xsd:decimal[>=0, <=360]
     Characteristics: Functional
     
 DataProperty: hasWindOnSide
@@ -122,19 +122,19 @@ DataProperty: hasYPosition
     Range: xsd:decimal
     Characteristics: Functional
 
-DataProperty: hasAbsoluteBearing
+DataProperty: hasAbsoluteBearingWithRespectToOwnShip
     Domain: TargetShip
     Range: xsd:decimal[>=0, <=360]
     Characteristics: Functional
     
-DataProperty: hasRelativeBearing
+DataProperty: hasRelativeBearingWithRespectToOwnShip
     Domain: TargetShip
     Range: xsd:decimal[>=-180, <=180]
     Characteristics: Functional
 
 DataProperty: hasLightInSight
     Domain: OwnShip
-    Range: {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight"}
+    Range: {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight", "sternlight"}
     
 ################################################################################
 # CLASSES ######################################################################
@@ -236,6 +236,19 @@ Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), 
     hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), 
     subtract(?difference, ?ownshipHeading, ?targetHeading), sin(?sin, ?difference) -> hasCrossProductOfCourses(?scenario, ?sin)
+
+Rule:
+    hasOwnship(?scenario, ?ownship), hasHeadingDeg(?ownship, ?heading),
+    hasTarget(?scenario, ?target), hasAbsoluteBearingWithRespectToOwnShip(?target, ?absoluteBearing),
+    subtract(?temp1, ?absoluteBearing, ?heading),
+    mod(?temp2, ?temp1, 360), add(?temp3, ?temp1, 360), mod(?relativeBearing, ?temp3, 360), lessThanOrEqual(?relativeBearing, 180) -> hasRelativeBearingWithRespectToOwnShip(?target, ?relativeBearing)
+
+Rule:
+    hasOwnship(?scenario, ?ownship), hasHeadingDeg(?ownship, ?heading),
+    hasTarget(?scenario, ?target), hasAbsoluteBearingWithRespectToOwnShip(?target, ?absoluteBearing),
+    subtract(?temp1, ?absoluteBearing, ?heading),
+    mod(?temp2, ?temp1, 360), add(?temp3, ?temp1, 360), mod(?temp4, ?temp3, 360), greaterThan(?temp4, 180),
+    subtract(?relativeBearing, ?temp4, 360) -> hasRelativeBearingWithRespectToOwnShip(?target, ?relativeBearing)
 
 # RELATIVE POSITIONING #########################################################
 # RELATIVE POSITIONING: ?deltaXPrime = 0
@@ -358,6 +371,32 @@ Rule:
     notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrime, 0),
     divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -1.963495),
     lessThanOrEqual(?tan, ?upper) -> hasBehind(?ownship, ?target)
+
+# RELATIVE POSITIONING: BEARING
+Rule:
+    hasOwnship(?scenario, ?ownship), hasRelativeBearingWithRespectToOwnShip(?ownship, ?bearing),
+    hasTarget(?target, ?target),
+    greaterThanOrEqual(?bearing, -2.5), lessThanOrEqual(?bearing, 2.5) -> hasAhead(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship), hasRelativeBearingWithRespectToOwnShip(?ownship, ?bearing),
+    hasTarget(?target, ?target),
+    greaterThan(?bearing, 2.5), lessThan(?bearing, 112.5) -> hasOnStarboard(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship), hasRelativeBearingWithRespectToOwnShip(?ownship, ?bearing),
+    hasTarget(?target, ?target),
+    greaterThan(?bearing, -112.5), lessThan(?bearing, -2.5) -> hasOnPortside(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship), hasRelativeBearingWithRespectToOwnShip(?ownship, ?bearing),
+    hasTarget(?target, ?target),
+    greaterThanOrEqual(?bearing, 112.5), lessThanOrEqual(?bearing, 180) -> hasBehind(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship), hasRelativeBearingWithRespectToOwnShip(?ownship, ?bearing),
+    hasTarget(?target, ?target),
+    greaterThanOrEqual(?bearing, -180), lessThanOrEqual(?bearing, -112.5) -> hasBehind(?ownship, ?target)
 
 # WIND #########################################################################
 Rule:
@@ -491,6 +530,77 @@ Rule:
     notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrime, 0),
     divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -1.963495),
     lessThanOrEqual(?tan, ?upper) -> hasSternInSight(?ownship, ?target)
+
+# SIGHTING: LIGHTS FOR POWER DRIVEN VESSEL
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "green_sidelight"), hasLightInSight(?ownship, "red_sidelight") -> hasBowInSight(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "green_sidelight"), hasLightInSight(?ownship, "red_sidelight") -> PowerDrivenVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "upper_masthead_light"), hasLightInSight(?ownship, "green_sidelight"), hasLightInSight(?ownship, "red_sidelight") -> hasBowInSight(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "upper_masthead_light"), hasLightInSight(?ownship, "green_sidelight"), hasLightInSight(?ownship, "red_sidelight") -> PowerDrivenVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "green_sidelight") -> hasStarboardInSight(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "green_sidelight") -> PowerDrivenVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "upper_masthead_light"), hasLightInSight(?ownship, "green_sidelight") -> hasStarboardInSight(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "upper_masthead_light"), hasLightInSight(?ownship, "green_sidelight") -> PowerDrivenVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "red_sidelight") -> hasPortsideInSight(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "red_sidelight") -> PowerDrivenVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "upper_masthead_light"), hasLightInSight(?ownship, "red_sidelight") -> hasPortsideInSight(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "masthead_light"), hasLightInSight(?ownship, "upper_masthead_light"), hasLightInSight(?ownship, "red_sidelight") -> PowerDrivenVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "sternlight") -> hasStarboardInSight(?ownship, ?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "sternlight") -> PowerDrivenVessel(?target)
 
 # HEAD-ON ######################################################################
 # cos(180) <= ?dotProduct < cos(175)
