@@ -72,16 +72,6 @@ DataProperty: hasBehavior
     Range: {"alter_course" , "keep_course"}
     Characteristics: Functional
     
-DataProperty: hasCrossProductOfCourses
-    Domain: Scenario
-    Range: xsd:double
-    Characteristics: Functional
-    
-DataProperty: hasDotProductOfCourses
-    Domain: Scenario
-    Range: xsd:double
-    Characteristics: Functional
-    
 DataProperty: hasHeadingDeg
     Domain: Vessel
     Range: xsd:decimal[>=0, <=360]
@@ -136,6 +126,7 @@ DataProperty: hasLightInSight
     Domain: OwnShip
     #Range: {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight", "sternlight"}
     Range: xsd:string
+    Characteristics: Functional
     
 ################################################################################
 # CLASSES ######################################################################
@@ -227,16 +218,6 @@ Rule:
 
 Rule: 
     hasWindDirDeg(?vessel, ?dir), multiply(?dirRad, ?dir, 0.017453) -> hasWindDirRad(?vessel, ?dirRad)
-
-Rule: 
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), 
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), 
-    subtract(?difference, ?ownshipHeading, ?targetHeading), cos(?cos, ?difference) -> hasDotProductOfCourses(?scenario, ?cos)
-
-Rule: 
-    hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), 
-    hasTarget(?scenario, ?target), hasHeadingRad(?target, ?targetHeading), 
-    subtract(?difference, ?ownshipHeading, ?targetHeading), sin(?sin, ?difference) -> hasCrossProductOfCourses(?scenario, ?sin)
 
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingDeg(?ownship, ?heading),
@@ -620,31 +601,31 @@ Rule:
 Rule:
     SailingVesselEncounter(?scenario),
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
-    hasWindOnSide(?vessel1, "starboard"^^xsd:string), hasWindOnSide(?vessel2, "portside"^^xsd:string) -> hasBehavior(?vessel1, "keep_course"), hasBehavior(?vessel2, "alter_course")
+    hasWindOnSide(?vessel1, "starboard"), hasWindOnSide(?vessel2, "portside") -> hasBehavior(?vessel1, "keep_course"), hasBehavior(?vessel2, "alter_course")
 
 # SAILING VESSEL ENCOUNTER: SAME SIDE ##########################################
 Rule:
     SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"^^xsd:string),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"^^xsd:string),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"),
     hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
 
 Rule:
     SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"^^xsd:string),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"^^xsd:string),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"),
     hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
 
 Rule:
     SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"^^xsd:string),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"^^xsd:string),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"),
     hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
 
 Rule:
     SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"^^xsd:string),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"^^xsd:string),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"),
+    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"),
     hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
 
 # DIFFERENT VESSEL ENCOUNTER: POWER vs SAILING #################################
