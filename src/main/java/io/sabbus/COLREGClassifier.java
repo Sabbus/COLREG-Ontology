@@ -81,7 +81,16 @@ public class COLREGClassifier {
         "SailingVesselEncounterSameSidePortsideOwnshipStandOn",
         "SailingVesselEncounterSameSidePortsideOwnshipGiveWay",
         "DifferentVesselEncounter"};
-    String[] availableLights = {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight", "sternlight"};
+    String[] availableLights = {
+        "masthead_light", 
+        "upper_masthead_light", 
+        "green_sidelight", 
+        "red_sidelight",
+        "sternlight", 
+        "all_round_white_light", 
+        "all_round_green_light", 
+        "all_round_red_light"
+    };
 
     public COLREGClassifier(String pathToOntology, String ontologyIRI) {
         try {

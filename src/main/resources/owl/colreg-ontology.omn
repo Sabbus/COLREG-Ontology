@@ -668,53 +668,214 @@ Rule:
     divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -1.963495),
     lessThanOrEqual(?tan, ?upper) -> hasSternInSight(?ownship, ?target)
 
-# SIGHTING: LIGHTS FOR POWER DRIVEN VESSEL
+# LIGHTS #######################################################################
+# LIGHTS: POWER DRIVEN VESSEL LENGTH >= 50m
 Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
-    stringConcat(?temp1, "green_sidelight-", "masthead_light-"), stringConcat(?requiredLights, ?temp1, "red_sidelight"),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, ?requiredLights) -> hasBowInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    equal(?lights, "green_sidelight-masthead_light-red_sidelight-upper_masthead_light") -> hasBowInSight(?ownship, ?target), PowerDrivenVessel(?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
-    stringConcat(?temp1, "green_sidelight-", "masthead_light-"), stringConcat(?temp2, ?temp1, "red_sidelight-"), stringConcat(?requiredLights, ?temp2, "upper_masthead_light"),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, ?requiredLights) -> hasBowInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    equal(?lights, "green_sidelight-masthead_light-upper_masthead_light") -> hasStarboardInSight(?ownship, ?target), PowerDrivenVessel(?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
-    stringConcat(?requiredLights, "green_sidelight-", "masthead_light"),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, ?requiredLights) -> hasStarboardInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    equal(?lights, "masthead_light-red_sidelight-upper_masthead") -> hasPortsideInSight(?ownship, ?target), PowerDrivenVessel(?target)
+
+# LIGHTS: POWER DRIVEN VESSEL 12m <= LENGTH < 50m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "green_sidelight-masthead_light-red_sidelight") -> hasBowInSight(?ownship, ?target), PowerDrivenVessel(?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
-    stringConcat(?temp1, "green_sidelight-", "masthead_light-"), stringConcat(?requiredLights, ?temp1, "upper_masthead_light"),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, ?requiredLights) -> hasStarboardInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    equal(?lights, "green_sidelight-masthead_light") -> hasStarboardInSight(?ownship, ?target), PowerDrivenVessel(?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
-    stringConcat(?requiredLights, "masthead_light-", "red_sidelight"),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, ?requiredLights) -> hasPortsideInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    equal(?lights, "masthead_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), PowerDrivenVessel(?target)
+
+# LIGHTS: POWER DRIVEN VESSEL 7m <= LENGTH < 12m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_white_light-green_sidelight-red_sidelight") -> hasBowInSight(?ownship, ?target), PowerDrivenVessel(?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
-    stringConcat(?temp1, "masthead_light-", "red_sidelight-"), stringConcat(?requiredLights, ?temp1, "upper_masthead_light"),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, ?requiredLights) -> hasPortsideInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    equal(?lights, "all_round_white_light-green_sidelight") -> hasStarboardInSight(?ownship, ?target), PowerDrivenVessel(?target)
 
 Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
-    hasLightInSight(?ownship, "sternlight") -> hasSternInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_white_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), PowerDrivenVessel(?target)
+
+# LIGHTS: SAILING VESSEL LENGTH >= 7m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "green_sidelight-red_sidelight") -> hasBowInSight(?ownship, ?target), SailingVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "green_sidelight") -> hasStarboardInSight(?ownship, ?target), SailingVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "red_sidelight") -> hasPortsideInSight(?ownship, ?target), SailingVessel(?target)
+
+# LIGHTS: SAILING VESSEL LENGTH >= 7m WITH ALL-ROUND LIGHTS
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_red_light-green_sidelight-red_sidelight") -> hasBowInSight(?ownship, ?target), SailingVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_red_light-green_sidelight") -> hasStarboardInSight(?ownship, ?target), SailingVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_red_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), SailingVessel(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "all_round_green_light-all_round_red_light-sternlight") -> hasSternInSight(?ownship, ?target), SailingVessel(?target)
+
+# LIGHTS: FISHING VESSEL ENGAGED IN TRAWLING LENGTH >= 50m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_white_light-green_sidelight-masthead_light-red_sidelight") -> hasBowInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_white_light-green_sidelight-masthead_light") -> hasStarboardInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_white_light-masthead_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_white_light-sternlight") -> hasSternInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+# LIGHTS: FISHING VESSEL ENGAGED IN TRAWLING LENGTH < 50m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_white_light-green_sidelight-red_sidelight") -> hasBowInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_white_light-green_sidelight") -> hasStarboardInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_green_light-all_round_white_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+# LIGHTS: FISHING VESSEL NOT ENGAGED IN TRAWLING WITHOUT GEAR EXTENDING FOR MORE THAN 150m HORIZONTALLY
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-green_sidelight-red_sidelight") -> hasBowInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-green_sidelight") -> hasStarboardInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-sternlight") -> hasSternInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+# LIGHTS: FISHING VESSEL NOT ENGAGED IN TRAWLING WITH GEAR EXTENDING FOR MORE THAN 150m HORIZONTALLY
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-all_round_white_light-green_sidelight-red_sidelight") -> hasBowInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-all_round_white_light-green_sidelight") -> hasStarboardInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-all_round_white_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_white_light-all_round_white_light-sternlight") -> hasSternInSight(?ownship, ?target), VesselEngagedInFishing(?target)
+
+# LIGHTS: AMBIGOUS CASES
+# The following case is ambigous as an all-round white light could identify both the stern of a power driven vessel of length between 7 and 12 meters, or a power driven vessel less than 7 meters in length and sailing at speed not exceeding 7 Kn; the most conservative choice is represented here
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "all_round_white_light") -> PowerDrivenVessel(?target)
+
+# The following case is ambigous as a sternlight may identify both the stern of a power driven vessel or the stern of a sailing vessel
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, "sternlight") -> hasSternInSight(?ownship, ?target)
 
 # HEAD-ON ######################################################################
 Rule: 
