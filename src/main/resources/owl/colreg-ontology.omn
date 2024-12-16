@@ -863,6 +863,131 @@ Rule:
     hasLightInSight(?ownship, ?lights),
     equal(?lights, "all_round_red_light-all_round_white_light-all_round_white_light-sternlight") -> hasSternInSight(?ownship, ?target), VesselEngagedInFishing(?target)
 
+# LIGHTS: VESSEL RESTRICTED IN HER ABILITY TO MANOEUVRE LENGTH >= 50m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-green_sidelight-masthead_light-red_sidelight-upper_masthead_light") -> hasBowInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-green_sidelight-masthead_light-upper_masthead_light") -> hasStarboardInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-masthead_light-red_sidelight-upper_masthead") -> hasPortsideInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+
+# LIGHTS: VESSEL RESTRICTED IN HER ABILITY TO MANOEUVRE 12m <= LENGTH < 50m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-green_sidelight-masthead_light-red_sidelight") -> hasBowInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-green_sidelight-masthead_light") -> hasStarboardInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-masthead_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-sternlight") -> hasSternInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+
+# LIGHTS: VESSEL CONSTRAINED BY HER DRAUGHT LENGTH >= 50m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-green_sidelight-masthead_light-red_sidelight-upper_masthead_light") -> hasBowInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-green_sidelight-masthead_light-upper_masthead_light") -> hasStarboardInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-masthead_light-red_sidelight-upper_masthead_light") -> hasPortsideInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-masthead_light-red_sidelight-sternlight") -> hasSternInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+# LIGHTS: VESSEL CONSTRAINED BY HER DRAUGHT 12m <= LENGTH < 50m
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-green_sidelight-masthead_light-red_sidelight") -> hasBowInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-green_sidelight-masthead_light") -> hasStarboardInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-masthead_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_red_light-sternlight") -> hasSternInSight(?ownship, ?target), VesselConstrainedByHerDraught(?target)
+
+# LIGHTS: VESSEL NOT UNDER COMMAND
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-green_sidelight-red_sidelight") -> hasBowInSight(?ownship, ?target), VesselNotUnderCommand(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-green_sidelight") -> hasStarboardInSight(?ownship, ?target), VesselNotUnderCommand(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-red_sidelight") -> hasPortsideInSight(?ownship, ?target), VesselNotUnderCommand(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light-sternlight") -> hasSternInSight(?ownship, ?target), VesselNotUnderCommand(?target)
+
+Rule:
+    hasOwnship(?scenario, ?ownship),
+    hasTarget(?scenario, ?target),
+    hasLightInSight(?ownship, ?lights),
+    equal(?lights, "all_round_red_light-all_round_red_light") -> VesselNotUnderCommand(?target)
+
 # LIGHTS: AMBIGOUS CASES
 # The following case is ambigous as an all-round white light could identify both the stern of a power driven vessel of length between 7 and 12 meters, or a power driven vessel less than 7 meters in length and sailing at speed not exceeding 7 Kn; the most conservative choice is represented here
 
