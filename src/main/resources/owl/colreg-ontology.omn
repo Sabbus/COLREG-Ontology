@@ -1,3 +1,5 @@
+#region Prefixes, imports and ontology iri declaration
+#-------------------------------------------------------------------------------
 Prefix: owl: <http://www.w3.org/2000/07/owl#>
 Prefix: rdf: <http://www.w3.org/2000/01/rdf-schema#>
 Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -7,10 +9,11 @@ Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
 Prefix: : <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>
 
 Ontology: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology> <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology-v0.1.0>
+#-------------------------------------------------------------------------------
+#endregion
 
-################################################################################
-# OBJECTPROPERTIES #############################################################
-################################################################################
+#region Object properties
+#-------------------------------------------------------------------------------
 ObjectProperty: hasOwnship
     SubPropertyOf: hasVessel
     DisjointWith: hasTarget
@@ -74,10 +77,11 @@ ObjectProperty: fasterThan
 DisjointProperties: hasAhead, hasBehind, hasOnStarboard, hasOnPortside
 DisjointProperties: hasBowInSight, hasSternInSight, hasStarboardInSight, hasPortsideInSight
 DisjointProperties: slowerThan, fasterThan
+#-------------------------------------------------------------------------------
+#endregion
 
-################################################################################
-# DATAPROPERTIES ###############################################################
-################################################################################
+#region Data properties
+#-------------------------------------------------------------------------------
 DataProperty: print
 
 DataProperty: hasBehavior
@@ -141,11 +145,13 @@ DataProperty: hasLightInSight
     Range: xsd:string
     Characteristics: Functional
     
-################################################################################
-# CLASSES ######################################################################
-################################################################################
+#-------------------------------------------------------------------------------
+#endregion
 
-# SCENARIOS ####################################################################
+#region Classes
+#-------------------------------------------------------------------------------
+#subregion Scenario
+#-------------------------------------------------------------------------------
 Class: Scenario
     EquivalentTo: Crossing or DifferentVesselEncounter or HeadOn or Overtaking or SailingVesselEncounter
     
@@ -164,8 +170,7 @@ Class: SailingVesselEncounter
 Class: DifferentVesselEncounter
     SubClassOf: Scenario
 
-# SWRL TO OWL TRANSLATION ATTEMPT ##############################################
-
+# SWRL to OWL translation attempt
 #Class: HeadOn
 #    SubClassOf: Scenario and (hasOwnship some (hasBehavior value "alter_course")) and (hasTarget some (hasBehavior value "alter_course"))
 #    EquivalentTo: (hasOwnship some (hasAhead some TargetShip)) and (hasOwnship some (hasBowInSight some TargetShip)) and (hasOwnship some PowerDrivenVessel) and (hasTarget some PowerDrivenVessel)
@@ -301,8 +306,11 @@ Class: DifferentVesselEncounter
 #    SailingVesselEncounterSameSidePortsideOwnshipGiveWay
     
 DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, SailingVesselEncounter
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# VESSELS ######################################################################
+#subregion Vessels
+#-------------------------------------------------------------------------------
 Class: Vessel
     EquivalentTo: (PowerDrivenVessel or SailingVessel or VesselConstrainedByHerDraught or VesselEngagedInFishing or VesselNotUnderCommand or VesselRestrictedInHerAbilityToManoeuvre) and (OwnShip or TargetShip)
 
@@ -333,7 +341,13 @@ Class: VesselNotUnderCommand
 DisjointClasses: Vessel, Scenario
 DisjointClasses: OwnShip, TargetShip
 DisjointClasses: PowerDrivenVessel, SailingVessel, VesselEngagedInFishing, VesselRestrictedInHerAbilityToManoeuvre, VesselConstrainedByHerDraught, VesselNotUnderCommand
+#-------------------------------------------------------------------------------
+#endsubregion
+#-------------------------------------------------------------------------------
+#endregion
 
+#region Individual for testing in Protege
+#-------------------------------------------------------------------------------
 #Individual: nave_1
 #    Types: PowerDrivenVessel
 #    Facts:
@@ -356,12 +370,13 @@ DisjointClasses: PowerDrivenVessel, SailingVessel, VesselEngagedInFishing, Vesse
 #        hasOwnship nave_1,
 #        hasTarget nave_2,
 #        hasWindDirDeg 270.0
+#-------------------------------------------------------------------------------
+#endregion
 
-################################################################################
-# RULES ########################################################################
-################################################################################
-
-# UTILS ########################################################################
+#region Rules
+#-------------------------------------------------------------------------------
+#subregion Utility rules
+#-------------------------------------------------------------------------------
 Rule: 
     hasHeadingDeg(?vessel, ?heading), multiply(?headingRad, ?heading, 0.017453) -> hasHeadingRad(?vessel, ?headingRad)
 
@@ -386,8 +401,11 @@ Rule:
     hasVessel(?scenario, ?vessel2), hasSpeed(?vessel2, ?vessel2Speed),
     DifferentFrom(?vessel1, ?vessel2),
     greaterThan(?vessel1Speed, ?vessel2Speed) -> fasterThan(?vessel1, ?vessel2), slowerThan(?vessel2, ?vessel1)
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# RELATIVE POSITIONING #########################################################
+#subregion Relative positioning rules
+#-------------------------------------------------------------------------------
 # RELATIVE POSITIONING: ?deltaXPrime = 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -534,8 +552,11 @@ Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target), hasRelativeBearingWithRespectToOwnShip(?target, ?bearing),
     greaterThanOrEqual(?bearing, -180), lessThanOrEqual(?bearing, -112.5) -> hasBehind(?ownship, ?target)
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# WIND #########################################################################
+#subregion Wind position rules
+#-------------------------------------------------------------------------------
 Rule:
     hasVessel(?scenario, ?vessel), hasHeadingRad(?vessel, ?heading),
     hasWindDirRad(?scenario, ?windDir),
@@ -545,8 +566,11 @@ Rule:
     hasVessel(?scenario, ?vessel), hasHeadingRad(?vessel, ?heading),
     hasWindDirRad(?scenario, ?windDir),
     subtract(?difference, ?heading, ?windDir), sin(?sin, ?difference), greaterThan(?sin, 0) -> hasWindOnSide(?vessel, "starboard")
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# SIGHTING #####################################################################
+#subregion Sighting rules
+#-------------------------------------------------------------------------------
 # SIGHTING: ?deltaXPrime = 0
 Rule:
     hasOwnship(?scenario, ?ownship), hasHeadingRad(?ownship, ?ownshipHeading), hasXPosition(?ownship, ?ownshipX), hasYPosition(?ownship, ?ownshipY),
@@ -667,8 +691,11 @@ Rule:
     notEqual(?deltaXPrime, 0), notEqual(?deltaYPrime, 0), lessThan(?deltaXPrime, 0),
     divide(?tan, ?deltaYPrime, ?deltaXPrime), tan(?upper, -1.963495),
     lessThanOrEqual(?tan, ?upper) -> hasSternInSight(?ownship, ?target)
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# LIGHTS #######################################################################
+#subregion Rules for lights
+#-------------------------------------------------------------------------------
 # LIGHTS: POWER DRIVEN VESSEL LENGTH >= 50m
 Rule:
     hasOwnship(?scenario, ?ownship),
@@ -1001,14 +1028,20 @@ Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
     hasLightInSight(?ownship, "sternlight") -> hasSternInSight(?ownship, ?target)
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# HEAD-ON ######################################################################
+#subregion Head-on situation
+#-------------------------------------------------------------------------------
 Rule: 
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target), 
     hasAhead(?ownship, ?target), hasBowInSight(?ownship, ?target) -> HeadOn(?scenario), hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "alter_course")
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# CROSSING #####################################################################
+#subregion Crossing situation
+#-------------------------------------------------------------------------------
 Rule:
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
@@ -1018,9 +1051,11 @@ Rule:
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
     hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> Crossing(?scenario), hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# OVERTAKING ###################################################################
-# cos(67.5) <= ?dotProduct <= cos(0)
+#subregion Overtaking
+#-------------------------------------------------------------------------------
 Rule:
     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship), hasSpeed(?ownship, ?ownshipSpeed),
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target), hasSpeed(?target, ?targetSpeed),
@@ -1032,19 +1067,22 @@ Rule:
     hasTarget(?scenario, ?target), PowerDrivenVessel(?target), hasSpeed(?target, ?targetSpeed),
     hasAhead(?ownship, ?target), hasSternInSight(?ownship, ?target),
     greaterThan(?ownshipSpeed, ?targetSpeed) -> Overtaking(?scenario), hasBehavior(?target, "keep_course"), hasBehavior(?ownship, "alter_course")
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# SAILING VESSEL ENCOUNTER #####################################################
+#subregion Sailing vessel encounter situation
+#-------------------------------------------------------------------------------
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
     SailingVessel(?vessel1), SailingVessel(?vessel2) -> SailingVesselEncounter(?scenario)
 
-# SAILING VESSEL ENCOUNTER: DIFFERENT SIDE #####################################
+# SAILING VESSEL ENCOUNTER: DIFFERENT SIDE
 Rule:
     SailingVesselEncounter(?scenario),
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
     hasWindOnSide(?vessel1, "starboard"), hasWindOnSide(?vessel2, "portside") -> hasBehavior(?vessel1, "keep_course"), hasBehavior(?vessel2, "alter_course")
 
-# SAILING VESSEL ENCOUNTER: SAME SIDE ##########################################
+# SAILING VESSEL ENCOUNTER: SAME SIDE
 Rule:
     SailingVesselEncounter(?scenario),
     hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"),
@@ -1068,76 +1106,83 @@ Rule:
     hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"),
     hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"),
     hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
+#-------------------------------------------------------------------------------
+#endsubregion
 
-# DIFFERENT VESSEL ENCOUNTER: POWER vs SAILING #################################
+#subregion Different vessel encounter situation
+#-------------------------------------------------------------------------------
+# DIFFERENT VESSEL ENCOUNTER: POWER vs SAILING
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     PowerDrivenVessel(?vessel1), SailingVessel(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: POWER vs FISHING #################################
+# DIFFERENT VESSEL ENCOUNTER: POWER vs FISHING
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     PowerDrivenVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: POWER vs MANOEUVRERING ###########################
-
+# DIFFERENT VESSEL ENCOUNTER: POWER vs MANOEUVRERING
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     PowerDrivenVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: POWER vs DRAUGHT #################################
+# DIFFERENT VESSEL ENCOUNTER: POWER vs DRAUGHT
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     PowerDrivenVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: POWER vs COMMAND #################################
+# DIFFERENT VESSEL ENCOUNTER: POWER vs COMMAND
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     PowerDrivenVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: SAILING vs FISHING ###############################
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs FISHING
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     SailingVessel(?vessel1), VesselEngagedInFishing(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: SAILING vs MANOEUVRERING #########################
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs MANOEUVRERING
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     SailingVessel(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: SAILING vs DRAUGHT ###############################
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs DRAUGHT
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     SailingVessel(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: SAILING vs COMMAND ###############################
+# DIFFERENT VESSEL ENCOUNTER: SAILING vs COMMAND
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     SailingVessel(?vessel1), VesselNotUnderCommand(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: FISHING vs MANOEUVRERING #########################
+# DIFFERENT VESSEL ENCOUNTER: FISHING vs MANOEUVRERING
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     VesselEngagedInFishing(?vessel1), VesselRestrictedInHerAbilityToManoeuvre(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: FISHING vs DRAUGHT ###############################
+# DIFFERENT VESSEL ENCOUNTER: FISHING vs DRAUGHT
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     VesselEngagedInFishing(?vessel1), VesselConstrainedByHerDraught(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
 
-# DIFFERENT VESSEL ENCOUNTER: FISHING vs COMMAND ###############################
+# DIFFERENT VESSEL ENCOUNTER: FISHING vs COMMAND
 Rule:
     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2),
     DifferentFrom(?vessel1, ?vessel2),
     VesselEngagedInFishing(?vessel1), VesselNotUnderCommand(?vessel2) -> DifferentVesselEncounter(?scenario), hasBehavior(?vessel1, "alter_course"), hasBehavior(?vessel2, "keep_course")
+#-------------------------------------------------------------------------------
+#endsubregion
+#-------------------------------------------------------------------------------
+#endregion
