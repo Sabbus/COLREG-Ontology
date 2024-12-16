@@ -65,7 +65,22 @@ public class COLREGClassifier {
     OWLDataFactory factory;
     OWLOntologyManager manager;
     String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselNotUnderCommand"};
-    String[] situationCategories = {"HeadOn", "Crossing", "Overtaking", "SailingVesselEncounter", "DifferentVesselEncounter"};
+    String[] situationCategories = {
+        "HeadOn", 
+        "Crossing", 
+        "CrossingOwnshipStandOn", 
+        "CrossingOwnshipGiveWay", 
+        "Overtaking", 
+        "OvertakingOwnshipStandOn", 
+        "OvertakingOwnshipGiveWay", 
+        "SailingVesselEncounter", 
+        "SailingVesselEncounterDifferentSideOwnshipStandOn",
+        "SailingVesselEncounterDifferentSideOwnshipGiveWay",
+        "SailingVesselEncounterSameSideStarboardOwnshipStandOn",
+        "SailingVesselEncounterSameSideStarboardOwnshipGiveWay",
+        "SailingVesselEncounterSameSidePortsideOwnshipStandOn",
+        "SailingVesselEncounterSameSidePortsideOwnshipGiveWay",
+        "DifferentVesselEncounter"};
     String[] availableLights = {"masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight", "sternlight"};
 
     public COLREGClassifier(String pathToOntology, String ontologyIRI) {
@@ -125,11 +140,11 @@ NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
         Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior); 
 
-        // System.out.println(scenarioJson.get("name"));
-        // System.out.println(scenarioTypes);
-        // System.out.println(ownshipBehavior);
-        // System.out.println(targetBehavior);
-        // System.out.println("\n");
+        System.out.println(scenarioJson.get("name"));
+        System.out.println(scenarioTypes);
+        System.out.println(ownshipBehavior);
+        System.out.println(targetBehavior);
+        System.out.println("\n");
 
         String scenarioType = new String();
         List<String> situationCategories = Arrays.asList(this.situationCategories);
