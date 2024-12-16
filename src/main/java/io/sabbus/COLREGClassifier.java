@@ -140,11 +140,11 @@ NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
         Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior); 
 
-        System.out.println(scenarioJson.get("name"));
-        System.out.println(scenarioTypes);
-        System.out.println(ownshipBehavior);
-        System.out.println(targetBehavior);
-        System.out.println("\n");
+        // System.out.println(scenarioJson.get("name"));
+        // System.out.println(scenarioTypes);
+        // System.out.println(ownshipBehavior);
+        // System.out.println(targetBehavior);
+        // System.out.println("\n");
 
         String scenarioType = new String();
         List<String> situationCategories = Arrays.asList(this.situationCategories);
