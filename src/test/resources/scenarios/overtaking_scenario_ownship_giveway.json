@@ -1,7 +1,7 @@
 {
     "name": "Overtaking scenario with own ship give-way",
     "ownship": {
-        "name": "pippo",
+        "name": "ownship",
         "x": 0,
         "y": 0,
         "spd": 10,
@@ -9,12 +9,15 @@
         "category": "PowerDrivenVessel"
     },
     "target": {
-        "name": "pluto",
+        "name": "targetship",
         "x": 10,
         "y": 0,
         "spd": 5,
         "hdg": 0,
         "category": "PowerDrivenVessel"
     },
-    "wind-dir": 0
+    "wind-dir": 0,
+    "category": "Overtaking",
+    "own-ship-behavior": "alter_course",
+    "target-ship-behavior": "keep_course"
 }

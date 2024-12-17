@@ -1,20 +1,14 @@
 {
-    "name": "Head-on scenario",
+    "name": "Head-on scenario with lights and bearing",
     "ownship": {
         "name": "ownship",
-        "x": 0,
-        "y": 0,
-        "spd": 10,
         "hdg": 0,
+        "lights-in-sight": ["masthead_light", "upper_masthead_light", "green_sidelight", "red_sidelight"],
         "category": "PowerDrivenVessel"
     },
     "target": {
         "name": "targetship",
-        "x": 10,
-        "y": 0,
-        "spd": 10,
-        "hdg": 180,
-        "category": "PowerDrivenVessel"
+        "absolute-bearing-to-ownship": 0
     },
     "wind-dir": 0,
     "category": "HeadOn",

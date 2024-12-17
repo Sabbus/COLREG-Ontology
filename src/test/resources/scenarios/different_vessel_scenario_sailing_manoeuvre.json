@@ -1,7 +1,7 @@
 {
-    "name": "different-vessel-scenario-sailing-vs-manoeuvre",
+    "name": "Different vessel scenario sailing vs manoeuvre",
     "ownship": {
-        "name": "pippo",
+        "name": "ownship",
         "x": 0,
         "y": 0,
         "spd": 10,
@@ -9,12 +9,15 @@
         "category": "VesselRestrictedInHerAbilityToManoeuvre"
     },
     "target": {
-        "name": "pluto",
+        "name": "targetship",
         "x": 10,
         "y": 0,
         "spd": 10,
         "hdg": 180,
         "category": "SailingVessel"
     },
-    "wind-dir": 0
+    "wind-dir": 0,
+    "category": "DifferentVesselEncounter",
+    "own-ship-behavior": "keep_course",
+    "target-ship-behavior": "alter_course"
 }

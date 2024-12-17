@@ -1,20 +1,14 @@
 {
-    "name": "Sailing vessel same side scenario own ship stand-on",
+    "name": "Sailing vessel different side scenario own ship stand-on with bearing and lights",
     "ownship": {
         "name": "ownship",
-        "x": 0,
-        "y": 10,
-        "spd": 10,
         "hdg": 315,
+        "lights-in-sight": ["green_sidelight"],
         "category": "SailingVessel"
     },
     "target": {
         "name": "targetship",
-        "x": 0,
-        "y": 0,
-        "spd": 10,
-        "hdg": 0,
-        "category": "SailingVessel"
+        "absolute-bearing-to-ownship": 270
     },
     "wind-dir": 90,
     "category": "SailingVesselEncounter",
