@@ -1,20 +1,14 @@
 {
-    "name": "Crossing scenario own ship give-way",
+    "name": "Crossing scenario with lights and bearing own ship stand-on",
     "ownship": {
         "name": "ownship",
-        "x": 0,
-        "y": 0,
-        "spd": 10,
         "hdg": 0,
+        "lights-in-sight": ["all_round_white_light", "red_sidelight"],
         "category": "PowerDrivenVessel"
     },
     "target": {
         "name": "targetship",
-        "x": 10,
-        "y": 10,
-        "spd": 10,
-        "hdg": 270,
-        "category": "PowerDrivenVessel"
+        "absolute-bearing-to-ownship": 45
     },
     "wind-dir": 0,
     "category": "Crossing",

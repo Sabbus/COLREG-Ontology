@@ -62,8 +62,7 @@ public class COLREGClassifier {
 
     IRI ontologyIRI;
     OWLOntology ontology;
-    OWLDataFactory factory;
-    OWLOntologyManager manager;
+    OWLDataFactory factory; OWLOntologyManager manager;
     String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselNotUnderCommand"};
     String[] situationCategories = {
         "HeadOn", 
@@ -104,7 +103,7 @@ public class COLREGClassifier {
         }
     }
 
-    public JsonObject classify(JsonObject scenarioJson) {
+    public JsonObject classify(JsonObject scenarioJson, boolean printInferences, String sparqlQuery) {
         Set<OWLAxiom> axioms = getScenarioAxioms(scenarioJson);
         this.manager.addAxioms(this.ontology, axioms);
 
@@ -116,22 +115,17 @@ public class COLREGClassifier {
         // }
 
         OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
-        // QueryEngine engine = QueryEngine.create(this.manager, reasoner);
-        // try {
-        //     QueryResult queryResult = engine.execute(
-        //         Query.create(
-        //             "PREFIX a: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#>\n" +
-        //             "SELECT ?x ?y ?z WHERE {\n" + 
-        //                 "PropertyValue(?x, ?y, ?z), \n" + 
-        //                 "Type(?x, a:Vessel) \n" +
-        //             "}"
-        //         )
-        //     );
-        //     System.out.println(queryResult.toString());
-        // }
-        // catch(QueryParserException | QueryEngineException e) {
-        //     throw new RuntimeException(e);
-        // }
+
+        if (sparqlQuery != "") {
+            QueryEngine engine = QueryEngine.create(this.manager, reasoner);
+            try {
+                QueryResult queryResult = engine.execute(Query.create(sparqlQuery));
+                System.out.println(queryResult.toString());
+            }
+            catch(QueryParserException | QueryEngineException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         JsonObject ownshipJson = (JsonObject) scenarioJson.get("ownship");
         JsonObject targetJson = (JsonObject) scenarioJson.get("target");
@@ -145,15 +139,17 @@ public class COLREGClassifier {
         OWLDataProperty hasBehavior = this.factory.getOWLDataProperty(IRI.create(this.ontologyIRI + "hasBehavior"));
 
         JsonObject categorizedScenario = new JsonObject();
-NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
+        NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
         Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior); 
 
-        // System.out.println(scenarioJson.get("name"));
-        // System.out.println(scenarioTypes);
-        // System.out.println(ownshipBehavior);
-        // System.out.println(targetBehavior);
-        // System.out.println("\n");
+        if (printInferences) {
+            System.out.println(scenarioJson.get("name"));
+            System.out.println(scenarioTypes);
+            System.out.println(ownshipBehavior);
+            System.out.println(targetBehavior);
+            System.out.println("\n");
+        }
 
         String scenarioType = new String();
         List<String> situationCategories = Arrays.asList(this.situationCategories);
@@ -185,6 +181,18 @@ NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         // this.manager.removeAxioms(this.ontology, axioms);
 
         return result;
+    }
+
+    public JsonObject classify(JsonObject scenarioJson, boolean printInferences) {
+        return this.classify(scenarioJson, printInferences, "");
+    }
+
+    public JsonObject classify(JsonObject scenarioJson, String sparqlQuery) {
+        return this.classify(scenarioJson, false, sparqlQuery);
+    }
+
+    public JsonObject classify(JsonObject scenarioJson) {
+        return this.classify(scenarioJson, false, "");
     }
 
     private Set<OWLAxiom> getScenarioAxioms(JsonObject scenarioJson) {
@@ -315,7 +323,7 @@ NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         }
 
         // Get target ship bearing with respect to own ship
-        BigDecimal absBearing = (BigDecimal) vesselJson.get("absolute_bearing_to_ownship");
+        BigDecimal absBearing = (BigDecimal) vesselJson.get("absolute-bearing-to-ownship");
 
         if (absBearing != null && vesselType == VesselType.TARGET) {
             IRI hasAbsBearingIRI = IRI.create(ontologyIRI + "hasAbsoluteBearingWithRespectToOwnShip");
@@ -327,7 +335,7 @@ NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
         }
 
         // Get target ship bearing with respect to own ship
-        List<String> lights = (List<String>) vesselJson.get("lights_in_sight");
+        List<String> lights = (List<String>) vesselJson.get("lights-in-sight");
 
         if (lights != null && vesselType == VesselType.OWNSHIP) {
             IRI hasLightIRI = IRI.create(ontologyIRI + "hasLightInSight");

@@ -1,20 +1,16 @@
 {
-    "name": "Overtaking scenario with own ship stan-on",
+    "name": "Overtaking scenario with lights and bearing own ship stand-on",
     "ownship": {
         "name": "ownship",
-        "x": 0,
-        "y": 0,
-        "spd": 5,
         "hdg": 0,
+        "spd": 10,
+        "lights-in-sight": ["all_round_white_light", "green_sidelight", "red_sidelight"],
         "category": "PowerDrivenVessel"
     },
     "target": {
         "name": "targetship",
-        "x": -10,
-        "y": 0,
-        "spd": 10,
-        "hdg": 0,
-        "category": "PowerDrivenVessel"
+        "absolute-bearing-to-ownship": 180,
+        "spd": 15
     },
     "wind-dir": 0,
     "category": "Overtaking",

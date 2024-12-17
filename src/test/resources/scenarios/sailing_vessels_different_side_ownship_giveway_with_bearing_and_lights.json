@@ -2,19 +2,13 @@
     "name": "Sailing vessel different side scenario own ship give-way with bearing and lights",
     "ownship": {
         "name": "ownship",
-        "x": 0,
-        "y": 0,
-        "spd": 10,
         "hdg": 0,
+        "lights-in-sight": ["green_sidelight", "red_sidelight"],
         "category": "SailingVessel"
     },
     "target": {
         "name": "targetship",
-        "x": 10,
-        "y": 0,
-        "spd": 10,
-        "hdg": 180,
-        "category": "SailingVessel"
+        "absolute-bearing-to-ownship": 0
     },
     "wind-dir": 90,
     "category": "SailingVesselEncounter",

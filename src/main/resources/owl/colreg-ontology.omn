@@ -560,12 +560,36 @@ Rule:
 Rule:
     hasVessel(?scenario, ?vessel), hasHeadingRad(?vessel, ?heading),
     hasWindDirRad(?scenario, ?windDir),
-    subtract(?difference, ?heading, ?windDir), sin(?sin, ?difference), lessThanOrEqual(?sin, 0) -> hasWindOnSide(?vessel, "portside")
+    subtract(?difference, ?heading, ?windDir), sin(?sin, ?difference), lessThan(?sin, 0) -> hasWindOnSide(?vessel, "portside"), print(?vessel, ?difference)
 
 Rule:
     hasVessel(?scenario, ?vessel), hasHeadingRad(?vessel, ?heading),
     hasWindDirRad(?scenario, ?windDir),
-    subtract(?difference, ?heading, ?windDir), sin(?sin, ?difference), greaterThan(?sin, 0) -> hasWindOnSide(?vessel, "starboard")
+    subtract(?difference, ?heading, ?windDir), sin(?sin, ?difference), greaterThan(?sin, 0) -> hasWindOnSide(?vessel, "starboard"), print(?vessel, ?sin)
+
+Rule:
+    hasTarget(?scenario, ?target),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"), hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> hasWindOnSide(?target, "portside")
+
+Rule:
+    hasTarget(?scenario, ?target),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"), hasOnPortside(?ownship, ?target), hasStarboardInSight(?ownship, ?target) -> hasWindOnSide(?target, "portside")
+
+Rule:
+    hasTarget(?scenario, ?target),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"), hasOnPortside(?ownship, ?target), hasStarboardInSight(?ownship, ?target) -> hasWindOnSide(?target, "starboard")
+
+Rule:
+    hasTarget(?scenario, ?target),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"), hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> hasWindOnSide(?target, "starboard")
+
+Rule:
+    hasTarget(?scenario, ?target),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"), hasAhead(?ownship, ?target), hasBowInSight(?ownship, ?target) -> hasWindOnSide(?target, "starboard")
+
+Rule:
+    hasTarget(?scenario, ?target),
+    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"), hasAhead(?ownship, ?target), hasBowInSight(?ownship, ?target) -> hasWindOnSide(?target, "portside")
 #-------------------------------------------------------------------------------
 #endsubregion
 
@@ -713,7 +737,7 @@ Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, "masthead_light-red_sidelight-upper_masthead") -> hasPortsideInSight(?ownship, ?target), PowerDrivenVessel(?target)
+    equal(?lights, "masthead_light-red_sidelight-upper_masthead_light") -> hasPortsideInSight(?ownship, ?target), PowerDrivenVessel(?target)
 
 # LIGHTS: POWER DRIVEN VESSEL 12m <= LENGTH < 50m
 Rule:
@@ -907,7 +931,7 @@ Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
     hasLightInSight(?ownship, ?lights),
-    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-masthead_light-red_sidelight-upper_masthead") -> hasPortsideInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
+    equal(?lights, "all_round_red_light-all_round_red_light-all_round_white_light-masthead_light-red_sidelight-upper_masthead_light") -> hasPortsideInSight(?ownship, ?target), VesselRestrictedInHerAbilityToManoeuvre(?target)
 
 # LIGHTS: VESSEL RESTRICTED IN HER ABILITY TO MANOEUVRE 12m <= LENGTH < 50m
 Rule:
@@ -1057,16 +1081,16 @@ Rule:
 #subregion Overtaking
 #-------------------------------------------------------------------------------
 Rule:
-    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship), hasSpeed(?ownship, ?ownshipSpeed),
-    hasTarget(?scenario, ?target), PowerDrivenVessel(?target), hasSpeed(?target, ?targetSpeed),
+    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
+    hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
     hasBehind(?ownship, ?target), hasBowInSight(?ownship, ?target),
-    lessThan(?ownshipSpeed, ?targetSpeed) -> Overtaking(?scenario), hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
+    slowerThan(?ownship, ?target) -> Overtaking(?scenario), hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
 
 Rule:
-    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship), hasSpeed(?ownship, ?ownshipSpeed),
-    hasTarget(?scenario, ?target), PowerDrivenVessel(?target), hasSpeed(?target, ?targetSpeed),
+    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
+    hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
     hasAhead(?ownship, ?target), hasSternInSight(?ownship, ?target),
-    greaterThan(?ownshipSpeed, ?targetSpeed) -> Overtaking(?scenario), hasBehavior(?target, "keep_course"), hasBehavior(?ownship, "alter_course")
+    fasterThan(?ownship, ?target) -> Overtaking(?scenario), hasBehavior(?target, "keep_course"), hasBehavior(?ownship, "alter_course")
 #-------------------------------------------------------------------------------
 #endsubregion
 
