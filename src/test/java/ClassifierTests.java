@@ -328,6 +328,41 @@ public class ClassifierTests {
     public void testDifferentVesselsWithBearingAndLightsPowerVsFishingNotTrawlingWithGear() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_fishing_not_trawling_with_bearing_and_lights_with_gear.json");
     }
+
+    @Test
+    public void testDifferentVesselsWithBearingAndLightsPowerVsManoeuveringBigShip() {
+        testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_manoeuvering_with_bearing_and_lights_big_ship.json");
+    }
+
+    @Test
+    public void testDifferentVesselsWithBearingAndLightsPowerVsManoeuveringMediumShip() {
+        testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_manoeuvering_with_bearing_and_lights_medium_ship.json");
+    }
+
+    @Test
+    public void testDifferentVesselsWithBearingAndLightsPowerVsManoeuveringSmallShip() {
+        testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_manoeuvering_with_bearing_and_lights_small_ship.json");
+    }
+
+    @Test
+    public void testDifferentVesselsWithBearingAndLightsPowerVsDraughtBigShip() {
+        testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_draught_with_bearing_and_lights_big_ship.json");
+    }
+
+    @Test
+    public void testDifferentVesselsWithBearingAndLightsPowerVsDraughtMediumShip() {
+        testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_draught_with_bearing_and_lights_medium_ship.json");
+    }
+
+    @Test
+    public void testDifferentVesselsWithBearingAndLightsPowerVsDraughtSmallShip() {
+        testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_draught_with_bearing_and_lights_small_ship.json");
+    }
+
+    @Test
+    public void testDifferentVesselsWithBearingAndLightsPowerVsCommand() {
+        testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_command_with_bearing_and_lights.json");
+    }
 //------------------------------------------------------------------------------
 //endregion
 }

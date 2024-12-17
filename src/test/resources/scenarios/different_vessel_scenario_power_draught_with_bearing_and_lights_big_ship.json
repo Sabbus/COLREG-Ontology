@@ -1,0 +1,17 @@
+{
+    "name": "different vessel scenario power vs draught",
+    "ownship": {
+        "name": "ownship",
+        "hdg": 0,
+        "category": "PowerDrivenVessel",
+        "lights-in-sight": ["all_round_red_light", "all_round_red_light", "all_round_red_light", "green_sidelight", "red_sidelight", "masthead_light", "upper_masthead_light"]
+    },
+    "target": {
+        "name": "targetship",
+        "absolute-bearing-to-ownship": 0
+    },
+    "wind-dir": 0,
+    "category": "DifferentVesselEncounter",
+    "own-ship-behavior": "alter_course",
+    "target-ship-behavior": "keep_course"
+}
