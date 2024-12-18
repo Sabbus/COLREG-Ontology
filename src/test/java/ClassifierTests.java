@@ -22,8 +22,7 @@ public class ClassifierTests {
 
     COLREGClassifier classifier;
 
-    @Before
-    public void createCOLREGClassifierInstance() {
+    public ClassifierTests() {
         Properties properties = new Properties();
 
         try {
@@ -37,7 +36,7 @@ public class ClassifierTests {
         final String pathToOntology = properties.getProperty("ontologyFilePath");
         final String ontologyIRI = properties.getProperty("ontologyIRI");
 
-        classifier = new COLREGClassifier(pathToOntology, ontologyIRI);
+        this.classifier = new COLREGClassifier(pathToOntology, ontologyIRI);
     }
 
     private static JsonObject getScenarioJson(String pathToScenarioJsonFile) {
@@ -57,8 +56,12 @@ public class ClassifierTests {
 
     private void testScenario(String pathToScenario, boolean printInferences, String sparqlQuery) {
         JsonObject scenario = getScenarioJson(pathToScenario);
+
+        String scenarioName = (String) scenario.get("name");
+        System.out.println("//--------------------------------------------------------------------------------");
+        System.out.println("Started " + scenarioName);
     
-        JsonObject result = classifier.classify(scenario, printInferences, sparqlQuery);
+        JsonObject result = this.classifier.classify(scenario, printInferences, sparqlQuery);
     
         JsonObject classifierResult = (JsonObject) result.get("classification");
         String scenarioCategory = (String) classifierResult.get("category");
@@ -72,6 +75,9 @@ public class ClassifierTests {
         assertEquals(expectedScenarioCategory, scenarioCategory);
         assertEquals(expectedOwnShipBehavior, ownshipBehavior);
         assertEquals(expectedTargetShipBehavior, targetBehavior);
+
+        System.out.println("Completed " + scenarioName);
+        System.out.println("//--------------------------------------------------------------------------------\n");
     }
 
     private void testScenario(String pathToScenario, boolean printInferences) {
@@ -101,7 +107,7 @@ public class ClassifierTests {
         //                "}";
         testScenario("./src/test/resources/scenarios/crossing_scenario_ownship_standon.json");
     }
-    
+
     @Test
     public void testCrossingOwnshipGiveWaySituation() {
         testScenario("./src/test/resources/scenarios/crossing_scenario_ownship_giveway.json");
@@ -111,7 +117,7 @@ public class ClassifierTests {
     public void testOvertakingOwnshipStandOnSituation() {
         testScenario("./src/test/resources/scenarios/overtaking_scenario_ownship_standon.json");
     }
-    
+
     @Test
     public void testOvertakingOwnshipGiveWaySituation() {
         testScenario("./src/test/resources/scenarios/overtaking_scenario_ownship_giveway.json");
@@ -149,57 +155,57 @@ public class ClassifierTests {
     public void testDifferentVesselsPowerVsSailing() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_sailing.json");
     }
-    
+
     @Test
     public void testDifferentVesselsPowerVsFishing() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_fishing.json");
     }
-    
+
     @Test
     public void testDifferentVesselsPowerVsManoeuvre() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_manoeuvre.json");
     }
-    
+
     @Test
     public void testDifferentVesselsPowerVsDraught() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_draught.json");
     }
-    
+
     @Test
     public void testDifferentVesselsPowerVsCommand() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_power_command.json");
     }
-    
+
     @Test
     public void testDifferentVesselsSailingVsFishing() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_sailing_fishing.json");
     }
-    
+
     @Test
     public void testDifferentVesselsSailingVsManoeuvre() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_sailing_manoeuvre.json");
     }
-    
+
     @Test
     public void testDifferentVesselsSailingVsDraught() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_sailing_draught.json");
     }
-    
+
     @Test
     public void testDifferentVesselsSailingVsCommand() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_sailing_command.json");
     }
-    
+
     @Test
     public void testDifferentVesselsFishingVsManoeuvre() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_fishing_manoeuvre.json");
     }
-    
+
     @Test
     public void testDifferentVesselsFishingVsDraught() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_fishing_draught.json");
     }
-    
+
     @Test
     public void testDifferentVesselsFishingVsCommand() {
         testScenario("./src/test/resources/scenarios/different_vessel_scenario_fishing_command.json");

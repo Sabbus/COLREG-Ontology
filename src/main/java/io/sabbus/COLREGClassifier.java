@@ -39,13 +39,17 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 
+import org.semanticweb.owlapi.reasoner.ConsoleProgressMonitor;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 import openllet.owlapi.OpenlletReasoner;
 import openllet.owlapi.OpenlletReasonerFactory;
+
+import openllet.core.utils.Timers;
 
 import de.derivo.sparqldlapi.Query;
 import de.derivo.sparqldlapi.QueryEngine;
@@ -63,23 +67,21 @@ public class COLREGClassifier {
     IRI ontologyIRI;
     OWLOntology ontology;
     OWLDataFactory factory; OWLOntologyManager manager;
-    String[] vesselCategories = {"PowerDrivenVessel", "SailingVessel", "VesselEngagedInFishing", "VesselRestrictedInHerAbilityToManoeuvre", "VesselConstrainedByHerDraught", "VesselNotUnderCommand"};
+    String[] vesselCategories = {
+        "PowerDrivenVessel", 
+        "SailingVessel", 
+        "VesselEngagedInFishing", 
+        "VesselRestrictedInHerAbilityToManoeuvre", 
+        "VesselConstrainedByHerDraught", 
+        "VesselNotUnderCommand"
+    };
     String[] situationCategories = {
         "HeadOn", 
         "Crossing", 
-        "CrossingOwnshipStandOn", 
-        "CrossingOwnshipGiveWay", 
         "Overtaking", 
-        "OvertakingOwnshipStandOn", 
-        "OvertakingOwnshipGiveWay", 
         "SailingVesselEncounter", 
-        "SailingVesselEncounterDifferentSideOwnshipStandOn",
-        "SailingVesselEncounterDifferentSideOwnshipGiveWay",
-        "SailingVesselEncounterSameSideStarboardOwnshipStandOn",
-        "SailingVesselEncounterSameSideStarboardOwnshipGiveWay",
-        "SailingVesselEncounterSameSidePortsideOwnshipStandOn",
-        "SailingVesselEncounterSameSidePortsideOwnshipGiveWay",
-        "DifferentVesselEncounter"};
+        "DifferentVesselEncounter"
+    };
     String[] availableLights = {
         "masthead_light", 
         "upper_masthead_light", 
@@ -114,7 +116,14 @@ public class COLREGClassifier {
         //     throw new RuntimeException(e);
         // }
 
+        // ConsoleProgressMonitor monitor = new ConsoleProgressMonitor();
+        // SimpleConfiguration configuration = new SimpleConfiguration(monitor, 2000L);
+        // OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology, configuration);
         OpenlletReasoner reasoner = OpenlletReasonerFactory.getInstance().createReasoner(ontology);
+
+        // Set timers
+        Timers timers = reasoner.getKB().getTimers();
+        timers.createTimer("pirla").setTimeout(2000);
 
         if (sparqlQuery != "") {
             QueryEngine engine = QueryEngine.create(this.manager, reasoner);
@@ -139,9 +148,13 @@ public class COLREGClassifier {
         OWLDataProperty hasBehavior = this.factory.getOWLDataProperty(IRI.create(this.ontologyIRI + "hasBehavior"));
 
         JsonObject categorizedScenario = new JsonObject();
-        NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, true);
+        System.out.println("DIO PEPPINO1");
+        NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, false);
+        System.out.println("DIO PEPPINO2");
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
+        System.out.println("DIO PEPPINO3");
         Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior); 
+        System.out.println("DIO BONO");
 
         if (printInferences) {
             System.out.println(scenarioJson.get("name"));

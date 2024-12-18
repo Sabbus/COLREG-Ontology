@@ -155,155 +155,145 @@ DataProperty: hasLightInSight
 Class: Scenario
     EquivalentTo: Crossing or DifferentVesselEncounter or HeadOn or Overtaking or SailingVesselEncounter
     
-Class: HeadOn
-    SubClassOf: Scenario
-
-Class: Crossing
-    SubClassOf: Scenario
-
-Class: Overtaking
-    SubClassOf: Scenario
-
-Class: SailingVesselEncounter
-    SubClassOf: Scenario
-
 Class: DifferentVesselEncounter
     SubClassOf: Scenario
 
 # SWRL to OWL translation attempt
-#Class: HeadOn
-#    SubClassOf: Scenario and (hasOwnship some (hasBehavior value "alter_course")) and (hasTarget some (hasBehavior value "alter_course"))
-#    EquivalentTo: (hasOwnship some (hasAhead some TargetShip)) and (hasOwnship some (hasBowInSight some TargetShip)) and (hasOwnship some PowerDrivenVessel) and (hasTarget some PowerDrivenVessel)
-#    
-#Class: Crossing
-#    SubClassOf: Scenario
-#    EquivalentTo: CrossingOwnshipStandOn or CrossingOwnshipGiveWay
-#
-#Class: CrossingOwnshipStandOn
-#    SubClassOf: Scenario and (hasOwnship some (hasBehavior value "keep_course")) and (hasTarget some (hasBehavior value "alter_course"))
-#    EquivalentTo: 
-#        ((hasOwnship some (hasOnPortside some TargetShip)) and (hasOwnship some (hasStarboardInSight some TargetShip))) and (hasOwnship some PowerDrivenVessel) and (hasTarget some PowerDrivenVessel)
-#    
-#Class: CrossingOwnshipGiveWay
-#    SubClassOf: Scenario and (hasOwnship some (hasBehavior value "alter_course")) and (hasTarget some (hasBehavior value "keep_course"))
-#    EquivalentTo: 
-#        ((hasOwnship some (hasOnStarboard some TargetShip)) and (hasOwnship some (hasPortsideInSight some TargetShip))) and (hasOwnship some PowerDrivenVessel) and (hasTarget some PowerDrivenVessel)
-#
-#DisjointClasses: CrossingOwnshipStandOn, CrossingOwnshipGiveWay
-#    
-#Class: Overtaking
-#    SubClassOf: Scenario
-#    EquivalentTo: OvertakingOwnshipStandOn or OvertakingOwnshipGiveWay
-#
-#Class: OvertakingOwnshipStandOn
-#    SubClassOf: Scenario and (hasOwnship some (hasBehavior value "keep_course")) and (hasTarget some (hasBehavior value "alter_course"))
-#    EquivalentTo:
-#        (hasOwnship some PowerDrivenVessel) and
-#        (hasTarget some PowerDrivenVessel) and
-#        (hasOwnship some (hasBehind some TargetShip)) and
-#        (hasOwnship some (hasBowInSight some TargetShip)) and
-#        (hasOwnship some (slowerThan some TargetShip)) and
-#        (hasTarget some (fasterThan some OwnShip))
-#    
-#Class: OvertakingOwnshipGiveWay
-#    SubClassOf: Scenario and (hasOwnship some (hasBehavior value "alter_course")) and (hasTarget some (hasBehavior value "keep_course"))
-#    EquivalentTo:
-#        (hasOwnship some PowerDrivenVessel) and
-#        (hasTarget some PowerDrivenVessel) and
-#        (hasOwnship some (hasAhead some TargetShip)) and 
-#        (hasOwnship some (hasSternInSight some TargetShip)) and 
-#        (hasOwnship some (fasterThan some TargetShip)) and 
-#        (hasTarget some (slowerThan some OwnShip))
-#
-#DisjointClasses: OvertakingOwnshipStandOn, OvertakingOwnshipGiveWay
-#    
-#Class: SailingVesselEncounter
-#    SubClassOf: Scenario
-#    EquivalentTo: 
-#        SailingVesselEncounterDifferentSideOwnshipStandOn or
-#        SailingVesselEncounterDifferentSideOwnshipGiveWay or
-#        SailingVesselEncounterSameSideStarboardOwnshipStandOn or
-#        SailingVesselEncounterSameSideStarboardOwnshipGiveWay or
-#        SailingVesselEncounterSameSidePortsideOwnshipStandOn or
-#        SailingVesselEncounterSameSidePortsideOwnshipGiveWay
-#
-#Class: SailingVesselEncounterDifferentSideOwnshipStandOn
-#    SubClassOf:
-#        Scenario and
-#        (hasOwnship some (hasBehavior value "keep_course")) and
-#        (hasTarget some (hasBehavior value "alter_course"))
-#    EquivalentTo:
-#        (hasOwnship some SailingVessel) and
-#        (hasTarget some SailingVessel) and
-#        (hasOwnship some (hasWindOnSide value "starboard")) and
-#        (hasTarget some (hasWindOnSide value "portside"))
-#    
-#Class: SailingVesselEncounterDifferentSideOwnshipGiveWay
-#    SubClassOf:
-#        Scenario and
-#        (hasOwnship some (hasBehavior value "alter_course")) and
-#        (hasTarget some (hasBehavior value "keep_course"))
-#    EquivalentTo:
-#        (hasOwnship some SailingVessel) and
-#        (hasTarget some SailingVessel) and
-#        (hasOwnship some (hasWindOnSide value "portside")) and
-#        (hasTarget some (hasWindOnSide value "starboard"))
-#
-#Class: SailingVesselEncounterSameSideStarboardOwnshipStandOn
-#    SubClassOf:
-#        Scenario and
-#        (hasOwnship some (hasBehavior value "keep_course")) and
-#        (hasTarget some (hasBehavior value "alter_course"))
-#    EquivalentTo:
-#        (hasOwnship some SailingVessel) and
-#        (hasTarget some SailingVessel) and
-#        (hasOwnship some (hasWindOnSide value "starboard")) and
-#        (hasTarget some (hasWindOnSide value "starboard")) and
-#        (hasOwnship some (hasOnStarboard some TargetShip))
-#    
-#Class: SailingVesselEncounterSameSideStarboardOwnshipGiveWay
-#    SubClassOf:
-#        Scenario and
-#        (hasOwnship some (hasBehavior value "alter_course")) and
-#        (hasTarget some (hasBehavior value "keep_course"))
-#    EquivalentTo:
-#        (hasOwnship some SailingVessel) and
-#        (hasTarget some SailingVessel) and
-#        (hasOwnship some (hasWindOnSide value "starboard")) and
-#        (hasTarget some (hasWindOnSide value "starboard")) and
-#        (hasOwnship some (hasOnPortside some TargetShip))
-#
-#Class: SailingVesselEncounterSameSidePortsideOwnshipStandOn
-#    SubClassOf:
-#        Scenario and
-#        (hasOwnship some (hasBehavior value "keep_course")) and
-#        (hasTarget some (hasBehavior value "alter_course"))
-#    EquivalentTo:
-#        (hasOwnship some SailingVessel) and
-#        (hasTarget some SailingVessel) and
-#        (hasOwnship some (hasWindOnSide value "portside")) and
-#        (hasTarget some (hasWindOnSide value "portside")) and
-#        (hasOwnship some (hasOnPortside some TargetShip))
-#    
-#Class: SailingVesselEncounterSameSidePortsideOwnshipGiveWay
-#    SubClassOf:
-#        Scenario and
-#        (hasOwnship some (hasBehavior value "alter_course")) and
-#        (hasTarget some (hasBehavior value "keep_course"))
-#    EquivalentTo:
-#        (hasOwnship some SailingVessel) and
-#        (hasTarget some SailingVessel) and
-#        (hasOwnship some (hasWindOnSide value "portside")) and
-#        (hasTarget some (hasWindOnSide value "portside")) and
-#        (hasOwnship some (hasOnStarboard some TargetShip))
-#
-#DisjointClasses:
-#    SailingVesselEncounterDifferentSideOwnshipStandOn,
-#    SailingVesselEncounterDifferentSideOwnshipGiveWay,
-#    SailingVesselEncounterSameSideStarboardOwnshipStandOn,
-#    SailingVesselEncounterSameSideStarboardOwnshipGiveWay,
-#    SailingVesselEncounterSameSidePortsideOwnshipStandOn,
-#    SailingVesselEncounterSameSidePortsideOwnshipGiveWay
+Class: HeadOn
+   SubClassOf: Scenario and (hasOwnship some (hasBehavior value "alter_course")) and (hasTarget some (hasBehavior value "alter_course"))
+   EquivalentTo: (hasOwnship some (hasAhead some TargetShip)) and (hasOwnship some (hasBowInSight some TargetShip)) and (hasOwnship some PowerDrivenVessel) and (hasTarget some PowerDrivenVessel)
+
+Class: Crossing
+   SubClassOf: Scenario
+   EquivalentTo: CrossingOwnshipStandOn or CrossingOwnshipGiveWay
+
+Class: CrossingOwnshipStandOn
+   SubClassOf: Crossing and (hasOwnship some (hasBehavior value "keep_course")) and (hasTarget some (hasBehavior value "alter_course"))
+   EquivalentTo: 
+       ((hasOwnship some (hasOnPortside some TargetShip)) and (hasOwnship some (hasStarboardInSight some TargetShip)))
+       and (hasOwnship some PowerDrivenVessel)
+       and (hasTarget some PowerDrivenVessel)
+   
+Class: CrossingOwnshipGiveWay
+   SubClassOf: Crossing and (hasOwnship some (hasBehavior value "alter_course")) and (hasTarget some (hasBehavior value "keep_course"))
+   EquivalentTo: 
+       ((hasOwnship some (hasOnStarboard some TargetShip)) and (hasOwnship some (hasPortsideInSight some TargetShip)))
+       and (hasOwnship some PowerDrivenVessel)
+       and (hasTarget some PowerDrivenVessel)
+
+DisjointClasses: CrossingOwnshipStandOn, CrossingOwnshipGiveWay
+
+Class: Overtaking
+   SubClassOf: Scenario
+   EquivalentTo: OvertakingOwnshipStandOn or OvertakingOwnshipGiveWay
+
+Class: OvertakingOwnshipStandOn
+   SubClassOf: Overtaking and (hasOwnship some (hasBehavior value "keep_course")) and (hasTarget some (hasBehavior value "alter_course"))
+   EquivalentTo:
+       ((hasOwnship some PowerDrivenVessel) and (hasTarget some PowerDrivenVessel))
+       and (hasOwnship some (hasBehind some TargetShip))
+       and (hasOwnship some (hasBowInSight some TargetShip))
+       and (hasOwnship some (slowerThan some TargetShip))
+       and (hasTarget some (fasterThan some OwnShip))
+   
+Class: OvertakingOwnshipGiveWay
+   SubClassOf: Overtaking and (hasOwnship some (hasBehavior value "alter_course")) and (hasTarget some (hasBehavior value "keep_course"))
+   EquivalentTo:
+       ((hasOwnship some PowerDrivenVessel) and (hasTarget some PowerDrivenVessel))
+       and (hasOwnship some (hasAhead some TargetShip))
+       and (hasOwnship some (hasSternInSight some TargetShip))
+       and (hasOwnship some (fasterThan some TargetShip))
+       and (hasTarget some (slowerThan some OwnShip))
+
+DisjointClasses: OvertakingOwnshipStandOn, OvertakingOwnshipGiveWay
+
+Class: SailingVesselEncounter
+   SubClassOf: Scenario
+   EquivalentTo: 
+       SailingVesselEncounterDifferentSideOwnshipStandOn or
+       SailingVesselEncounterDifferentSideOwnshipGiveWay or
+       SailingVesselEncounterSameSideStarboardOwnshipStandOn or
+       SailingVesselEncounterSameSideStarboardOwnshipGiveWay or
+       SailingVesselEncounterSameSidePortsideOwnshipStandOn or
+       SailingVesselEncounterSameSidePortsideOwnshipGiveWay
+
+Class: SailingVesselEncounterDifferentSideOwnshipStandOn
+   SubClassOf:
+       SailingVesselEncounter and
+       (hasOwnship some (hasBehavior value "keep_course")) and
+       (hasTarget some (hasBehavior value "alter_course"))
+   EquivalentTo:
+       (hasOwnship some SailingVessel) and
+       (hasTarget some SailingVessel) and
+       (hasOwnship some (hasWindOnSide value "starboard")) and
+       (hasTarget some (hasWindOnSide value "portside"))
+   
+Class: SailingVesselEncounterDifferentSideOwnshipGiveWay
+   SubClassOf:
+       SailingVesselEncounter and
+       (hasOwnship some (hasBehavior value "alter_course")) and
+       (hasTarget some (hasBehavior value "keep_course"))
+   EquivalentTo:
+       (hasOwnship some SailingVessel) and
+       (hasTarget some SailingVessel) and
+       (hasOwnship some (hasWindOnSide value "portside")) and
+       (hasTarget some (hasWindOnSide value "starboard"))
+
+Class: SailingVesselEncounterSameSideStarboardOwnshipStandOn
+   SubClassOf:
+       SailingVesselEncounter and
+       (hasOwnship some (hasBehavior value "keep_course")) and
+       (hasTarget some (hasBehavior value "alter_course"))
+   EquivalentTo:
+       (hasOwnship some SailingVessel) and
+       (hasTarget some SailingVessel) and
+       (hasOwnship some (hasWindOnSide value "starboard")) and
+       (hasTarget some (hasWindOnSide value "starboard")) and
+       (hasOwnship some (hasOnStarboard some TargetShip))
+   
+Class: SailingVesselEncounterSameSideStarboardOwnshipGiveWay
+   SubClassOf:
+       SailingVesselEncounter and
+       (hasOwnship some (hasBehavior value "alter_course")) and
+       (hasTarget some (hasBehavior value "keep_course"))
+   EquivalentTo:
+       (hasOwnship some SailingVessel) and
+       (hasTarget some SailingVessel) and
+       (hasOwnship some (hasWindOnSide value "starboard")) and
+       (hasTarget some (hasWindOnSide value "starboard")) and
+       (hasOwnship some (hasOnPortside some TargetShip))
+
+Class: SailingVesselEncounterSameSidePortsideOwnshipStandOn
+   SubClassOf:
+       SailingVesselEncounter and
+       (hasOwnship some (hasBehavior value "keep_course")) and
+       (hasTarget some (hasBehavior value "alter_course"))
+   EquivalentTo:
+       (hasOwnship some SailingVessel) and
+       (hasTarget some SailingVessel) and
+       (hasOwnship some (hasWindOnSide value "portside")) and
+       (hasTarget some (hasWindOnSide value "portside")) and
+       (hasOwnship some (hasOnPortside some TargetShip))
+   
+Class: SailingVesselEncounterSameSidePortsideOwnshipGiveWay
+   SubClassOf:
+       SailingVesselEncounter and
+       (hasOwnship some (hasBehavior value "alter_course")) and
+       (hasTarget some (hasBehavior value "keep_course"))
+   EquivalentTo:
+       (hasOwnship some SailingVessel) and
+       (hasTarget some SailingVessel) and
+       (hasOwnship some (hasWindOnSide value "portside")) and
+       (hasTarget some (hasWindOnSide value "portside")) and
+       (hasOwnship some (hasOnStarboard some TargetShip))
+
+DisjointClasses:
+   SailingVesselEncounterDifferentSideOwnshipStandOn,
+   SailingVesselEncounterDifferentSideOwnshipGiveWay,
+   SailingVesselEncounterSameSideStarboardOwnshipStandOn,
+   SailingVesselEncounterSameSideStarboardOwnshipGiveWay,
+   SailingVesselEncounterSameSidePortsideOwnshipStandOn,
+   SailingVesselEncounterSameSidePortsideOwnshipGiveWay
     
 DisjointClasses: Crossing, DifferentVesselEncounter, HeadOn, Overtaking, SailingVesselEncounter
 #-------------------------------------------------------------------------------
@@ -1102,84 +1092,6 @@ Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
     hasLightInSight(?ownship, "sternlight") -> hasSternInSight(?ownship, ?target)
-#-------------------------------------------------------------------------------
-#endsubregion
-
-#subregion Head-on situation
-#-------------------------------------------------------------------------------
-Rule: 
-    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
-    hasTarget(?scenario, ?target), PowerDrivenVessel(?target), 
-    hasAhead(?ownship, ?target), hasBowInSight(?ownship, ?target) -> HeadOn(?scenario), hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "alter_course")
-#-------------------------------------------------------------------------------
-#endsubregion
-
-#subregion Crossing situation
-#-------------------------------------------------------------------------------
-Rule:
-    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
-    hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
-    hasOnPortside(?ownship, ?target), hasStarboardInSight(?ownship, ?target) -> Crossing(?scenario), hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
-
-Rule:
-    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
-    hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
-    hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> Crossing(?scenario), hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
-#-------------------------------------------------------------------------------
-#endsubregion
-
-#subregion Overtaking
-#-------------------------------------------------------------------------------
-Rule:
-    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
-    hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
-    hasBehind(?ownship, ?target), hasBowInSight(?ownship, ?target),
-    slowerThan(?ownship, ?target) -> Overtaking(?scenario), hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
-
-Rule:
-    hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
-    hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
-    hasAhead(?ownship, ?target), hasSternInSight(?ownship, ?target),
-    fasterThan(?ownship, ?target) -> Overtaking(?scenario), hasBehavior(?target, "keep_course"), hasBehavior(?ownship, "alter_course")
-#-------------------------------------------------------------------------------
-#endsubregion
-
-#subregion Sailing vessel encounter situation
-#-------------------------------------------------------------------------------
-Rule:
-    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
-    SailingVessel(?vessel1), SailingVessel(?vessel2) -> SailingVesselEncounter(?scenario)
-
-# SAILING VESSEL ENCOUNTER: DIFFERENT SIDE
-Rule:
-    SailingVesselEncounter(?scenario),
-    hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
-    hasWindOnSide(?vessel1, "starboard"), hasWindOnSide(?vessel2, "portside") -> hasBehavior(?vessel1, "keep_course"), hasBehavior(?vessel2, "alter_course")
-
-# SAILING VESSEL ENCOUNTER: SAME SIDE
-Rule:
-    SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"),
-    hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
-
-Rule:
-    SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"),
-    hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
-
-Rule:
-    SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"),
-    hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
-
-Rule:
-    SailingVesselEncounter(?scenario),
-    hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"),
-    hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"),
-    hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
 #-------------------------------------------------------------------------------
 #endsubregion
 
