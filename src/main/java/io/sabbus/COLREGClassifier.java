@@ -148,13 +148,13 @@ public class COLREGClassifier {
         OWLDataProperty hasBehavior = this.factory.getOWLDataProperty(IRI.create(this.ontologyIRI + "hasBehavior"));
 
         JsonObject categorizedScenario = new JsonObject();
-        System.out.println("DIO PEPPINO1");
+        System.out.println("Called getTypes()");
         NodeSet<OWLClass> scenarioTypes = reasoner.getTypes(scenario, false);
-        System.out.println("DIO PEPPINO2");
+        System.out.println("Called getDataPropertyValues");
         Set<OWLLiteral> ownshipBehavior = reasoner.getDataPropertyValues(ownship, hasBehavior);
-        System.out.println("DIO PEPPINO3");
+        System.out.println("Called getDataPropertyValues");
         Set<OWLLiteral> targetBehavior = reasoner.getDataPropertyValues(target, hasBehavior); 
-        System.out.println("DIO BONO");
+        System.out.println("Finished classification");
 
         if (printInferences) {
             System.out.println(scenarioJson.get("name"));

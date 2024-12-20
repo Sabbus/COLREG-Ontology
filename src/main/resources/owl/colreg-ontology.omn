@@ -17,9 +17,7 @@ Ontology: <http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology> <http://uni
 ObjectProperty: hasOwnship
     SubPropertyOf: hasVessel
     DisjointWith: hasTarget
-    Domain: Scenario
-    Range: OwnShip
-    Characteristics: Functional
+    Domain: Scenario Range: OwnShip Characteristics: Functional
     
 ObjectProperty: hasTarget
     SubPropertyOf: hasVessel
@@ -154,9 +152,21 @@ DataProperty: hasLightInSight
 #-------------------------------------------------------------------------------
 Class: Scenario
     EquivalentTo: Crossing or DifferentVesselEncounter or HeadOn or Overtaking or SailingVesselEncounter
-    
+
+# Class: HeadOn
+#     SubClassOf: Scenario
+#
+# Class: Crossing
+#     SubClassOf: Scenario
+#
+# Class: Overtaking
+#     SubClassOf: Scenario
+#
+# Class: SailingVesselEncounter
+#     SubClassOf: Scenario
+
 Class: DifferentVesselEncounter
-    SubClassOf: Scenario
+    SubClassOf: Scenario  
 
 # SWRL to OWL translation attempt
 Class: HeadOn
@@ -1092,6 +1102,84 @@ Rule:
     hasOwnship(?scenario, ?ownship),
     hasTarget(?scenario, ?target),
     hasLightInSight(?ownship, "sternlight") -> hasSternInSight(?ownship, ?target)
+#-------------------------------------------------------------------------------
+#endsubregion
+
+#subregion Head-on situation
+#-------------------------------------------------------------------------------
+# Rule: 
+#     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
+#     hasTarget(?scenario, ?target), PowerDrivenVessel(?target), 
+#     hasAhead(?ownship, ?target), hasBowInSight(?ownship, ?target) -> HeadOn(?scenario), hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "alter_course")
+#-------------------------------------------------------------------------------
+#endsubregion
+
+#subregion Crossing situation
+#-------------------------------------------------------------------------------
+# Rule:
+#     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
+#     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
+#     hasOnPortside(?ownship, ?target), hasStarboardInSight(?ownship, ?target) -> Crossing(?scenario), hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
+#
+# Rule:
+#     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
+#     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
+#     hasOnStarboard(?ownship, ?target), hasPortsideInSight(?ownship, ?target) -> Crossing(?scenario), hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
+#-------------------------------------------------------------------------------
+#endsubregion
+
+#subregion Overtaking
+#-------------------------------------------------------------------------------
+# Rule:
+#     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
+#     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
+#     hasBehind(?ownship, ?target), hasBowInSight(?ownship, ?target),
+#     slowerThan(?ownship, ?target) -> Overtaking(?scenario), hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
+#
+# Rule:
+#     hasOwnship(?scenario, ?ownship), PowerDrivenVessel(?ownship),
+#     hasTarget(?scenario, ?target), PowerDrivenVessel(?target),
+#     hasAhead(?ownship, ?target), hasSternInSight(?ownship, ?target),
+#     fasterThan(?ownship, ?target) -> Overtaking(?scenario), hasBehavior(?target, "keep_course"), hasBehavior(?ownship, "alter_course")
+#-------------------------------------------------------------------------------
+#endsubregion
+
+#subregion Sailing vessel encounter situation
+#-------------------------------------------------------------------------------
+# Rule:
+#     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+#     SailingVessel(?vessel1), SailingVessel(?vessel2) -> SailingVesselEncounter(?scenario)
+
+# SAILING VESSEL ENCOUNTER: DIFFERENT SIDE
+# Rule:
+#     SailingVesselEncounter(?scenario),
+#     hasVessel(?scenario, ?vessel1), hasVessel(?scenario, ?vessel2), DifferentFrom(?vessel1, ?vessel2),
+#     hasWindOnSide(?vessel1, "starboard"), hasWindOnSide(?vessel2, "portside") -> hasBehavior(?vessel1, "keep_course"), hasBehavior(?vessel2, "alter_course")
+
+# SAILING VESSEL ENCOUNTER: SAME SIDE
+# Rule:
+#     SailingVesselEncounter(?scenario),
+#     hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"),
+#     hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"),
+#     hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
+#
+# Rule:
+#     SailingVesselEncounter(?scenario),
+#     hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "starboard"),
+#     hasTarget(?scenario, ?target), hasWindOnSide(?target, "starboard"),
+#     hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
+#
+# Rule:
+#     SailingVesselEncounter(?scenario),
+#     hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"),
+#     hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"),
+#     hasOnStarboard(?ownship, ?target) -> hasBehavior(?ownship, "alter_course"), hasBehavior(?target, "keep_course")
+#
+# Rule:
+#     SailingVesselEncounter(?scenario),
+#     hasOwnship(?scenario, ?ownship), hasWindOnSide(?ownship, "portside"),
+#     hasTarget(?scenario, ?target), hasWindOnSide(?target, "portside"),
+#     hasOnPortside(?ownship, ?target) -> hasBehavior(?ownship, "keep_course"), hasBehavior(?target, "alter_course")
 #-------------------------------------------------------------------------------
 #endsubregion
 
