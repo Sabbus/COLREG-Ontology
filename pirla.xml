@@ -1,0 +1,55 @@
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for a light configuration to represent a power-driven vessel moving far from the observer. COLREG, rule 23 (d).</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Light Configuration For a Power-Driven Vessel Distancing - 7m &lt;= length &lt; 12m</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasLightsInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#l"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasStringValue"/>
+                <Variable IRI="#l"/>
+                <Variable IRI="#v"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#equal">
+                <Variable IRI="#v"/>
+                <Literal>white_all-round_light</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasBowInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ClassAtom>
+                <Class IRI="#PowerDrivenVessel"/>
+                <Variable IRI="#t"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>

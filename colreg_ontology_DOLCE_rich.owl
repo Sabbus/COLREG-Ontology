@@ -6,7 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology"
-     versionIRI="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology-v0.3.0">
+     versionIRI="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology">
     <Prefix name="" IRI="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2000/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
@@ -17,7 +17,11 @@
     <Import>https://w3id.org/DOLCE/OWL/DOLCEbasic/3.5</Import>
     <Annotation>
         <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
-        <Literal>Described in &quot;N. Sabatino, D. Porello, R. Zaccone. An Ontology Model for the Convention on the International Regulations for Preventing Collisions at Sea as a Classifier for Marine Encounter Scenarios. FOIS 2025&quot;</Literal>
+        <Literal>This ontology is described in &quot;N. Sabatino, D. Porello, R. Zaccone. An Ontology Model for the Convention on the International Regulations for Preventing Collisions at Sea as a Classifier for Marine Encounter Scenarios. FOIS 2025&quot;</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <Literal>This ontology is the formalisation of the &quot;Convention on the International Regulations for Preventing Collisions at Sea, 1972 (COLREGs)&quot; from the International Maritime Organization (IMO).</Literal>
     </Annotation>
     <Declaration>
         <Class IRI="#ConstrainedByHerDraughtState"/>
@@ -179,6 +183,9 @@
         <Class IRI="#Servicing"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Shape"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Situation"/>
     </Declaration>
     <Declaration>
@@ -245,6 +252,9 @@
         <ObjectProperty IRI="#hasPortsideInSight"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasShapeInSight"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasStarboardInSight"/>
     </Declaration>
     <Declaration>
@@ -282,6 +292,9 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasSpeedOverGround"/>
@@ -335,7 +348,19 @@
         <NamedIndividual IRI="#targetship1"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#third_red_all-round_light"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#towing_light"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#two_balls"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#two_balls_and_a_diamond"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#two_cones_with_their_apexes_together"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#upper_masthead_light"/>
@@ -345,6 +370,9 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#yellow_all-round_light"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
     </Declaration>
     <EquivalentClasses>
         <Annotation>
@@ -360,90 +388,11 @@
             <NamedIndividual IRI="#red_sidelight"/>
             <NamedIndividual IRI="#second_red_all-round_light"/>
             <NamedIndividual IRI="#sternlight"/>
+            <NamedIndividual IRI="#third_red_all-round_light"/>
             <NamedIndividual IRI="#towing_light"/>
             <NamedIndividual IRI="#white_all-round_light"/>
             <NamedIndividual IRI="#yellow_all-round_light"/>
         </ObjectOneOf>
-    </EquivalentClasses>
-    <EquivalentClasses>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
-        </Annotation>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingDistancing"/>
-        <ObjectIntersectionOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#sternlight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-    </EquivalentClasses>
-    <EquivalentClasses>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 23 (a), (d)</Literal>
-        </Annotation>
-        <Class IRI="#LightConfigurationForSailingVesselShowingPortside"/>
-        <ObjectHasValue>
-            <ObjectInverseOf>
-                <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-            </ObjectInverseOf>
-            <NamedIndividual IRI="#red_sidelight"/>
-        </ObjectHasValue>
-    </EquivalentClasses>
-    <EquivalentClasses>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 23 (a), (d)</Literal>
-        </Annotation>
-        <Class IRI="#LightConfigurationForSailingVesselShowingStarboardSide"/>
-        <ObjectHasValue>
-            <ObjectInverseOf>
-                <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-            </ObjectInverseOf>
-            <NamedIndividual IRI="#green_sidelight"/>
-        </ObjectHasValue>
-    </EquivalentClasses>
-    <EquivalentClasses>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
-        </Annotation>
-        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingDistancing"/>
-        <ObjectIntersectionOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#sternlight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
         <Class IRI="#OwnShip"/>
@@ -481,6 +430,14 @@
                 <Class IRI="#Sail"/>
             </ObjectAllValuesFrom>
         </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Shape"/>
+        <ObjectOneOf>
+            <NamedIndividual IRI="#two_balls"/>
+            <NamedIndividual IRI="#two_balls_and_a_diamond"/>
+            <NamedIndividual IRI="#two_cones_with_their_apexes_together"/>
+        </ObjectOneOf>
     </EquivalentClasses>
     <EquivalentClasses>
         <Annotation>
@@ -528,13 +485,10 @@
             <Literal>COLREG, rule 3 (h).</Literal>
         </Annotation>
         <Class IRI="#VesselConstrainedByHerDraught"/>
-        <ObjectIntersectionOf>
-            <Class IRI="#PowerDrivenVessel"/>
-            <ObjectSomeValuesFrom>
-                <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantParticipantOf"/>
-                <Class IRI="#ConstrainedByHerDraughtState"/>
-            </ObjectSomeValuesFrom>
-        </ObjectIntersectionOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantParticipantOf"/>
+            <Class IRI="#ConstrainedByHerDraughtState"/>
+        </ObjectSomeValuesFrom>
     </EquivalentClasses>
     <EquivalentClasses>
         <Annotation>
@@ -668,7 +622,7 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 25 (a), (b)</Literal>
+            <Literal>COLREG, rule 25</Literal>
         </Annotation>
         <Class IRI="#LightConfigurationForSailingVesselDistancing"/>
         <ObjectHasValue>
@@ -811,6 +765,10 @@
         <Class IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#Process"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Shape"/>
+        <Class IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#NonAgentivePhysicalObject"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Situation"/>
         <Class IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#Accomplishment"/>
     </SubClassOf>
@@ -887,202 +845,47 @@
         <Class IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#NonAgentivePhysicalObject"/>
     </SubClassOf>
     <SubClassOf>
-        <ObjectIntersectionOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#green_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#red_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#sternlight"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#towing_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#white_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#yellow_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_sidelight"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForPowerDrivenVesselMovingCloser"/>
-    </SubClassOf>
-    <SubClassOf>
-        <ObjectIntersectionOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#green_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#red_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#sternlight"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#towing_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#white_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#yellow_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#upper_masthead_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForPowerDrivenVesselMovingCloser"/>
-    </SubClassOf>
-    <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 23 (a), item (ii)</Literal>
+            <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
                     <NamedIndividual IRI="#green_sidelight"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#upper_masthead_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForPowerDrivenVesselShowingPortside"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 23 (a), (d)</Literal>
-        </Annotation>
-        <ObjectIntersectionOf>
-            <ObjectComplementOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
+                    <NamedIndividual IRI="#masthead_light"/>
                     <NamedIndividual IRI="#red_sidelight"/>
-                </ObjectHasValue>
-            </ObjectComplementOf>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1095,20 +898,107 @@
                 </ObjectInverseOf>
                 <NamedIndividual IRI="#red_sidelight"/>
             </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForPowerDrivenVesselShowingPortside"/>
+        <Class IRI="#LightConfigurationForTrawlingVesselEnagedInFishingMovingCloser"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 27 (a), item (i)</Literal>
+            <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantParticipantOf"/>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#second_red_all-round_light"/>
+                <NamedIndividual IRI="#green_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 25</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
             </ObjectHasValue>
             <ObjectHasValue>
                 <ObjectInverseOf>
@@ -1117,170 +1007,36 @@
                 <NamedIndividual IRI="#red_all-round_light"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForVesselNotUnderCommand"/>
+        <Class IRI="#LightConfigurationForSailingVesselShowingStarboardSide"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (b), items (i)-(iii)</Literal>
+            <Literal>COLREG, rule 25</Literal>
         </Annotation>
         <ObjectIntersectionOf>
-            <ObjectHasValue>
+            <ObjectSomeValuesFrom>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#green_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#upper_masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForTrawlingVesselEnagedInFishingMovingCloser"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (b)</Literal>
-        </Annotation>
-        <ObjectIntersectionOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForTrawlingVesselEnagedInFishingMovingCloser"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (b), items (i)-(iii)</Literal>
-        </Annotation>
-        <ObjectIntersectionOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#upper_masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingStarboardSide"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26, items (i), (iii)</Literal>
-        </Annotation>
-        <ObjectIntersectionOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingStarboardSide"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 25 (c)</Literal>
-        </Annotation>
-        <ObjectIntersectionOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1311,9 +1067,31 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26, items (i)-(iii)</Literal>
+            <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1324,7 +1102,7 @@
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
+                <NamedIndividual IRI="#green_sidelight"/>
             </ObjectHasValue>
             <ObjectHasValue>
                 <ObjectInverseOf>
@@ -1336,16 +1114,10 @@
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#upper_masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
                 <NamedIndividual IRI="#white_all-round_light"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingPortside"/>
+        <Class IRI="#LightConfigurationForTrawlingVesselEnagedInFishingMovingCloser"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
@@ -1353,6 +1125,75 @@
             <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1383,9 +1224,29 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 25 (c)</Literal>
+            <Literal>COLREG, rule 25</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1402,10 +1263,135 @@
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#sternlight"/>
+                <NamedIndividual IRI="#red_sidelight"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForSailingVesselDistancing"/>
+        <Class IRI="#LightConfigurationForSailingVesselShowingPortside"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingPortside"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26 (b), items (i), (iii)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#sternlight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingDistancing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 25</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForSailingVesselShowingStarboardSide"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
@@ -1413,6 +1399,24 @@
             <Literal>COLREG, rule 23 (a), (d)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1431,9 +1435,264 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 27 (b), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 28</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#third_red_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtMovingCloser"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 28</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#third_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#upper_masthead_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtMovingCloser"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (b)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#upper_masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreMovingCloser"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (b)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1476,9 +1735,33 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (c), items (i)-(iii)</Literal>
+            <Literal>COLREG, rule 28</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1501,7 +1784,143 @@
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#red_sidelight"/>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#third_red_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingStarboardSide"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 28</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#third_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#upper_masthead_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingStarboardSide"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (b)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
             </ObjectHasValue>
             <ObjectHasValue>
                 <ObjectInverseOf>
@@ -1516,14 +1935,38 @@
                 <NamedIndividual IRI="#white_all-round_light"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingMovingCloser"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingStarboardSide"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 27 (b)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1541,6 +1984,108 @@
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
                 <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingStarboardSide"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 23 (a), (d)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselMovingCloser"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 23 (a), (d)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
             </ObjectHasValue>
             <ObjectHasValue>
                 <ObjectInverseOf>
@@ -1552,89 +2097,37 @@
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingMovingCloser"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (c), items (i)-(iii)</Literal>
-        </Annotation>
-        <ObjectIntersectionOf>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
                 <NamedIndividual IRI="#upper_masthead_light"/>
             </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselMovingCloser"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 23 (a), (d)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
-            <ObjectHasValue>
+            <ObjectSomeValuesFrom>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#masthead_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#red_all-round_light"/>
-            </ObjectHasValue>
-            <ObjectHasValue>
-                <ObjectInverseOf>
-                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                </ObjectInverseOf>
-                <NamedIndividual IRI="#white_all-round_light"/>
-            </ObjectHasValue>
-        </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingStarboardSide"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Annotation>
-            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 23 (a), item (ii)</Literal>
-        </Annotation>
-        <ObjectIntersectionOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1659,9 +2152,31 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 27 (a), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 27 (a)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1692,9 +2207,84 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 27 (a), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingMovingCloser"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (a)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1717,7 +2307,76 @@
         <Class IRI="#LightConfigurationForVesselNotUnderCommandShowingStarboardSide"/>
     </SubClassOf>
     <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
+        </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#green_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 25</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#green_sidelight"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1736,9 +2395,33 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (c), items (i)-(iii)</Literal>
+            <Literal>COLREG, rule 28</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1756,6 +2439,148 @@
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
                 <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#third_red_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingPortside"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 28</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#third_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#upper_masthead_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingPortside"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (b)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
             </ObjectHasValue>
             <ObjectHasValue>
                 <ObjectInverseOf>
@@ -1770,14 +2595,38 @@
                 <NamedIndividual IRI="#white_all-round_light"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingPortside"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingPortside"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 27 (b)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1800,17 +2649,129 @@
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
                 <NamedIndividual IRI="#white_all-round_light"/>
             </ObjectHasValue>
         </ObjectIntersectionOf>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingPortside"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingPortside"/>
     </SubClassOf>
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 27 (a), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 23 (a), (d)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselShowingPortside"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 23 (a), (d)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#masthead_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#upper_masthead_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#masthead_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#upper_masthead_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselShowingPortside"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (a)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1835,9 +2796,115 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 27 (a), items (i), (iii)</Literal>
+            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_sidelight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingPortside"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (a)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselNotUnderCommand"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (a)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1862,9 +2929,86 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 27, items (i), (iii)</Literal>
+            <Literal>COLREG, rule 28</Literal>
         </Annotation>
         <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#third_red_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#sternlight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#third_red_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtDistancing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (b)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
@@ -1895,55 +3039,126 @@
     <SubClassOf>
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-            <Literal>COLREG, rule 25 (c)</Literal>
+            <Literal>COLREG, rule 27 (b)</Literal>
         </Annotation>
-        <ObjectUnionOf>
-            <ObjectIntersectionOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#green_all-round_light"/>
-                </ObjectHasValue>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
                     <NamedIndividual IRI="#red_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectIntersectionOf>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#second_red_all-round_light"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
-                <NamedIndividual IRI="#green_sidelight"/>
+                <NamedIndividual IRI="#red_all-round_light"/>
             </ObjectHasValue>
-        </ObjectUnionOf>
-        <Class IRI="#LightConfigurationForSailingVesselShowingStarboardSide"/>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#second_red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvre"/>
     </SubClassOf>
     <SubClassOf>
-        <ObjectUnionOf>
-            <ObjectIntersectionOf>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
-                    <NamedIndividual IRI="#green_all-round_light"/>
-                </ObjectHasValue>
-                <ObjectHasValue>
-                    <ObjectInverseOf>
-                        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
-                    </ObjectInverseOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26 (c), items (i), (iii)</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
                     <NamedIndividual IRI="#red_all-round_light"/>
-                </ObjectHasValue>
-            </ObjectIntersectionOf>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_all-round_light"/>
+                    <NamedIndividual IRI="#sternlight"/>
+                    <NamedIndividual IRI="#white_all-round_light"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#red_all-round_light"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#sternlight"/>
+            </ObjectHasValue>
+            <ObjectHasValue>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <NamedIndividual IRI="#white_all-round_light"/>
+            </ObjectHasValue>
+        </ObjectIntersectionOf>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingDistancing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 25</Literal>
+        </Annotation>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectSomeValuesFrom>
+            <ObjectAllValuesFrom>
+                <ObjectInverseOf>
+                    <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
+                </ObjectInverseOf>
+                <ObjectOneOf>
+                    <NamedIndividual IRI="#red_sidelight"/>
+                </ObjectOneOf>
+            </ObjectAllValuesFrom>
             <ObjectHasValue>
                 <ObjectInverseOf>
                     <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
                 </ObjectInverseOf>
                 <NamedIndividual IRI="#red_sidelight"/>
             </ObjectHasValue>
-        </ObjectUnionOf>
+        </ObjectIntersectionOf>
         <Class IRI="#LightConfigurationForSailingVesselShowingPortside"/>
     </SubClassOf>
     <SubClassOf>
@@ -1964,12 +3179,190 @@
         </ObjectSomeValuesFrom>
         <Class IRI="#VesselRestrictedInHerAbilityToManoeuvre"/>
     </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26</Literal>
+        </Annotation>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasLightsInSight"/>
+            <ObjectUnionOf>
+                <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingDistancing"/>
+                <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingMovingCloser"/>
+                <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingPortside"/>
+                <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+                <Class IRI="#LightConfigurationForTrawlingVesselEnagedInFishingMovingCloser"/>
+                <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingDistancing"/>
+                <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingPortside"/>
+                <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#VesselEngagedInFishing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 23 (a), (d)</Literal>
+        </Annotation>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasLightsInSight"/>
+            <ObjectUnionOf>
+                <Class IRI="#LightConfigurationForPowerDrivenVesselDistancing"/>
+                <Class IRI="#LightConfigurationForPowerDrivenVesselMovingCloser"/>
+                <Class IRI="#LightConfigurationForPowerDrivenVesselShowingPortside"/>
+                <Class IRI="#LightConfigurationForPowerDrivenVesselShowingStarboardSide"/>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#PowerDrivenVessel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 25</Literal>
+        </Annotation>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasLightsInSight"/>
+            <ObjectUnionOf>
+                <Class IRI="#LightConfigurationForSailingVesselDistancing"/>
+                <Class IRI="#LightConfigurationForSailingVesselMovingCloser"/>
+                <Class IRI="#LightConfigurationForSailingVesselShowingPortside"/>
+                <Class IRI="#LightConfigurationForSailingVesselShowingStarboardSide"/>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#SailingVessel"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 28</Literal>
+        </Annotation>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasLightsInSight"/>
+            <ObjectUnionOf>
+                <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtDistancing"/>
+                <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtMovingCloser"/>
+                <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingPortside"/>
+                <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingStarboardSide"/>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#VesselConstrainedByHerDraught"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (a), items (i), (iii)</Literal>
+        </Annotation>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasLightsInSight"/>
+            <ObjectUnionOf>
+                <Class IRI="#LightConfigurationForVesselNotUnderCommand"/>
+                <Class IRI="#LightConfigurationForVesselNotUnderCommandDistancing"/>
+                <Class IRI="#LightConfigurationForVesselNotUnderCommandMovingCloser"/>
+                <Class IRI="#LightConfigurationForVesselNotUnderCommandShowingPortside"/>
+                <Class IRI="#LightConfigurationForVesselNotUnderCommandShowingStarboardSide"/>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#VesselNotUnderCommand"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (b), items (i)-(iii)</Literal>
+        </Annotation>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#hasLightsInSight"/>
+            <ObjectUnionOf>
+                <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvre"/>
+                <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreDistancing"/>
+                <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreMovingCloser"/>
+                <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingPortside"/>
+                <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingStarboardSide"/>
+            </ObjectUnionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#VesselRestrictedInHerAbilityToManoeuvre"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (a), item (ii)</Literal>
+        </Annotation>
+        <ObjectHasValue>
+            <ObjectProperty IRI="#hasShapeInSight"/>
+            <NamedIndividual IRI="#two_balls"/>
+        </ObjectHasValue>
+        <Class IRI="#VesselNotUnderCommand"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 27 (b), item (ii)</Literal>
+        </Annotation>
+        <ObjectHasValue>
+            <ObjectProperty IRI="#hasShapeInSight"/>
+            <NamedIndividual IRI="#two_balls_and_a_diamond"/>
+        </ObjectHasValue>
+        <Class IRI="#VesselRestrictedInHerAbilityToManoeuvre"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26 (b), item (i)</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>COLREG, rule 26 (c), item (i)</Literal>
+        </Annotation>
+        <ObjectHasValue>
+            <ObjectProperty IRI="#hasShapeInSight"/>
+            <NamedIndividual IRI="#two_cones_with_their_apexes_together"/>
+        </ObjectHasValue>
+        <Class IRI="#VesselEngagedInFishing"/>
+    </SubClassOf>
     <DisjointClasses>
         <Class IRI="#Crossing"/>
         <Class IRI="#DifferentVesselEncounter"/>
         <Class IRI="#HeadOn"/>
         <Class IRI="#Overtaking"/>
         <Class IRI="#SailingVesselEncounter"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Equipment"/>
+        <Class IRI="#Light"/>
+        <Class IRI="#LightConfiguration"/>
+        <Class IRI="#Shape"/>
+        <Class IRI="#WaterCraft"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingDistancing"/>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingMovingCloser"/>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingPortside"/>
+        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselDistancing"/>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselMovingCloser"/>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselShowingPortside"/>
+        <Class IRI="#LightConfigurationForPowerDrivenVesselShowingStarboardSide"/>
+        <Class IRI="#LightConfigurationForSailingVesselDistancing"/>
+        <Class IRI="#LightConfigurationForSailingVesselMovingCloser"/>
+        <Class IRI="#LightConfigurationForSailingVesselShowingPortside"/>
+        <Class IRI="#LightConfigurationForSailingVesselShowingStarboardSide"/>
+        <Class IRI="#LightConfigurationForTrawlingVesselEnagedInFishingMovingCloser"/>
+        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingDistancing"/>
+        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingPortside"/>
+        <Class IRI="#LightConfigurationForTrawlingVesselEngagedInFishingShowingStarboardSide"/>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtDistancing"/>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtMovingCloser"/>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingPortside"/>
+        <Class IRI="#LightConfigurationForVesselConstrainedByHerDraughtShowingStarboardSide"/>
+        <Class IRI="#LightConfigurationForVesselNotUnderCommand"/>
+        <Class IRI="#LightConfigurationForVesselNotUnderCommandDistancing"/>
+        <Class IRI="#LightConfigurationForVesselNotUnderCommandMovingCloser"/>
+        <Class IRI="#LightConfigurationForVesselNotUnderCommandShowingPortside"/>
+        <Class IRI="#LightConfigurationForVesselNotUnderCommandShowingStarboardSide"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvre"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreDistancing"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreMovingCloser"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingPortside"/>
+        <Class IRI="#LightConfigurationForVesselRestrictedInHerAbilityToManoeuvreShowingStarboardSide"/>
     </DisjointClasses>
     <DisjointClasses>
         <Class IRI="#Line"/>
@@ -2031,10 +3424,16 @@
         <NamedIndividual IRI="#red_sidelight"/>
         <NamedIndividual IRI="#second_red_all-round_light"/>
         <NamedIndividual IRI="#sternlight"/>
+        <NamedIndividual IRI="#third_red_all-round_light"/>
         <NamedIndividual IRI="#towing_light"/>
         <NamedIndividual IRI="#upper_masthead_light"/>
         <NamedIndividual IRI="#white_all-round_light"/>
         <NamedIndividual IRI="#yellow_all-round_light"/>
+    </DifferentIndividuals>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#two_balls"/>
+        <NamedIndividual IRI="#two_balls_and_a_diamond"/>
+        <NamedIndividual IRI="#two_cones_with_their_apexes_together"/>
     </DifferentIndividuals>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasOwnShip"/>
@@ -2054,6 +3453,11 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantProperPartOf"/>
         <NamedIndividual IRI="#masthead_light"/>
+        <NamedIndividual IRI="#light_config_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasLightsInSight"/>
+        <NamedIndividual IRI="#ownship1"/>
         <NamedIndividual IRI="#light_config_1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -2170,6 +3574,10 @@
         <Class IRI="#OwnShip"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasShapeInSight"/>
+        <Class IRI="#OwnShip"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasStarboardInSight"/>
         <Class IRI="#OwnShip"/>
     </ObjectPropertyDomain>
@@ -2236,6 +3644,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasPortsideInSight"/>
         <Class IRI="#TargetShip"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasShapeInSight"/>
+        <Class IRI="#Shape"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasStarboardInSight"/>
@@ -2338,6 +3750,10 @@
         <Class IRI="#TargetShip"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
+        <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
+        <Class IRI="#TargetShip"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
         <DataProperty IRI="#hasSpeedOverGround"/>
         <Class IRI="#Vessel"/>
     </DataPropertyDomain>
@@ -2409,6 +3825,18 @@
         </DatatypeRestriction>
     </DataPropertyRange>
     <DataPropertyRange>
+        <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
+        <DatatypeRestriction>
+            <Datatype abbreviatedIRI="xsd:decimal"/>
+            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">-180</Literal>
+            </FacetRestriction>
+            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">180</Literal>
+            </FacetRestriction>
+        </DatatypeRestriction>
+    </DataPropertyRange>
+    <DataPropertyRange>
         <DataProperty IRI="#hasSpeedOverGround"/>
         <DatatypeRestriction>
             <Datatype abbreviatedIRI="xsd:decimal"/>
@@ -2448,6 +3876,851 @@
         <DataProperty IRI="#hasYPosition"/>
         <Datatype abbreviatedIRI="xsd:decimal"/>
     </DataPropertyRange>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Relative positioning for two vessels to be considered in an overtaking situation.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Overtaking - own ship alter course</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasAhead"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasSternInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#fasterThan"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Overtaking"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#t"/>
+                <Literal>keep_course</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#o"/>
+                <Literal>alter_course</Literal>
+            </DataPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Relative positioning for two vessels to be considered in an overtaking situation.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Overtaking - own ship keep course</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasBehind"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasBowInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#fasterThan"/>
+                <Variable IRI="#t"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Overtaking"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#o"/>
+                <Literal>keep_course</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#t"/>
+                <Literal>alter_course</Literal>
+            </DataPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Relative positioning for two vessel to be considered in a head-on situation.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Head-on</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasAhead"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasBowInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#HeadOn"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#o"/>
+                <Literal>alter_course</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#t"/>
+                <Literal>keep_course</Literal>
+            </DataPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Relative positioning for two vessels to be considered as in a crossing situation.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Crossing - own ship keep sourse</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOnPortside"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasStarboardInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Crossing"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#o"/>
+                <Literal>keep_course</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#t"/>
+                <Literal>alter_course</Literal>
+            </DataPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Relative positioning for two vessels to be considered as in a crossing situation.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Crossing - own ship alter course</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOnStarboard"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasPortsideInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#Crossing"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#o"/>
+                <Literal>alter_course</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasBehaviour"/>
+                <Variable IRI="#t"/>
+                <Literal>keep_course</Literal>
+            </DataPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have a target ship behind of her.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Behind - on the right</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
+                <Variable IRI="#t"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">112.5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">180</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasBehind"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have a target ship on her starboard side.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has On Starboard</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
+                <Variable IRI="#t"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">112.5</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOnStarboard"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have a target ship on her portside.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has On Portside</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
+                <Variable IRI="#t"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">-5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">-112.5</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOnPortside"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have a target ship behind of her.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Behind - on the left</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
+                <Variable IRI="#t"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">-112.5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">-180</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasBehind"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have a target ship ahead of her.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Ahead</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
+                <Variable IRI="#t"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">-5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasAhead"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have the target ship stern in sight.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Stern In Sight - right side</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">112.5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">180</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasSternInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have the target ship starboard side in sight.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Starboard In Sight</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">112.5</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasStarboardInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have the target ship portside in sight.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Portside In Sight</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">-5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">-112.5</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasPortsideInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have the target ship stern in sight.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Stern In Sight - left side</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThan">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">-112.5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">-180</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasSternInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for an own ship to have the target ship bow in sight.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Has Bow In Sight</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasOwnShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasTargetShip"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasRelativeBearingWithRespectToTargetShip"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#b"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">-5</Literal>
+            </BuiltInAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#lessThanOrEqual">
+                <Variable IRI="#b"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasBowInSight"/>
+                <Variable IRI="#o"/>
+                <Variable IRI="#t"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal>Criteria for a vessel to be considered faster than another.</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>Faster Than</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Situation"/>
+                <Variable IRI="#s"/>
+            </ClassAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasVessel"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#v1"/>
+            </ObjectPropertyAtom>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#hasVessel"/>
+                <Variable IRI="#s"/>
+                <Variable IRI="#v2"/>
+            </ObjectPropertyAtom>
+            <DifferentIndividualsAtom>
+                <Variable IRI="#v1"/>
+                <Variable IRI="#v2"/>
+            </DifferentIndividualsAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasSpeedOverGround"/>
+                <Variable IRI="#v1"/>
+                <Variable IRI="#sog1"/>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#hasSpeedOverGround"/>
+                <Variable IRI="#v2"/>
+                <Variable IRI="#sog2"/>
+            </DataPropertyAtom>
+            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#greaterThan">
+                <Variable IRI="#sog1"/>
+                <Variable IRI="#sog2"/>
+            </BuiltInAtom>
+        </Body>
+        <Head>
+            <ObjectPropertyAtom>
+                <ObjectProperty IRI="#fasterThan"/>
+                <Variable IRI="#v1"/>
+                <Variable IRI="#v2"/>
+            </ObjectPropertyAtom>
+        </Head>
+    </DLSafeRule>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Crossing</IRI>
@@ -2738,12 +5011,12 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Line</IRI>
-        <Literal>Fishing apparatus which restric manoeuvrability.</Literal>
+        <Literal>Fishing apparatus which restric manoeuvrability (COLREG, rule 3 (d)).</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Net</IRI>
-        <Literal>Fishing apparatus which restric manoeuvrability.</Literal>
+        <Literal>Fishing apparatus which restric manoeuvrability (COLREG, rule 3 (d)).</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -2776,7 +5049,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Trawl</IRI>
-        <Literal>Fishing apparatus which restric manoeuvrability.</Literal>
+        <Literal>Fishing apparatus which restric manoeuvrability (COLREG, rule 3 (d)).</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -2832,6 +5105,16 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#fishingWith</IRI>
         <Literal>fishing with</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#green_all-round_light</IRI>
+        <Literal>COLREG, rule 21 (e)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#green_sidelight</IRI>
+        <Literal>COLREG, rule 21 (b)</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -2965,6 +5248,26 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#hasRelativeBearingWithRespectToTargetShip</IRI>
+        <Literal>hasRelativeBearingWithRespectToTargetShip holds between an own ship and a decimal value greater than -180.0 and lower than 180.0 when the relative bearing between the target ship and the own ship in sexagesimal degrees is equal to the decimal value.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#hasRelativeBearingWithRespectToTargetShip</IRI>
+        <Literal>has relative bearing with respect to target ship</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#hasShapeInSight</IRI>
+        <Literal>hasShapeInSight holds between an own ship and a shape when from the first it is possible to spot the latter belonging to the target ship which takes part to the same situation as the own ship</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#hasShapeInSight</IRI>
+        <Literal>has shape in sight</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSpeedOverGround</IRI>
         <Literal>hasSpeed holds between a vessel and a decimal value greater or equal to 0.0 when the speed over ground in meters per seconds of the vessel is equal to the decimal value.</Literal>
     </AnnotationAssertion>
@@ -3085,6 +5388,11 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#masthead_light</IRI>
+        <Literal>COLREG, rule 21 (a)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#propelledBy</IRI>
         <Literal>propellerBy holds between a vessel and a machinery or a sail when the first use the latter as propulsion mean.</Literal>
     </AnnotationAssertion>
@@ -3095,6 +5403,26 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#red_all-round_light</IRI>
+        <Literal>COLREG, rule 21 (e)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#red_sidelight</IRI>
+        <Literal>COLREG, rule 21 (b)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#second_red_all-round_light</IRI>
+        <Literal>COLREG, rule 21 (e)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#second_red_all-round_light</IRI>
+        <Literal>This type of light is used to define those configuration in which multiple red all-round lights appear.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#slowerThan</IRI>
         <Literal>slowerThan is the inversi of fasterThan.</Literal>
     </AnnotationAssertion>
@@ -3102,6 +5430,61 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#slowerThan</IRI>
         <Literal>slower than</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#sternlight</IRI>
+        <Literal>COLREG, rule 21 (c)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#third_red_all-round_light</IRI>
+        <Literal>COLREG, rule 21 (e)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#third_red_all-round_light</IRI>
+        <Literal>This type of light is used to define those configuration in which multiple red all-round lights appear.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#towing_light</IRI>
+        <Literal>COLREG, rule 21 (d)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#two_balls</IRI>
+        <Literal>COLREG, annex I, section 6 (a), item (i)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#two_balls_and_a_diamond</IRI>
+        <Literal>COLREG, annex I, section 6 (a), item (i) and annex I, section 6 (a), item (iv)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#two_cones_with_their_apexes_together</IRI>
+        <Literal>COLREG, annex I, section 6 (a), item (ii)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#upper_masthead_light</IRI>
+        <Literal>COLREG, rule 21 (a)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#upper_masthead_light</IRI>
+        <Literal>This light is used to define those configuration in which two masthead lights appear, one placed above the other.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#white_all-round_light</IRI>
+        <Literal>COLREG, rule 21 (e)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#yellow_all-round_light</IRI>
+        <Literal>COLREG, rule 21 (e)</Literal>
     </AnnotationAssertion>
 </Ontology>
 

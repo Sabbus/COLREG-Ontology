@@ -1,0 +1,12 @@
+MANIFEST.in
+setup.py
+classifier/COLREG_ontology_no_exactly.owl
+classifier/__init__.py
+classifier/__main__.py
+classifier/classifier.py
+classifier/situation_schema.json
+classifier.egg-info/PKG-INFO
+classifier.egg-info/SOURCES.txt
+classifier.egg-info/dependency_links.txt
+classifier.egg-info/requires.txt
+classifier.egg-info/top_level.txt
