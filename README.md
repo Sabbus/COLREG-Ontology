@@ -7,7 +7,7 @@ This repository stores an ontology speficication for the Convention on the Inter
 ```txt
 .
 |-- docs
-|   |-- docs.rst
+|   |-- index.rst
 |-- src
 |   |-- colreg_ontology.owl
 |-- test
