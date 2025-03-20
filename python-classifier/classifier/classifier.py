@@ -27,6 +27,8 @@ class Classifier:
         # Classify
         result = self.__classify(situation)
 
+        self.__refresh_ontology()
+
         return result
 
     def __check_situation(self, situation):
@@ -106,9 +108,13 @@ class Classifier:
 
         # Classification
         with self.ontology:
-            owl.sync_reasoner_pellet(infer_property_values=True,
-                                     infer_data_property_values=True,
-                                     debug=1)
+            try:
+                owl.sync_reasoner_pellet(infer_property_values=True,
+                                         infer_data_property_values=True,
+                                         debug=2)
+            except owl.OwlReadyInconsistentOntologyError as e:
+                print(f"[-] Incosistent ontology: {e}")
+                sys.exit()
 
             # Mandatory inferences
             result['situation-category'] = str(self.situation.is_a[0]).split('.')[-1]
@@ -130,4 +136,8 @@ class Classifier:
         f.close()
         
         return result
+
+    def __refresh_ontology(self):
+        self.ontology.destroy()
+        self.ontology = owl.get_ontology(os.path.dirname(__file__) + '/colreg_ontology.owl').load()
 

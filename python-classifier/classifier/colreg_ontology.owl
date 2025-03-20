@@ -270,10 +270,10 @@
                 <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
                 <owl:withRestrictions rdf:parseType="Collection">
                     <rdf:Description>
-                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</xsd:minInclusive>
+                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-180</xsd:minInclusive>
                     </rdf:Description>
                     <rdf:Description>
-                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">360</xsd:maxInclusive>
+                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">180</xsd:maxInclusive>
                     </rdf:Description>
                 </owl:withRestrictions>
             </rdfs:Datatype>
@@ -292,10 +292,10 @@
                 <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
                 <owl:withRestrictions rdf:parseType="Collection">
                     <rdf:Description>
-                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</xsd:minInclusive>
+                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-180</xsd:minInclusive>
                     </rdf:Description>
                     <rdf:Description>
-                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">360</xsd:maxInclusive>
+                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">180</xsd:maxInclusive>
                     </rdf:Description>
                 </owl:withRestrictions>
             </rdfs:Datatype>
@@ -2623,6 +2623,15 @@
     <rdf:Description rdf:about="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#v2">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
     <rdf:Description rdf:about="https://anonymous.4open.science/r/COLREG-Ontology#o">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
@@ -2640,6 +2649,126 @@
     </rdf:Description>
     <rdf:Description rdf:about="https://anonymous.4open.science/r/COLREG-Ontology#sh">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdfs:comment>Criteria for a light configuration to represent a vessel engaged in fishing trawling moving closer to the observer. COLREG, rule 26 (b).</rdfs:comment>
+        <rdfs:label>VEIFT Closer - length &lt; 50m</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Situation"/>
+                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOwnShip"/>
+                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
+                                <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasTargetShip"/>
+                                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
+                                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasLightsInSight"/>
+                                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
+                                                <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#l"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasStringValue"/>
+                                                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#l"/>
+                                                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#v"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                        <rdf:first>
+                                                            <rdf:Description>
+                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                                                                <swrl:arguments>
+                                                                    <rdf:Description>
+                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                        <rdf:first rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#v"/>
+                                                                        <rdf:rest>
+                                                                            <rdf:Description>
+                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                                                                                <rdf:first>green_all-round_light_green_sidelight_red_sidelight_white_all-round_light</rdf:first>
+                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                                            </rdf:Description>
+                                                                        </rdf:rest>
+                                                                    </rdf:Description>
+                                                                </swrl:arguments>
+                                                            </rdf:Description>
+                                                        </rdf:first>
+                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                                    </rdf:Description>
+                                                </rdf:rest>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBowInSight"/>
+                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
+                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#VesselEngagedInFishing"/>
+                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:head>
     </rdf:Description>
     <rdf:Description>
         <rdfs:comment>Criteria for a light configuration to represent a vessel engaged in fishing trawling showing the starboard side to the observer. COLREG, rule 26 (b).</rdfs:comment>
@@ -8042,115 +8171,6 @@
         </swrl:head>
     </rdf:Description>
     <rdf:Description>
-        <rdfs:comment>Relative positioning for two vessels to be considered as in a crossing situation.</rdfs:comment>
-        <rdfs:label>Crossing - own ship alter course</rdfs:label>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasPortsideInSight"/>
-                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
-                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                                <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Situation"/>
-                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOnStarboard"/>
-                                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
-                                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOwnShip"/>
-                                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
-                                                <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                        <rdf:rest>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                <rdf:first>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasTargetShip"/>
-                                                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
-                                                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
-                                                    </rdf:Description>
-                                                </rdf:first>
-                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                            </rdf:Description>
-                                        </rdf:rest>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                        <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Crossing"/>
-                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
-                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
-                                <swrl:argument2>keep_course</swrl:argument2>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
-                                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
-                                        <swrl:argument2>alter_course</swrl:argument2>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
         <rdfs:comment>Criteria for a shape configuration to represent a vessel not under command.</rdfs:comment>
         <rdfs:label>VNUC Shape</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
@@ -8812,115 +8832,6 @@
                                         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
                                         <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Overtaking"/>
                                         <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#s"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
-        <rdfs:comment>Relative positioning for two vessels to be considered as in a crossing situation.</rdfs:comment>
-        <rdfs:label>Crossing - own ship keep sourse</rdfs:label>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasStarboardInSight"/>
-                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#o"/>
-                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#t"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                                <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Situation"/>
-                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#s"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOnPortside"/>
-                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#o"/>
-                                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#t"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOwnShip"/>
-                                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#s"/>
-                                                <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#o"/>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                        <rdf:rest>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                <rdf:first>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasTargetShip"/>
-                                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#s"/>
-                                                        <swrl:argument2 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#t"/>
-                                                    </rdf:Description>
-                                                </rdf:first>
-                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                            </rdf:Description>
-                                        </rdf:rest>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                        <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Crossing"/>
-                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#s"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
-                                <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#t"/>
-                                <swrl:argument2>alter_course</swrl:argument2>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
-                                        <swrl:argument1 rdf:resource="http://unige.it/nicola-sabatino/2024/7/8/colreg-ontology#o"/>
-                                        <swrl:argument2>keep_course</swrl:argument2>
                                     </rdf:Description>
                                 </rdf:first>
                                 <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
@@ -10233,6 +10144,226 @@
         </swrl:head>
     </rdf:Description>
     <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Relative positioning for two vessels to be considered as in a crossing situation.</rdfs:comment>
+        <rdfs:label>Crossing - own ship keep sourse</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasStarboardInSight"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Situation"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOnPortside"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOwnShip"/>
+                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasTargetShip"/>
+                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Crossing"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                                <swrl:argument2>alter_course</swrl:argument2>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                                        <swrl:argument2>keep_course</swrl:argument2>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment>Relative positioning for two vessels to be considered as in a crossing situation.</rdfs:comment>
+        <rdfs:label>Crossing - own ship alter course</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasPortsideInSight"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Situation"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOnStarboard"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOwnShip"/>
+                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasTargetShip"/>
+                                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Crossing"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/s"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/t"/>
+                                <swrl:argument2>keep_course</swrl:argument2>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBehaviour"/>
+                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/cerusi/ontologies/2025/2/untitled-ontology-158/o"/>
+                                        <swrl:argument2>alter_course</swrl:argument2>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
         <rdfs:comment>Relative positioning for two vessel to be considered in a head-on situation.</rdfs:comment>
         <rdfs:label>Head-on</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
@@ -10812,126 +10943,6 @@
                             <rdf:Description>
                                 <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
                                 <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#SailingVessel"/>
-                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
-        <rdfs:comment>Criteria for a light configuration to represent a vessel engaged in fishing trawling moving closer to the observer. COLREG, rule 26 (b).</rdfs:comment>
-        <rdfs:label>VEIFT Closer - length &lt; 50m</rdfs:label>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                        <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#Situation"/>
-                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasOwnShip"/>
-                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
-                                <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasTargetShip"/>
-                                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#s"/>
-                                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                                <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasLightsInSight"/>
-                                                <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
-                                                <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#l"/>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                        <rdf:rest>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                <rdf:first>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasStringValue"/>
-                                                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#l"/>
-                                                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#v"/>
-                                                    </rdf:Description>
-                                                </rdf:first>
-                                                <rdf:rest>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                                        <rdf:first>
-                                                            <rdf:Description>
-                                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
-                                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
-                                                                <swrl:arguments>
-                                                                    <rdf:Description>
-                                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                        <rdf:first rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#v"/>
-                                                                        <rdf:rest>
-                                                                            <rdf:Description>
-                                                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                                                <rdf:first>green_all-round_light_green_sidelight_red_sidelight_white_all-round_light</rdf:first>
-                                                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                                            </rdf:Description>
-                                                                        </rdf:rest>
-                                                                    </rdf:Description>
-                                                                </swrl:arguments>
-                                                            </rdf:Description>
-                                                        </rdf:first>
-                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                    </rdf:Description>
-                                                </rdf:rest>
-                                            </rdf:Description>
-                                        </rdf:rest>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#hasBowInSight"/>
-                        <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#o"/>
-                        <swrl:argument2 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                                <swrl:classPredicate rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#VesselEngagedInFishing"/>
                                 <swrl:argument1 rdf:resource="https://anonymous.4open.science/r/COLREG-Ontology#t"/>
                             </rdf:Description>
                         </rdf:first>

@@ -1,5 +1,6 @@
 import argparse
-import os
+import pprint
+import json
 from .classifier import Classifier
 
 parser = argparse.ArgumentParser(prog='python -m classifier',
@@ -13,16 +14,24 @@ parser.add_argument('-o',
                     '--output', 
                     help='output file', 
                     metavar='FILE', 
-                    type=str, 
-                    required=True)
+                    type=str)
 parser.add_argument('-v', 
                     '--verbose', 
                     help='increase verbosity', 
                     action='store_true')
 
+def pretty_print(result):
+    pprint.pprint(result)
+
 if __name__ == '__main__':
     args = parser.parse_args()
 
     classifier = Classifier(is_verbose=args.verbose)
-    classifier.classify(args.scenario)
+    result = classifier.classify(args.scenario)
+
+    if args.output:
+        with open(args.output, 'w') as f:
+            f.write(json.dumps(result))
+    else:
+        pretty_print(result)
 

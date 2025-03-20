@@ -4,7 +4,7 @@
         "name": "ownship",
         "sog": 10,
         "heading": 0,
-        "bearing-of-other-vessel": 315,
+        "bearing-of-other-vessel": -45,
         "category": "PowerDrivenVessel"
     },
     "target-ship": {

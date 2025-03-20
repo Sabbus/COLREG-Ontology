@@ -6,7 +6,7 @@ import jsonschema
 import owlready2 as owl
 
 class Classifier:
-    def __init__(self, is_verbose):
+    def __init__(self, is_verbose=False):
         self.ontology = owl.get_ontology(os.path.dirname(__file__) + '/colreg_ontology.owl').load()
         self.is_verbose = is_verbose
         self.ownship = None
@@ -27,7 +27,9 @@ class Classifier:
         # Classify
         result = self.__classify(situation)
 
-        print(result)
+        self.__refresh_ontology()
+
+        return result
 
     def __check_situation(self, situation):
         with open(os.path.dirname(__file__) + '/situation_schema.json', 'r') as f:
@@ -106,9 +108,13 @@ class Classifier:
 
         # Classification
         with self.ontology:
-            owl.sync_reasoner_pellet(infer_property_values=True,
-                                     infer_data_property_values=True,
-                                     debug=1)
+            try:
+                owl.sync_reasoner_pellet(infer_property_values=True,
+                                         infer_data_property_values=True,
+                                         debug=2)
+            except owl.OwlReadyInconsistentOntologyError as e:
+                print(f"[-] Incosistent ontology: {e}")
+                sys.exit()
 
             # Mandatory inferences
             result['situation-category'] = str(self.situation.is_a[0]).split('.')[-1]
@@ -127,6 +133,11 @@ class Classifier:
         # Make stuff normal again
         sys.stdout = prev_stdout
         sys.stderr = prev_stderr
+        f.close()
         
         return result
+
+    def __refresh_ontology(self):
+        self.ontology.destroy()
+        self.ontology = owl.get_ontology(os.path.dirname(__file__) + '/colreg_ontology.owl').load()
 

@@ -11,7 +11,7 @@
         "name": "targetship",
         "sog": 10,
         "heading": 270,
-        "bearing-of-other-vessel": 315,
+        "bearing-of-other-vessel": -45,
         "category": "PowerDrivenVessel"
     }
 }
