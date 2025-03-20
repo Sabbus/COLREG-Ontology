@@ -1,2 +1,0 @@
-include classifier/*.owl
-include classifier/*.json
