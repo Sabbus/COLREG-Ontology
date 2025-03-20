@@ -15,10 +15,14 @@ parser.add_argument('-o',
                     metavar='FILE', 
                     type=str, 
                     required=True)
+parser.add_argument('-v', 
+                    '--verbose', 
+                    help='increase verbosity', 
+                    action='store_true')
 
 if __name__ == '__main__':
     args = parser.parse_args()
 
-    classifier = Classifier(os.path.dirname(__file__) + '/COLREG_ontology_no_exactly.owl')
+    classifier = Classifier(is_verbose=args.verbose)
     classifier.classify(args.scenario)
 

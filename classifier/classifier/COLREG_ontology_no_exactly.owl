@@ -295,16 +295,10 @@
         <ObjectProperty IRI="#slowerThan"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasAbsoluteBearingWithRespectToOwnShip"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="#hasBehaviour"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasHeadingDeg"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasHeadingRad"/>
+        <DataProperty IRI="#hasHeading"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
@@ -319,76 +313,10 @@
         <DataProperty IRI="#hasStringValue"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasWindDirDeg"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasWindDirRad"/>
+        <DataProperty IRI="#hasWindDir"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasWindOnSide"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasXPosition"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasYPosition"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#ball_1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#ball_2"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#cone_1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#cone_2"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#crossing1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#diamond"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#garl1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#gsl1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#lcntvefd1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#mhl1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#ownship1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#rarl1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#rsl1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#shape_config_1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#sl1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#targetship1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#vessel_not_under_command"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#warl1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#yarl1"/>
     </Declaration>
     <Declaration>
         <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
@@ -1011,6 +939,15 @@
     <SubClassOf>
         <Class IRI="#LightConfigurationForVesselNotUnderCommand"/>
         <Class IRI="#LightConfiguration"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LightConfigurationForVesselNotUnderCommand"/>
+        <ObjectSomeValuesFrom>
+            <ObjectInverseOf>
+                <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantAtomicPartOf"/>
+            </ObjectInverseOf>
+            <Class IRI="#RedAllRoundLight"/>
+        </ObjectSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#LightConfigurationForVesselNotUnderCommandDistancing"/>
@@ -1773,143 +1710,6 @@
         <Class IRI="#ShapeConfigurationForVesselNotUnderCommand"/>
         <Class IRI="#ShapeConfigurationForVesselRestrictedInHerAbilityToManoeuvre"/>
     </DisjointUnion>
-    <ClassAssertion>
-        <Class IRI="#Ball"/>
-        <NamedIndividual IRI="#ball_1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Ball"/>
-        <NamedIndividual IRI="#ball_2"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Cone"/>
-        <NamedIndividual IRI="#cone_1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Cone"/>
-        <NamedIndividual IRI="#cone_2"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Crossing"/>
-        <NamedIndividual IRI="#crossing1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Diamond"/>
-        <NamedIndividual IRI="#diamond"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#GreenAllRoundLight"/>
-        <NamedIndividual IRI="#garl1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#GreenSidelight"/>
-        <NamedIndividual IRI="#gsl1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#LightConfigurationForNonTrawlingVesselEngagedInFishingDistancing"/>
-        <NamedIndividual IRI="#lcntvefd1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#MastheadLight"/>
-        <NamedIndividual IRI="#mhl1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#OwnShip"/>
-        <NamedIndividual IRI="#ownship1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#RedAllRoundLight"/>
-        <NamedIndividual IRI="#rarl1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#RedSidelight"/>
-        <NamedIndividual IRI="#rsl1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#ShapeConfiguration"/>
-        <NamedIndividual IRI="#shape_config_1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <ObjectAllValuesFrom>
-            <ObjectInverseOf>
-                <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantAtomicPartOf"/>
-            </ObjectInverseOf>
-            <ObjectOneOf>
-                <NamedIndividual IRI="#ball_1"/>
-                <NamedIndividual IRI="#ball_2"/>
-            </ObjectOneOf>
-        </ObjectAllValuesFrom>
-        <NamedIndividual IRI="#shape_config_1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Sternlight"/>
-        <NamedIndividual IRI="#sl1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#TargetShip"/>
-        <NamedIndividual IRI="#targetship1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#Vessel"/>
-        <NamedIndividual IRI="#vessel_not_under_command"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#WhiteAllRoundLight"/>
-        <NamedIndividual IRI="#warl1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#YellowAllRoundLight"/>
-        <NamedIndividual IRI="#yarl1"/>
-    </ClassAssertion>
-    <DifferentIndividuals>
-        <NamedIndividual IRI="#ball_1"/>
-        <NamedIndividual IRI="#ball_2"/>
-    </DifferentIndividuals>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantAtomicPartOf"/>
-        <NamedIndividual IRI="#ball_1"/>
-        <NamedIndividual IRI="#shape_config_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantAtomicPartOf"/>
-        <NamedIndividual IRI="#ball_2"/>
-        <NamedIndividual IRI="#shape_config_1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasOwnShip"/>
-        <NamedIndividual IRI="#crossing1"/>
-        <NamedIndividual IRI="#ownship1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasTargetShip"/>
-        <NamedIndividual IRI="#crossing1"/>
-        <NamedIndividual IRI="#targetship1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasConstantProperPart"/>
-        <NamedIndividual IRI="#lcntvefd1"/>
-        <NamedIndividual IRI="#rarl1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasConstantProperPart"/>
-        <NamedIndividual IRI="#lcntvefd1"/>
-        <NamedIndividual IRI="#sl1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasConstantProperPart"/>
-        <NamedIndividual IRI="#lcntvefd1"/>
-        <NamedIndividual IRI="#warl1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasLightsInSight"/>
-        <NamedIndividual IRI="#ownship1"/>
-        <NamedIndividual IRI="#lcntvefd1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasShapeInSight"/>
-        <NamedIndividual IRI="#vessel_not_under_command"/>
-        <NamedIndividual IRI="#shape_config_1"/>
-    </ObjectPropertyAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#engagedIn"/>
         <ObjectProperty IRI="https://w3id.org/DOLCE/OWL/DOLCEbasic#constantParticipantOf"/>
@@ -2156,16 +1956,10 @@
         <ObjectProperty IRI="#hasTargetShip"/>
     </DisjointObjectProperties>
     <FunctionalDataProperty>
-        <DataProperty IRI="#hasAbsoluteBearingWithRespectToOwnShip"/>
-    </FunctionalDataProperty>
-    <FunctionalDataProperty>
         <DataProperty IRI="#hasBehaviour"/>
     </FunctionalDataProperty>
     <FunctionalDataProperty>
-        <DataProperty IRI="#hasHeadingDeg"/>
-    </FunctionalDataProperty>
-    <FunctionalDataProperty>
-        <DataProperty IRI="#hasHeadingRad"/>
+        <DataProperty IRI="#hasHeading"/>
     </FunctionalDataProperty>
     <FunctionalDataProperty>
         <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
@@ -2177,34 +1971,17 @@
         <DataProperty IRI="#hasSpeedOverGround"/>
     </FunctionalDataProperty>
     <FunctionalDataProperty>
-        <DataProperty IRI="#hasWindDirDeg"/>
-    </FunctionalDataProperty>
-    <FunctionalDataProperty>
-        <DataProperty IRI="#hasWindDirRad"/>
+        <DataProperty IRI="#hasWindDir"/>
     </FunctionalDataProperty>
     <FunctionalDataProperty>
         <DataProperty IRI="#hasWindOnSide"/>
     </FunctionalDataProperty>
-    <FunctionalDataProperty>
-        <DataProperty IRI="#hasXPosition"/>
-    </FunctionalDataProperty>
-    <FunctionalDataProperty>
-        <DataProperty IRI="#hasYPosition"/>
-    </FunctionalDataProperty>
-    <DataPropertyDomain>
-        <DataProperty IRI="#hasAbsoluteBearingWithRespectToOwnShip"/>
-        <Class IRI="#TargetShip"/>
-    </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#hasBehaviour"/>
         <Class IRI="#Vessel"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#hasHeadingDeg"/>
-        <Class IRI="#Vessel"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#hasHeadingRad"/>
+        <DataProperty IRI="#hasHeading"/>
         <Class IRI="#Vessel"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
@@ -2227,37 +2004,13 @@
         </ObjectUnionOf>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#hasWindDirDeg"/>
-        <Class IRI="#Situation"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#hasWindDirRad"/>
+        <DataProperty IRI="#hasWindDir"/>
         <Class IRI="#Situation"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#hasWindOnSide"/>
         <Class IRI="#Vessel"/>
     </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#hasXPosition"/>
-        <Class IRI="#Vessel"/>
-    </DataPropertyDomain>
-    <DataPropertyDomain>
-        <DataProperty IRI="#hasYPosition"/>
-        <Class IRI="#Vessel"/>
-    </DataPropertyDomain>
-    <DataPropertyRange>
-        <DataProperty IRI="#hasAbsoluteBearingWithRespectToOwnShip"/>
-        <DatatypeRestriction>
-            <Datatype abbreviatedIRI="xsd:decimal"/>
-            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">0</Literal>
-            </FacetRestriction>
-            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#maxInclusive">
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">360</Literal>
-            </FacetRestriction>
-        </DatatypeRestriction>
-    </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#hasBehaviour"/>
         <DataOneOf>
@@ -2266,7 +2019,7 @@
         </DataOneOf>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#hasHeadingDeg"/>
+        <DataProperty IRI="#hasHeading"/>
         <DatatypeRestriction>
             <Datatype abbreviatedIRI="xsd:decimal"/>
             <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
@@ -2276,10 +2029,6 @@
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">360</Literal>
             </FacetRestriction>
         </DatatypeRestriction>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#hasHeadingRad"/>
-        <Datatype abbreviatedIRI="xsd:decimal"/>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#hasRelativeBearingWithRespectToOwnShip"/>
@@ -2300,7 +2049,7 @@
             <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">-180</Literal>
             </FacetRestriction>
-            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
+            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#maxInclusive">
                 <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">180</Literal>
             </FacetRestriction>
         </DatatypeRestriction>
@@ -2319,20 +2068,8 @@
         <Datatype abbreviatedIRI="xsd:string"/>
     </DataPropertyRange>
     <DataPropertyRange>
-        <DataProperty IRI="#hasWindDirDeg"/>
+        <DataProperty IRI="#hasWindDir"/>
         <Datatype abbreviatedIRI="xsd:decimal"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#hasWindDirRad"/>
-        <DatatypeRestriction>
-            <Datatype abbreviatedIRI="xsd:decimal"/>
-            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minInclusive">
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">0</Literal>
-            </FacetRestriction>
-            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#maxInclusive">
-                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">360</Literal>
-            </FacetRestriction>
-        </DatatypeRestriction>
     </DataPropertyRange>
     <DataPropertyRange>
         <DataProperty IRI="#hasWindOnSide"/>
@@ -2340,14 +2077,6 @@
             <Literal>portside</Literal>
             <Literal>starboard</Literal>
         </DataOneOf>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#hasXPosition"/>
-        <Datatype abbreviatedIRI="xsd:decimal"/>
-    </DataPropertyRange>
-    <DataPropertyRange>
-        <DataProperty IRI="#hasYPosition"/>
-        <Datatype abbreviatedIRI="xsd:decimal"/>
     </DataPropertyRange>
     <DLSafeRule>
         <Annotation>
@@ -3117,7 +2846,7 @@
             </ObjectPropertyAtom>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#hasAhead"/>
-                <Variable IRI="#s"/>
+                <Variable IRI="#o"/>
                 <Variable IRI="#t"/>
             </ObjectPropertyAtom>
         </Body>
@@ -3129,7 +2858,7 @@
             <DataPropertyAtom>
                 <DataProperty IRI="#hasBehaviour"/>
                 <Variable IRI="#t"/>
-                <Literal>keep_course</Literal>
+                <Literal>alter_course</Literal>
             </DataPropertyAtom>
             <DataPropertyAtom>
                 <DataProperty IRI="#hasBehaviour"/>
@@ -6391,21 +6120,6 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ball_1</IRI>
-        <Literal>COLREG, annex I, section 6 (a), item (i)</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#cone_1</IRI>
-        <Literal>COLREG, annex I, section 6 (a), item (ii)</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#diamond</IRI>
-        <Literal>COLREG, annex I, section 6 (a), item (i) and annex I, section 6 (a), item (iv)</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#engagedIn</IRI>
         <Literal>engagedIn holds between a vessel and a process when the vessel is being operated to accomplish the process.</Literal>
     </AnnotationAssertion>
@@ -6433,16 +6147,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#fishingWith</IRI>
         <Literal>fishing with</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasAbsoluteBearingWithRespectToOwnShip</IRI>
-        <Literal>hasAbsoluteBearingWithRespectToOwnShip holds between a target ship and a decimal value greater or equal than 0.0 and lower or equal than 360.0 when the absolute bearing in sexagesimal degrees between the own ship and the target ship is equal to the decimal value.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#hasAbsoluteBearingWithRespectToOwnShip</IRI>
-        <Literal>has absolute bearing with respect to own ship</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -6486,23 +6190,13 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasHeadingDeg</IRI>
+        <IRI>#hasHeading</IRI>
         <Literal>hasHeadingDeg holds between a vessel and a decimal value in the range [0, 360] when the heading expressed in sexagesimal degrees of the first is equal to the latter.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#hasHeadingDeg</IRI>
+        <IRI>#hasHeading</IRI>
         <Literal>has heading deg</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasHeadingRad</IRI>
-        <Literal>hasHeadingRad holds between a vessel and a decimal value when the heading in radians of the first is equal to the latter.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#hasHeadingRad</IRI>
-        <Literal>has heading rad</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -6646,23 +6340,13 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasWindDirDeg</IRI>
+        <IRI>#hasWindDir</IRI>
         <Literal>hasWindDirDeg holds between a situation and a decimal value bigger or equal to 0.0 and lower or equal to 360.0 when the direction from which the wind blows in the situation in sexagesimal degrees is equal to the decimal value.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#hasWindDirDeg</IRI>
+        <IRI>#hasWindDir</IRI>
         <Literal>has wind blowing from direction in degrees</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasWindDirRad</IRI>
-        <Literal>hasWindDirRad holds between a situation and a decimal value when the direction from which the wind blows in the situation in sexagesimal degrees is equal to the decimal value.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#hasWindDirRad</IRI>
-        <Literal>has wind blowing from direction in radians</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -6673,26 +6357,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#hasWindOnSide</IRI>
         <Literal>has wind on side</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasXPosition</IRI>
-        <Literal>hasXPosition holds between a vessel and a decimal value when the vessel is located in a position with utm northing equal to the decimal value.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#hasXPosition</IRI>
-        <Literal>has x position</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasYPosition</IRI>
-        <Literal>hasXPosition holds between a vessel and a decimal value when the vessel is located in a position with utm northing equal to the decimal value.hasYPosition holds between a vesse</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#hasYPosition</IRI>
-        <Literal>has y position</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
