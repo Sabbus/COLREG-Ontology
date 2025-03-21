@@ -12,6 +12,22 @@ class Classifier:
         self.ownship = None
         self.targetship = None
         self.situation = None
+        self.light_configuration = None
+        self.vessel_categories = [
+            "PowerDrivenVessel", 
+            "SailingVessel", 
+            "VesselEngagedInFishing", 
+            "VesselRestrictedInHerAbilityToManoeuvre", 
+            "VesselConstrainedByHerDraught", 
+            "VesselNotUnderCommand"
+        ]
+        self.scenario_categories = [
+            "HeadOn", 
+            "Crossing", 
+            "Overtaking", 
+            "SailingVesselEncounter", 
+            "DifferentVesselEncounter"
+        ]
 
     def classify(self, situation):
         # Open situation file
@@ -56,8 +72,9 @@ class Classifier:
             # Heading
             self.ownship.hasHeading = situation['own-ship']['heading']
 
-            # Bearing
-            self.ownship.hasRelativeBearingWithRespectToTargetShip = situation['target-ship']['bearing-of-other-vessel']
+            # Bearing is present
+            if 'bearing-of-other-vessel' in situation['target-ship']:
+                self.ownship.hasRelativeBearingWithRespectToTargetShip = situation['target-ship']['bearing-of-other-vessel']
 
             # Add catgeory, if present
             if 'category' in situation['own-ship']:
@@ -71,7 +88,8 @@ class Classifier:
             self.targetship.hasSpeedOverGround = situation['target-ship']['sog']
 
             # Heading
-            self.targetship.hasHeading = situation['target-ship']['heading']
+            if 'heading' in situation['target-ship']:
+                self.targetship.hasHeading = situation['target-ship']['heading']
 
             # Bearing
             self.targetship.hasRelativeBearingWithRespectToOwnShip = situation['own-ship']['bearing-of-other-vessel']
@@ -84,9 +102,23 @@ class Classifier:
             if 'lights-in-sight' in situation['own-ship']:
                 lights = '_'.join(sorted(situation['own-ship']['lights-in-sight']))
 
+                self.light_configuration = self.ontology.LightConfiguration()
+                self.light_configuration.hasStringValue = lights
+
+                self.ownship.hasLightsInSight.append(self.light_configuration)
+
+            # Add light configuration is present
+            if 'shapes-in-sight' in situation['own-ship']:
+                shapes = '_'.join(sorted(situation['own-ship']['shapes-in-sight']))
+
+                self.shape_configuration = self.ontology.ShapeConfiguration()
+                self.shape_configuration.hasStringValue = shapes
+
+                self.ownship.hasShapesInSight.append(self.shape_configuration)
+
             # Instantiate situation
             self.situation = self.ontology.Situation(situation['name'],
-                                                    namespace=self.ontology)
+                                                     namespace=self.ontology)
 
             # Assign own ship to situation
             self.situation.hasOwnShip = self.ownship
@@ -126,7 +158,9 @@ class Classifier:
                 sys.exit()
 
             # Mandatory inferences
-            result['situation-category'] = str(self.situation.is_a[0]).split('.')[-1]
+            for category in self.situation.is_a:
+                if str(category).split('.')[-1] in self.scenario_categories:
+                    result['situation-category'] = str(category).split('.')[-1]
 
             result['own-ship']['behaviour'] = self.ownship.hasBehaviour
 
@@ -134,10 +168,14 @@ class Classifier:
 
             # Optional inferences
             if 'category' not in result['own-ship']:
-                result['own-ship']['category'] = str(self.ownship.is_a[0]).split('.')[-1]
+                for category in self.ownship.is_a:
+                    if str(category).split('.')[-1] in self.vessel_categories:
+                        result['own-ship']['category'] = str(category).split('.')[-1]
 
             if 'category' not in result['target-ship']:
-                result['target-ship']['category'] = str(self.targetship.is_a[0]).split('.')[-1]
+                for category in self.targetship.is_a:
+                    if str(category).split('.')[-1] in self.vessel_categories:
+                        result['target-ship']['category'] = str(category).split('.')[-1]
 
         # Make stuff normal again
         sys.stdout = prev_stdout
@@ -155,10 +193,15 @@ class Classifier:
         # for property in self.situation.get_properties():
         #     for value in property[self.situation]:
         #         print(f"{self.situation} {property} {value}")
+        #
+        # try:
+        #     print(f"{self.ownship.hasLightsInSight} hasStringValue {self.ownship.hasLightsInSight.hasStringValue}")
+        # except Exception:
+        #     pass
         
         return result
 
     def __refresh_ontology(self):
-        self.ontology.destroy()
+        self.ontology.destroy(update_relation=True, update_is_a=True)
         self.ontology = owl.get_ontology(os.path.dirname(__file__) + '/colreg_ontology.owl').load()
 

@@ -41,6 +41,18 @@
                             "towing_light"
                         ]
                     }
+                },
+                "shapes-in-sight": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "ball",
+                            "cone",
+                            "diamond",
+                            "cylinder"
+                        ]
+                    }
                 }
             },
             "required": [
@@ -73,9 +85,7 @@
             },
             "required": [
                 "name", 
-                "sog", 
-                "heading", 
-                "bearing-of-other-vessel"
+                "sog"
             ]
         },
         "wind-direction": {
