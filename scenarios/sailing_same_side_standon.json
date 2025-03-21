@@ -1,0 +1,18 @@
+{
+    "name": "sailing-same-side-standon",
+    "own-ship": {
+        "name": "ownship",
+        "sog": 10,
+        "heading": 0,
+        "bearing-of-other-vessel": 90,
+        "category": "SailingVessel"
+    },
+    "target-ship": {
+        "name": "targetship",
+        "sog": 10,
+        "heading": 0,
+        "bearing-of-other-vessel": -90,
+        "category": "SailingVessel"
+    },
+    "wind-direction": 90
+}

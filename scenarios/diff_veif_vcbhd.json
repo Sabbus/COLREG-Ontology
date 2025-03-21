@@ -1,0 +1,17 @@
+{
+    "name": "diff_veif_vcbhd",
+    "own-ship": {
+        "name": "ownship",
+        "sog": 10,
+        "heading": 0,
+        "bearing-of-other-vessel": 0,
+        "category": "VesselEngagedInFishing"
+    },
+    "target-ship": {
+        "name": "targetship",
+        "sog": 10,
+        "heading": 180,
+        "bearing-of-other-vessel": 0,
+        "category": "VesselConstrainedByHerDraught"
+    }
+}

@@ -1,0 +1,100 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "own-ship": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "sog": {"type": "number"},
+                "heading": {"type": "number"},
+                "category": {
+                    "type": "string",
+                    "enum": [
+                        "PowerDrivenVessel", 
+                        "SailingVessel", 
+                        "VesselEngagedInFishing", 
+                        "VesselRestrictedInHerAbilityToManoeuvre", 
+                        "VesselConstrainedByHerDraught", 
+                        "VesselNotUnderCommand"
+                    ]
+                },
+                "bearing-of-other-vessel": {"type": "number"},
+                "lights-in-sight": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "masthead_light",
+                            "upper_masthead_light",
+                            "red_sidelight",
+                            "green_sidelight",
+                            "red_all-round_light",
+                            "green_all-round_light",
+                            "white_all-round_light",
+                            "yellow_all-round_light",
+                            "strenlight",
+                            "towing_light"
+                        ]
+                    }
+                },
+                "shapes-in-sight": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "ball",
+                            "cone",
+                            "diamond",
+                            "cylinder"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "name", 
+                "sog", 
+                "heading", 
+                "bearing-of-other-vessel"
+            ]
+        },
+        "target-ship": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "sog": {"type": "number"},
+                "heading": {"type": "number"},
+                "category": {
+                    "type": "string",
+                    "enum": [
+                        "PowerDrivenVessel", 
+                        "SailingVessel", 
+                        "VesselEngagedInFishing", 
+                        "VesselRestrictedInHerAbilityToManoeuvre", 
+                        "VesselConstrainedByHerDraught", 
+                        "VesselNotUnderCommand"
+                    ]
+                },
+                "bearing-of-other-vessel": {"type": "number"}
+            },
+            "required": [
+                "name", 
+                "sog"
+            ]
+        },
+        "wind-direction": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "name",
+        "own-ship",
+        "target-ship"
+    ]
+}

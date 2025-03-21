@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "own-ship": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "sog": {"type": "number"},
+                "heading": {"type": "number"},
+                "category": {
+                    "type": "string",
+                    "enum": ["PowerDrivenVessel", 
+                        "SailingVessel", 
+                        "VesselEngagedInFishing", 
+                        "VesselRestrictedInHerAbilityToManoeuvre", 
+                        "VesselConstrainedByHerDraught", 
+                        "VesselNotUnderCommand"]
+                },
+                "bearing-of-other-vessel": {"type": "number"}
+            },
+            "required": [
+                "name", 
+                "sog", 
+                "heading", 
+                "bearing-of-other-vessel"
+            ]
+        },
+        "target-ship": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "sog": {"type": "number"},
+                "heading": {"type": "number"},
+                "category": {
+                    "type": "string",
+                    "enum": [
+                        "PowerDrivenVessel", 
+                        "SailingVessel", 
+                        "VesselEngagedInFishing", 
+                        "VesselRestrictedInHerAbilityToManoeuvre", 
+                        "VesselConstrainedByHerDraught", 
+                        "VesselNotUnderCommand"
+                    ]
+                },
+                "bearing-of-other-vessel": {"type": "number"}
+            },
+            "required": [
+                "name", 
+                "sog", 
+                "heading", 
+                "bearing-of-other-vessel"
+            ]
+        },
+        "wind-direction": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "name",
+        "own-ship",
+        "target-ship"
+    ]
+}

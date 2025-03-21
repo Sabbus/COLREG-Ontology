@@ -1,0 +1,17 @@
+{
+    "name": "overtaking-giveway",
+    "own-ship": {
+        "name": "ownship",
+        "sog": 10,
+        "heading": 0,
+        "bearing-of-other-vessel": 0,
+        "category": "PowerDrivenVessel"
+    },
+    "target-ship": {
+        "name": "targetship",
+        "sog": 5,
+        "heading": 0,
+        "bearing-of-other-vessel": 180,
+        "category": "PowerDrivenVessel"
+    }
+}

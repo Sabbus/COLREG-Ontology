@@ -1,0 +1,17 @@
+{
+    "name": "crossing-giveway",
+    "own-ship": {
+        "name": "ownship",
+        "sog": 10,
+        "heading": 0,
+        "bearing-of-other-vessel": 45,
+        "category": "PowerDrivenVessel"
+    },
+    "target-ship": {
+        "name": "targetship",
+        "sog": 10,
+        "heading": 270,
+        "bearing-of-other-vessel": -45,
+        "category": "PowerDrivenVessel"
+    }
+}
