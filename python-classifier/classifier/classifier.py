@@ -80,6 +80,10 @@ class Classifier:
             if 'category' in situation['target-ship']:
                 self.targetship.is_a.append(self.ontology[situation['target-ship']['category']])
 
+            # Add light configuration is present
+            if 'lights-in-sight' in situation['own-ship']:
+                lights = '_'.join(sorted(situation['own-ship']['lights-in-sight']))
+
             # Instantiate situation
             self.situation = self.ontology.Situation(situation['name'],
                                                     namespace=self.ontology)
@@ -89,6 +93,11 @@ class Classifier:
 
             # Assign target ship to situation
             self.situation.hasTargetShip = self.targetship
+
+            # Add wind direction if present
+            if 'wind-direction' in situation:
+                self.situation.hasWindDir = situation['wind-direction']
+
         except Exception as e:
             print(f"[-] Failed to instantiate the situation with following error: {e}")
             sys.exit()
@@ -134,6 +143,18 @@ class Classifier:
         sys.stdout = prev_stdout
         sys.stderr = prev_stderr
         f.close()
+
+        # for property in self.ownship.get_properties():
+        #     for value in property[self.ownship]:
+        #         print(f"{self.ownship} {property} {value}")
+        #
+        # for property in self.targetship.get_properties():
+        #     for value in property[self.targetship]:
+        #         print(f"{self.targetship} {property} {value}")
+        #
+        # for property in self.situation.get_properties():
+        #     for value in property[self.situation]:
+        #         print(f"{self.situation} {property} {value}")
         
         return result
 

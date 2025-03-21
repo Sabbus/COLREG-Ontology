@@ -14,14 +14,34 @@
                 "heading": {"type": "number"},
                 "category": {
                     "type": "string",
-                    "enum": ["PowerDrivenVessel", 
+                    "enum": [
+                        "PowerDrivenVessel", 
                         "SailingVessel", 
                         "VesselEngagedInFishing", 
                         "VesselRestrictedInHerAbilityToManoeuvre", 
                         "VesselConstrainedByHerDraught", 
-                        "VesselNotUnderCommand"]
+                        "VesselNotUnderCommand"
+                    ]
                 },
-                "bearing-of-other-vessel": {"type": "number"}
+                "bearing-of-other-vessel": {"type": "number"},
+                "lights-in-sight": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "masthead_light",
+                            "upper_masthead_light",
+                            "red_sidelight",
+                            "green_sidelight",
+                            "red_all-round_light",
+                            "green_all-round_light",
+                            "white_all-round_light",
+                            "yellow_all-round_light",
+                            "strenlight",
+                            "towing_light"
+                        ]
+                    }
+                }
             },
             "required": [
                 "name", 
