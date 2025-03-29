@@ -6,17 +6,15 @@ This repository stores an ontology speficication for the Convention on the Inter
 
 ```bash
 .
-|-- src
-|   |-- colreg_ontology.owl
-|-- test
-|   |-- scenarios
-|       |-- scenario_1.json
-|       |-- ...
 |   |-- classifier
-|       |-- __main__.py
-|       |-- __init__.py
-|       |-- setup.py
+|       |-- src/
+|           |-- ...
+|       |-- test/
+|           |-- test.py
+|           |-- scenarios/
+|               |-- ...
 |       |-- ...
+|-- colreg_ontology.owl
 |-- LICENSE
 |-- README.md
 ```
