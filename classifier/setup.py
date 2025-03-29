@@ -11,7 +11,7 @@ setup(
     description="COLREG classifier",
     author="Nicola Sabatino",
     author_email="nicola.sabatino@edu.unige.it",
-    package_dir={'classifier': './classifier'},
+    package_dir={'classifier': './src'},
     packages=["classifier"],
     install_requires=[
         "owlready2",

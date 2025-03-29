@@ -32,7 +32,7 @@ class ClassificationTest(unittest.TestCase):
 
         for os_behaviour, ts_behaviour, scenario in zip(os_behaviours, ts_behaviours, scenarios):
             with self.subTest(i=scenario):
-                situation = SCRIPT_DIR + './scenarios/' + scenario
+                situation = SCRIPT_DIR + '/scenarios/' + scenario
 
                 result = self.classifier.classify(situation)
 
@@ -60,7 +60,7 @@ class ClassificationTest(unittest.TestCase):
 
         for os_behaviour, ts_behaviour, scenario in zip(os_behaviours, ts_behaviours, scenarios):
             with self.subTest(i=scenario):
-                situation = SCRIPT_DIR + './scenarios/' + scenario
+                situation = SCRIPT_DIR + '/scenarios/' + scenario
 
                 result = self.classifier.classify(situation)
 
@@ -87,7 +87,7 @@ class ClassificationTest(unittest.TestCase):
 
         for scenario in scenarios:
             with self.subTest(i=scenario):
-                situation = SCRIPT_DIR + './scenarios/' + scenario
+                situation = SCRIPT_DIR + '/scenarios/' + scenario
 
                 result = self.classifier.classify(situation)
 
@@ -155,7 +155,7 @@ class ClassificationTest(unittest.TestCase):
 
         for scenario, category, scen_category in zip(scenarios, categories, scen_categories):
             with self.subTest(i=scenario):
-                situation = SCRIPT_DIR + './scenarios/' + scenario
+                situation = SCRIPT_DIR + '/scenarios/' + scenario
 
                 result = self.classifier.classify(situation)
 
@@ -188,7 +188,7 @@ class ClassificationTest(unittest.TestCase):
 
         for scenario, category, scen_category in zip(scenarios, categories, scen_categories):
             with self.subTest(i=scenario):
-                situation = SCRIPT_DIR + './scenarios/' + scenario
+                situation = SCRIPT_DIR + '/scenarios/' + scenario
 
                 result = self.classifier.classify(situation)
 

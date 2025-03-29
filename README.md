@@ -43,7 +43,7 @@ To perform the classification of a specific test scenario use the following comm
 <path/to/scenario>
 ```
 
-If instead you want to test all the test scenarios, use the command below:
+If instead you want to test all the test scenarios, go to the classifier root folder and run the command below:
 
 ```bash
 python -m unittest test/test.py
