@@ -1,0 +1,21 @@
+{
+    "name": "lights-vrihatm-stb",
+    "own-ship": {
+        "name": "ownship",
+        "sog": 10,
+        "heading": 0,
+        "bearing-of-other-vessel": 0,
+        "category": "PowerDrivenVessel",
+        "lights-in-sight": [
+            "green_sidelight", 
+            "red_all-round_light", 
+            "red_all-round_light", 
+            "white_all-round_light", 
+            "masthead_light"
+        ]
+    },
+    "target-ship": {
+        "name": "targetship",
+        "sog": 10
+    }
+}

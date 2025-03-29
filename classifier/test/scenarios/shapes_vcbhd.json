@@ -1,0 +1,15 @@
+{
+    "name": "shapes-vcbhd",
+    "own-ship": {
+        "name": "ownship",
+        "sog": 10,
+        "heading": 0,
+        "bearing-of-other-vessel": 0,
+        "category": "PowerDrivenVessel",
+        "shapes-in-sight": ["cylinder"]
+    },
+    "target-ship": {
+        "name": "targetship",
+        "sog": 10
+    }
+}

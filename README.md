@@ -4,10 +4,8 @@ This repository stores an ontology speficication for the Convention on the Inter
 
 ## Repository structure
 
-```txt
+```bash
 .
-|-- docs
-|   |-- index.rst
 |-- src
 |   |-- colreg_ontology.owl
 |-- test
@@ -33,20 +31,27 @@ source .venv/bin/activate     # use `.venv\Scripts\activate.ps1` on windows
 pip install test/classifier
 ```
 
-Check if the classifier is correctly installed with:
+To check if the classifier is correctly installed and to wiev usage options use the command below:
 
 ```bash
-python -m classifier --help
+classifier --help
 ```
 
-To perform the classification of a test scenario use the following command:
+To perform the classification of a specific test scenario use the following command:
 
 ```bash
-python -m classifier -s <path/to/scenario> -o results.xml
+<path/to/scenario>
+```
+
+If instead you want to test all the test scenarios, use the command below:
+
+```bash
+python -m unittest test/test.py
 ```
 
 ## Dependencies
 
-To make the classifier work the following dependencies are required:
+The following dependencies are automatically installed in the virtual environment:
 - Python >= 3.12
-- owlready2
+- owlready2 >= 0.47
+- jsonchema >= 4.23.0
