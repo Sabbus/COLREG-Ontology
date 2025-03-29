@@ -40,7 +40,7 @@ classifier --help
 To perform the classification of a specific test scenario use the following command:
 
 ```bash
-<path/to/scenario>
+classifier <path/to/scenario>
 ```
 
 If instead you want to test all the test scenarios, go to the classifier root folder and run the command below:
