@@ -23,12 +23,12 @@ This repository stores an ontology speficication for the Convention on the Inter
 
 ## Classification tests
 
-From the root folder of this project use the following commands to install the classifier in a python virtual environment:
+Download this repository, then from the root folder run the following commands to install the classifier in a python virtual environment:
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate     # use `.venv\Scripts\activate.ps1` on windows
-pip install test/classifier
+pip install classifier/
 ```
 
 To check if the classifier is correctly installed and to wiev usage options use the command below:
